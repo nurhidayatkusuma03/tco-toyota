@@ -638,3 +638,204 @@ body.home-page .explore-catalog{gap:12px}
   }
   body.home-page .hero-progress{top:53%}
 }
+
+
+/* ==============================================
+   HOME HERO — FINAL LAYOUT FIX
+   Navbar transparan, teks tidak tertutup,
+   mobil terlihat utuh dalam satu layar.
+   ============================================== */
+
+/* Navbar tetap melayang di atas background Home */
+body.home-page .site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 80;
+}
+
+/* Tidak ada box putih di belakang navbar Home */
+body.home-page .site-header:not(.is-solid) {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* Hero mengikuti tinggi layar */
+body.home-page .hero-section {
+  position: relative;
+  height: 100svh;
+  min-height: 690px;
+  max-height: none;
+  padding: 0;
+  overflow: hidden;
+}
+
+body.home-page .hero-wrap {
+  position: relative;
+  height: 100%;
+  min-height: 0 !important;
+  padding: 0 !important;
+}
+
+/* Posisi judul selalu di bawah navbar */
+body.home-page .hero-copy {
+  position: absolute;
+  top: 134px !important;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  padding: 0 20px !important;
+  text-align: center;
+}
+
+body.home-page .hero-copy .hero-kicker {
+  margin: 0 0 9px;
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: .3em;
+}
+
+body.home-page .hero-copy h1 {
+  margin: 0 !important;
+  font-size: clamp(45px, 4.65vw, 78px);
+  line-height: .95;
+  letter-spacing: -.065em;
+}
+
+body.home-page .hero-copy .hero-description {
+  margin: 12px auto 0;
+  max-width: 780px;
+  font-size: clamp(12px, .92vw, 15px);
+  line-height: 1.45;
+}
+
+/* Ukuran mobil menyesuaikan lebar dan tinggi layar */
+body.home-page .hero-visual-v08 {
+  position: absolute;
+  left: 50%;
+  bottom: 12% !important;
+  transform: translateX(-50%);
+  width: min(1400px, 91vw, 138svh);
+  max-width: none;
+}
+
+/* Navigasi bawah dan indikator */
+body.home-page .hero-bottom {
+  bottom: 2.1%;
+}
+
+body.home-page .hero-progress {
+  top: 50%;
+}
+
+/* ==============================================
+   LAPTOP / TABLET LANDSCAPE
+   ============================================== */
+@media (min-width: 801px) and (max-width: 1100px) {
+  body.home-page .hero-copy {
+    top: 115px !important;
+  }
+
+  body.home-page .hero-copy .hero-kicker {
+    font-size: 10px;
+  }
+
+  body.home-page .hero-copy h1 {
+    font-size: clamp(42px, 5.5vw, 63px);
+  }
+
+  body.home-page .hero-copy .hero-description {
+    max-width: 650px;
+    font-size: 12px;
+  }
+
+  body.home-page .hero-visual-v08 {
+    width: min(1020px, 94vw, 140svh);
+    bottom: 8% !important;
+  }
+}
+
+/* ==============================================
+   TABLET PORTRAIT
+   ============================================== */
+@media (min-width: 521px) and (max-width: 800px) {
+  body.home-page .hero-section {
+    min-height: 650px;
+  }
+
+  body.home-page .hero-copy {
+    top: 98px !important;
+  }
+
+  body.home-page .hero-copy .hero-kicker {
+    font-size: 9px;
+    letter-spacing: .19em;
+  }
+
+  body.home-page .hero-copy h1 {
+    font-size: clamp(38px, 7vw, 55px);
+  }
+
+  body.home-page .hero-copy .hero-description {
+    max-width: 500px;
+    font-size: 12px;
+  }
+
+  body.home-page .hero-visual-v08 {
+    width: 100vw;
+    bottom: 12% !important;
+  }
+
+  body.home-page .hero-progress {
+    top: 53%;
+  }
+}
+
+/* ==============================================
+   MOBILE
+   ============================================== */
+@media (max-width: 520px) {
+  body.home-page .hero-section {
+    min-height: 620px;
+  }
+
+  body.home-page .hero-copy {
+    top: 86px !important;
+    padding: 0 12px !important;
+  }
+
+  body.home-page .hero-copy .hero-kicker {
+    margin-bottom: 9px;
+    font-size: 8px;
+    letter-spacing: .16em;
+  }
+
+  body.home-page .hero-copy h1 {
+    font-size: clamp(35px, 10vw, 48px);
+    line-height: 1;
+  }
+
+  body.home-page .hero-copy .hero-description {
+    max-width: 330px;
+    font-size: 11px;
+    line-height: 1.5;
+    margin-top: 10px;
+  }
+
+  body.home-page .hero-visual-v08 {
+    width: 100vw;
+    bottom: 23% !important;
+  }
+
+  body.home-page .hero-progress {
+    top: 55%;
+  }
+
+  body.home-page .hero-bottom {
+    bottom: 4%;
+  }
+}
