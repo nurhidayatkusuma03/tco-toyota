@@ -59,16 +59,30 @@ window.TCO_UNIT_DATA["agya"] = {
   ],
   "parts": [
     {
-      "id": "t-emblem-rad-grille",
-      "title": "T-Emblem RAD Grille",
+      "id": "rad-grille-emblem-set",
+      "title": "T-Emblem RAD Grille + Emblem Base",
       "file": "t-emblem-rad-grille.png",
       "kind": "exterior",
-      "description": "Emblem Toyota pada grille depan. Harga satuannya mengikuti Part Bulletin.",
+      "description": "Set emblem grille depan yang terdiri dari emblem Toyota dan dudukan emblem/base grille emblem. Karena keduanya merupakan satu rangkaian pada grille depan, card ditampilkan sebagai satu item.",
       "price": null,
       "priceLabel": "Mengikuti Part Bulletin",
       "grades": [
         "E",
         "G"
+      ],
+      "components": [
+        {
+          "name": "T-Emblem RAD Grille",
+          "sku": "75311-BZ470",
+          "price": null,
+          "priceLabel": "Mengikuti Part Bulletin"
+        },
+        {
+          "name": "Emblem Base (Base Grille Emblem)",
+          "sku": "75312-BZ140",
+          "price": null,
+          "priceLabel": "Mengikuti Part Bulletin"
+        }
       ],
       "pos": {
         "front": [
@@ -77,28 +91,10 @@ window.TCO_UNIT_DATA["agya"] = {
         ]
       },
       "status": "bulletin",
-      "sku": "75311-BZ470",
+      "sku": null,
       "image": "assets/vehicles/agya/parts/t-emblem-rad-grille.png",
-      "sourcePage": 9
-    },
-    {
-      "id": "base-grille-emblem",
-      "title": "Emblem Base (Base Grille Emblem)",
-      "file": "base-grille-emblem.png",
-      "kind": "exterior",
-      "description": "Dudukan emblem Toyota pada grille depan. Komponen ini berada di balik emblem, sehingga tidak diberi hotspot terpisah pada foto eksterior. Harga mengikuti Part Bulletin.",
-      "price": null,
-      "priceLabel": "Mengikuti Part Bulletin",
-      "grades": [
-        "E",
-        "G"
-      ],
-      "pos": {},
-      "status": "bulletin",
       "sourcePage": 9,
-      "photoStatus": "Ilustrasi, bukan foto part resmi.",
-      "sku": "75312-BZ140",
-      "image": "assets/vehicles/agya/parts/base-grille-emblem.png"
+      "photoStatus": "Foto menggunakan emblem depan; base emblem adalah komponen dudukan di balik emblem dan tidak memiliki hotspot terpisah."
     },
     {
       "id": "gr-front-aeromudguard",
@@ -178,7 +174,7 @@ window.TCO_UNIT_DATA["agya"] = {
       "file": "gr-rear-detail.png",
       "kind": "exterior",
       "description": "Aerokit sudut bumper belakang. Pada tabel harga satuan disebut Rear Bumper Spoiler, Set; kecocokan part perlu dipastikan.",
-      "price": null,
+      "price": 1299000,
       "referencePrice": 1299000,
       "priceLabel": "Harga part satuan perlu verifikasi",
       "relatedSKUs": {
