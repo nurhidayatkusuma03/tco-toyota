@@ -106,7 +106,7 @@ window.TCO_UNIT_DATA["agya"] = {
       "file": "gr-front-aeromudguard.png",
       "kind": "exterior",
       "description": "Aerokit di tepi bumper depan. Pada daftar harga satuan disebut Front Bumper Spoiler, Set; nama/nomor part tidak sama pada kedua tabel; harga belum dapat dianggap harga pasti untuk aksesori GR.",
-      "price": null,
+      "price": 1475000,
       "referencePrice": 1475000,
       "priceLabel": "Harga part satuan perlu verifikasi",
       "relatedSKUs": {
