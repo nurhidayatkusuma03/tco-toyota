@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7f9f6">
+  <meta name="description" content="Toyota Customization Option — katalog aksesori Toyota interaktif dari Kalla Toyota. Jelajahi model, lihat detail part dan temukan aksesori favorit Anda.">
+  <title>Toyota Customization Option — Kalla Toyota</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="catalog-poster.css">
+  <link rel="stylesheet" href="shared-navbar.css">
+  
+</head>
+<body class="home-page">
+  <div id="top"></div>
+  <header class="site-header" id="site-header">
+    <div class="wide-container topbar">
+      <a href="#home" class="logo-toyota" aria-label="Toyota Let's Go Beyond, ke home"><img src="assets/toyota-beyond.png" alt="Toyota Let's Go Beyond"></a>
+      <nav class="main-nav" id="main-nav" aria-label="Navigasi utama">
+        <a href="#home" class="nav-link active" data-section="home">Home</a>
+        <a href="#katalog" class="nav-link" data-section="katalog">Katalog</a>
+        <a href="#contact" class="nav-link" data-section="contact">Hubungi Kami</a>
+      </nav>
+      <div class="header-right">
+        <a class="logo-kalla" href="#contact" aria-label="Kalla Toyota, informasi kontak"><img src="assets/kalla-toyota.png" alt="Kalla Toyota"></a>
+        <button id="menu-button" class="menu-button" aria-label="Buka menu" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Navigasi seluler" hidden>
+      <a href="#home">Home</a><a href="#katalog">Katalog</a><a href="#contact">Hubungi Kami</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="hero-section section-anchor" aria-labelledby="hero-heading">
+      <!-- Background grafis dibuat dengan SVG/CSS, bukan disatukan dengan foto mobil. -->
+      <svg class="hero-lines" viewBox="0 0 1536 1024" preserveAspectRatio="none" aria-hidden="true">
+        <path class="hero-line-white" d="M-36 103 C-19 271 75 460 204 532 C286 579 384 546 458 488" />
+      </svg>
+      <div class="hero-angle hero-angle-left" aria-hidden="true"></div>
+      <div class="hero-angle hero-angle-right" aria-hidden="true"></div>
+      <div class="wide-container hero-wrap">
+        <div class="hero-copy">
+          <p class="hero-kicker">TOYOTA CUSTOMIZATION OPTION</p>
+          <h1 id="hero-heading"><span>MORE STYLE</span><span class="gradient-text">MORE YOU</span></h1>
+          <p class="hero-description">Lengkapi perjalananmu dengan berbagai pilihan aksesori original Toyota,<br class="desktop-only"> dirancang untuk gaya, kenyamanan, dan pengalaman berkendara yang lebih maksimal.</p>
+        </div>
+        <nav class="hero-progress" aria-label="Navigasi cepat antar bagian">
+          <button class="progress-item current" type="button" data-jump="home" aria-current="step" aria-label="01 · Kembali ke Home" title="Home"><span class="progress-line" aria-hidden="true"></span><span>01</span></button>
+          <button class="progress-item" type="button" data-jump="katalog" aria-label="02 · Buka Katalog" title="Katalog"><span class="progress-line" aria-hidden="true"></span><span>02</span></button>
+          <button class="progress-item" type="button" data-jump="contact" aria-label="03 · Buka Hubungi Kami" title="Hubungi Kami"><span class="progress-line" aria-hidden="true"></span><span>03</span></button>
+        </nav>
+        <!-- Layer mobil PNG/WebP transparan bisa dianimasikan tanpa menggerakkan background. -->
+        <!-- Satu foto gabungan tiga mobil. Background CSS tetap terpisah. -->
+        <div class="hero-visual hero-visual-v08">
+          <img class="hero-trio-combined" src="assets/hero-trio-combined.png" width="1983" height="793" alt="Toyota Agya putih, Innova Zenix hitam, dan Raize abu-abu" fetchpriority="high" decoding="async">
+        </div>
+        <div class="hero-bottom">
+          <a href="#katalog" class="scroll-indicator" aria-label="Scroll ke Katalog"><span class="mouse-outline"><span class="mouse-wheel"></span></span><span>SCROLL<br>TO EXPLORE</span></a>
+          <a href="#katalog" class="explore-catalog" aria-label="Explore Catalog"><span>EXPLORE<br>CATALOG</span><span class="explore-arrow" aria-hidden="true">↘</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="cara-kerja" class="how-section section-anchor">
+      <div class="wide-container how-wrap">
+        <div class="how-heading"><span class="small-index">HOW IT WORKS / 01</span><h2>Temukan detail.<br><span>Rasakan bedanya.</span></h2></div>
+        <div class="how-cards">
+          <div class="how-step"><span class="step-index">01</span><span class="step-icon">▦</span><h3>Pilih unit</h3><p>Jelajahi katalog dan pilih Toyota favoritmu.</p></div>
+          <div class="how-step"><span class="step-index">02</span><span class="step-icon">◎</span><h3>Eksplorasi part</h3><p>Arahkan kursor atau ketuk titik aksesori pada foto mobil.</p></div>
+          <div class="how-step"><span class="step-index">03</span><span class="step-icon">↗</span><h3>Ketahui lebih lanjut</h3><p>Lihat foto close-up, deskripsi, lalu kirim minatmu lewat formulir.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="katalog" class="catalog-section section-anchor" aria-labelledby="catalog-title">
+      <div class="wide-container">
+        <div class="section-intro">
+          <div><span class="small-index">EXPLORE THE COLLECTION / 02</span><h2 id="catalog-title">Toyota <span>Katalog.</span></h2><p>Temukan mobil pilihanmu dan lihat detail aksesori yang membuatnya berbeda.</p></div>
+          <div class="catalog-counter" id="catalog-counter">17 UNIT <span>↘</span></div>
+        </div>
+        <div class="catalog-tools">
+          <div class="filter-list" id="category-filters" aria-label="Filter kategori kendaraan"></div>
+          <div class="search-wrapper" id="search-wrapper"><div class="catalog-search" role="search"><input id="model-search" placeholder="Cari model Toyota..." type="search" autocomplete="off" aria-label="Cari model Toyota" role="combobox" aria-controls="search-suggestions" aria-expanded="false" aria-autocomplete="list"><button type="button" id="search-submit" class="search-submit" aria-label="Cari model Toyota" title="Cari model Toyota"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg></button></div><div class="search-suggestions" id="search-suggestions" role="listbox" hidden></div></div>
+        </div>
+        <div class="model-grid" id="model-grid" aria-live="polite"></div>
+        <div class="no-results" id="no-results" hidden>Tidak ada unit yang sesuai. Coba kata kunci lain.</div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact-section section-anchor">
+      <div class="wide-container contact-wrap">
+        <div class="contact-top"><span class="small-index light">LET'S MAKE IT YOURS / 04</span><span class="contact-deco">TCO / KALLA TOYOTA</span></div>
+        <div class="contact-main"><div><h2>Make every<br>detail <em>count.</em></h2><p>Sudah menemukan aksesori yang cocok? Beritahu kami pilihanmu melalui formulir dan lanjutkan eksplorasi personalisasi Toyota.</p></div><a class="contact-button" href="https://forms.gle/zAGeV5SVQxKqUwxP8" target="_blank" rel="noopener noreferrer">Saya Tertarik <span>↗</span></a></div>
+        <div class="contact-bottom"><span>TOYOTA CUSTOMIZATION OPTION</span><span>BUILT FOR PERSONAL EXPRESSION</span></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="wide-container footer-row"><span>© 2026 Kalla Toyota · TCO Interactive Catalogue</span><span>Daftar model mengacu pada TCO Juli 2026; foto ilustratif dari katalog sebelumnya.</span><a href="#home">BACK TO TOP ↑</a></div></footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

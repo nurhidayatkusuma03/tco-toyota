@@ -1,0 +1,35 @@
+{
+  "unitSlugs": [
+    "agya",
+    "calya",
+    "raize",
+    "rush",
+    "yaris-cross",
+    "fortuner",
+    "land-cruiser",
+    "bz4x",
+    "avanza",
+    "veloz",
+    "innova-zenix",
+    "innova-reborn",
+    "voxy",
+    "alphard",
+    "vellfire",
+    "hilux-d-cab",
+    "hilux-rangga"
+  ],
+  "folderRules": {
+    "colors": [
+      "front-white.png",
+      "rear-white.png",
+      "front-black.png (opsional)",
+      "front-red.png (opsional)",
+      "front-silver.png (opsional)",
+      "front-gray.png (opsional)",
+      "front-yellow.png (opsional)",
+      "front-orange.png (opsional)"
+    ],
+    "parts": "<id-part>.png / jpg / webp"
+  },
+  "status": "Template and catalogue visuals; bZ4X poster illustrative, accessories unverified."
+}

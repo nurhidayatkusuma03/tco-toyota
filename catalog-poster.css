@@ -1,0 +1,164 @@
+
+/* ==========================================
+   TCO KALLA TOYOTA
+   CATALOG POSTER CARD
+   ========================================== */
+
+/* GRID KATALOG */
+.model-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px;
+}
+
+/* CARD */
+.poster-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 20px;
+  border: 1px solid #e5eae6;
+  background: #ffffff;
+  box-shadow: 0 8px 28px rgba(24, 42, 30, 0.06);
+  transition:
+    transform 250ms ease,
+    box-shadow 250ms ease;
+}
+
+.poster-card:hover,
+.poster-card:focus-visible {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 42px rgba(24, 42, 30, 0.13);
+}
+
+/* POSTER GAMBAR */
+.poster-card .poster-image {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: #ebefec;
+}
+
+.poster-card .poster-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  padding: 0;
+  filter: none !important;
+  transition: transform 350ms ease;
+}
+
+.poster-card:hover .poster-image img {
+  transform: scale(1.025);
+}
+
+/* HAPUS ELEMEN CARD LAMA */
+.poster-card .model-badge,
+.poster-card .poster-image::after,
+.poster-card .model-info p {
+  display: none;
+}
+
+/* FOOTER: NAMA DAN IKON SAJA */
+.poster-card .model-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 70px;
+  padding: 13px 15px;
+  background: #ffffff;
+}
+
+/* NAMA UNIT */
+.poster-card .model-info h3 {
+  margin: 0;
+  color: #17251c;
+  font-size: clamp(14px, 1.15vw, 17px);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
+
+/* IKON DETAIL */
+.poster-card .model-info .model-arrow {
+  flex: 0 0 38px;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #eaf4ed;
+  color: #0d7b43;
+  font-size: 23px;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
+}
+
+.poster-card:hover .model-arrow,
+.poster-card:focus-visible .model-arrow {
+  background: #0b7c43;
+  color: #ffffff;
+}
+
+/* RESPONSIVE TABLET */
+@media (max-width: 1180px) {
+  .model-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 850px) {
+  .model-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+}
+
+/* RESPONSIVE MOBILE */
+@media (max-width: 520px) {
+  .model-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .poster-card {
+    border-radius: 14px;
+  }
+
+  .poster-card .poster-image {
+    aspect-ratio: 3 / 4;
+  }
+
+  .poster-card .model-info {
+    min-height: 56px;
+    padding: 10px;
+    gap: 5px;
+  }
+
+  .poster-card .model-info h3 {
+    font-size: 12px;
+  }
+
+  .poster-card .model-info .model-arrow {
+    flex-basis: 30px;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .poster-card,
+  .poster-card .poster-image img,
+  .poster-card .model-info .model-arrow {
+    transition: none;
+  }
+}

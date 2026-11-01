@@ -1,0 +1,40 @@
+STRUKTUR TCO KALLA TOYOTA (KODE + DATA + FOTO)
+============================================
+
+Root: index.html, app.js, data.js, style.css, catalog-poster.css,
+      detail.html, detail.js, detail.css, shared-navbar.css, README.md
+
+data/units/ (data satu file per model, dapat ditambah tanpa edit HTML)
+  agya.js
+  alphard.js
+  avanza.js
+  bz4x.js
+  calya.js
+  fortuner.js
+  hilux-d-cab.js
+  hilux-rangga.js
+  innova-reborn.js
+  innova-zenix.js
+  land-cruiser.js
+  raize.js
+  rush.js
+  vellfire.js
+  veloz.js
+  voxy.js
+  yaris-cross.js
+
+assets/posters/<slug>.png
+
+assets/vehicles/<slug>/colors/
+  front-white.png, front-red.png, front-black.png, ...
+  rear-white.png, rear-red.png, rear-black.png, ...
+  front-white-black.png, rear-white-black.png (khusus pilihan two-tone jika tersedia)
+
+assets/vehicles/<slug>/parts/
+  SKU.png / nama-part.png sesuai image pada data/units/<slug>.js
+
+Part Explorer mengikuti warna yang dipilih; bila foto belum tersedia tampil pesan.
+Harga & SKU varian ada dalam variants[color], bukan di HTML.
+Arsip referensi legacy: detail-tco-prices.js, detail-tco-data.js, detail-tco-prices.json.
+
+Baca README.md untuk cara menambah unit/part dan aturan harga.

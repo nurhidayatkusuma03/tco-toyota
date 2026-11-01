@@ -1,0 +1,509 @@
+:root{--ink:#17201d;--muted:#757e78;--green:#176c4b;--green2:#0f543a;--mint:#dbece0;--mist:#f3f5f3;--line:#dce2dc;--light:#fff;--radius:25px;--display:'Manrope','DM Sans',sans-serif;--body:'DM Sans',sans-serif}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:94px}body{margin:0;background:#fff;color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}a{text-decoration:none;color:inherit}button,input{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #77bc98;outline-offset:3px}img{max-width:100%;display:block}p{line-height:1.75}.wide-container{width:min(1430px,calc(100% - 104px));margin:0 auto}.section-anchor{scroll-margin-top:90px}[hidden]{display:none!important}.site-header{height:88px;position:sticky;top:0;z-index:80;background:rgba(255,255,255,.95);border-bottom:1px solid #e8ece8;backdrop-filter:blur(18px)}.topbar{height:100%;display:flex;align-items:center;justify-content:space-between;gap:24px}.logo-toyota{display:flex;align-items:center;width:158px;flex:0 0 auto}.logo-toyota img{width:100%;height:auto;max-height:67px;object-fit:contain}.logo-kalla{width:166px;display:flex;align-items:center;justify-content:end}.logo-kalla img{width:100%;object-fit:contain}.main-nav{display:flex;gap:6px;align-items:center;background:#f2f4f1;border:1px solid #e8ece8;padding:7px;border-radius:100px;box-shadow:0 8px 25px #13281705}.main-nav a{font-size:13px;font-weight:700;color:#7b817d;letter-spacing:.01em;border-radius:30px;padding:11px 26px;transition:background .2s,color .2s}.main-nav a:hover,.main-nav a.active{color:#fff;background:var(--ink)}.header-right{display:flex;align-items:center;gap:20px}.mobile-nav{display:none}.menu-button{display:none}
+.hero-section{background:linear-gradient(132deg,#fbfcfa 4%,#f0f4ef 57%,#e8eeea 100%);overflow:hidden;position:relative;min-height:760px}.hero-bg-orb{position:absolute;pointer-events:none}.orb-a{width:700px;height:700px;border-radius:50%;right:-20%;top:-55%;background:radial-gradient(circle,#e5efe7 0,transparent 66%)}.orb-b{width:780px;height:500px;bottom:-300px;left:-280px;background:radial-gradient(circle,#dcece0 0,transparent 68%)}.hero-wrap{position:relative;min-height:760px;padding-top:37px}.hero-topline{display:flex;align-items:center;gap:12px;letter-spacing:.16em;font-weight:800;font-size:10px;color:#69786f}.eyebrow-dot,.live-dot,.dot-indicator{width:8px;height:8px;display:inline-block;border-radius:100px;background:#2e9361}.hero-topline-line{width:24px;height:1px;background:#a7b5aa}.hero-copy{position:relative;z-index:3;text-align:center;padding-top:60px}.pill-outline{border:1px solid #d9e4da;border-radius:40px;padding:10px 15px;display:inline-flex;align-items:center;gap:9px;font-size:10px;letter-spacing:.11em;font-weight:800;color:#4b6a57;background:#f9fdf9}.hero-copy h1{margin:21px 0 18px;font-family:var(--display);font-weight:800;letter-spacing:-.09em;line-height:1.03;font-size:clamp(52px,6.3vw,93px)}.hero-copy h1 em{font-style:normal;color:var(--green)}.hero-copy p{font-size:15px;color:#65756a;max-width:555px;margin:0 auto;line-height:1.8}.hero-actions{display:flex;align-items:center;justify-content:center;gap:30px;margin-top:26px}.primary-btn{border:0;display:inline-flex;align-items:center;gap:20px;background:var(--green);color:white;padding:7px 8px 7px 21px;border-radius:100px;font-weight:800;font-size:13px;min-height:50px;transition:transform .2s,background .2s}.primary-btn:hover{background:var(--green2);transform:translateY(-2px)}.arrow-circle{display:inline-flex;align-items:center;justify-content:center;width:37px;height:37px;border-radius:50%;background:#fff;color:var(--green);font-size:18px}.text-btn{font-size:13px;font-weight:800;color:#39473f;border-bottom:1px solid #a6b7aa;padding:8px 0}.text-btn span{margin-left:11px}.hero-cars{width:min(1180px,100%);height:auto;object-fit:contain;position:relative;z-index:1;margin:-5px auto -28px;mix-blend-mode:multiply;mask-image:linear-gradient(to bottom,#000 0%,#000 82%,transparent 100%)}.hero-side-note{position:absolute;z-index:2;top:42%;left:0;display:flex;flex-direction:column;gap:18px;font-size:11px;color:#6c7b70;letter-spacing:.08em}.hero-side-note strong{line-height:1.75;font-size:10px}.note-line{height:67px;width:1px;background:#afc5b4;margin-left:11px}.hero-foot{height:90px;position:relative;z-index:2;display:flex;align-items:center;gap:34px;border-top:1px solid #d8e1d8;margin-top:-10px}.hero-foot-item{display:flex;align-items:center;gap:14px}.hero-foot-item strong{font-size:25px;letter-spacing:-.06em}.hero-foot-item span,.hero-foot-right{font-weight:800;font-size:10px;letter-spacing:.15em;color:#64746a}.foot-divider{width:1px;height:32px;background:#ccd7cc}.hero-foot-right{margin-left:auto}.hero-foot-right span{font-size:18px;margin-left:15px}
+.how-section{padding:107px 0 112px;background:#fff}.how-wrap{display:grid;grid-template-columns:.8fr 1.4fr;align-items:center;gap:80px}.small-index{font-size:10px;letter-spacing:.2em;color:var(--green);font-weight:800;display:inline-block}.how-heading h2,.section-intro h2{font-family:var(--display);font-size:clamp(37px,4vw,60px);line-height:1.12;letter-spacing:-.065em;margin:19px 0 0}.how-heading h2 span,.section-intro h2 span{color:#a8b1aa}.how-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.how-step{background:#f5f7f5;padding:25px 21px;min-height:223px;border-radius:18px;border:1px solid #ebefeb}.step-index{font-size:11px;font-weight:800;color:#95a49a}.step-icon{font-size:32px;display:block;color:var(--green);margin:12px 0}.how-step h3{font-size:16px;letter-spacing:-.04em;margin:0 0 8px}.how-step p{font-size:12px;margin:0;color:#77847b;line-height:1.65}
+.catalog-section{padding:105px 0 120px;background:#f4f6f4;border-top:1px solid #edf1ed}.section-intro{display:flex;align-items:end;justify-content:space-between;gap:24px}.section-intro h2{margin:14px 0}.section-intro p{max-width:600px;color:#758077;font-size:14px;margin:0}.catalog-counter{font-weight:800;letter-spacing:.15em;font-size:12px;white-space:nowrap}.catalog-counter span{font-size:18px;color:var(--green);margin-left:11px}.catalog-tools{margin:40px 0 25px;display:flex;align-items:center;justify-content:space-between;gap:24px}.filter-list{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.filter-btn{border:1px solid #e0e6df;background:#fff;color:#6c756e;padding:12px 17px;border-radius:40px;font-size:11px;font-weight:800;transition:all .15s}.filter-btn.active,.filter-btn:hover{color:#fff;background:var(--green);border-color:var(--green)}.catalog-search{width:280px;background:#fff;border:1px solid #e0e6df;border-radius:40px;display:flex;align-items:center;gap:10px;padding:0 15px;color:#8a958c;flex:0 0 auto}.catalog-search input{width:100%;height:43px;border:none;outline:none;background:transparent;font-size:12px;color:#18251d}.catalog-search input::placeholder{color:#9aa49b}.model-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:19px}.model-card{min-width:0;display:flex;flex-direction:column;text-align:left;appearance:none;border:1px solid #e4eae4;background:#fff;border-radius:22px;overflow:hidden;padding:0;transition:transform .25s,box-shadow .25s,border-color .2s;position:relative}.model-card:hover{transform:translateY(-6px);box-shadow:0 22px 50px rgba(26,54,37,.09);border-color:#b1c8b8}.model-image{height:215px;background:#e9efea;display:flex;justify-content:center;align-items:center;overflow:hidden;position:relative}.model-image:after{content:'';position:absolute;left:0;bottom:0;width:100%;height:48px;background:linear-gradient(transparent,#e8efe9);pointer-events:none}.model-image img{width:100%;height:100%;object-fit:cover;transition:transform .3s}.model-card:hover .model-image img{transform:scale(1.035)}.model-image[data-white="false"] img{filter:grayscale(1) contrast(.96)}.model-image[data-white="true"] img{object-fit:contain;padding:10px 0}.model-badge{position:absolute;top:14px;left:15px;z-index:2;font-size:9px;padding:7px 10px;border-radius:30px;color:#466c55;background:rgba(255,255,255,.88);font-weight:800;letter-spacing:.09em}.model-info{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:18px 18px 20px}.model-info h3{font-size:18px;font-weight:800;letter-spacing:-.055em;margin:1px 0 0}.model-info p{font-size:10px;letter-spacing:.12em;color:#8c9a90;font-weight:800;margin:0}.model-info .model-arrow{width:38px;height:38px;border-radius:50%;background:#edf4ee;display:flex;align-items:center;justify-content:center;color:var(--green);font-size:22px;transition:all .2s}.model-card:hover .model-arrow{background:var(--green);color:#fff}.no-results{padding:55px;text-align:center;color:#69756c}
+.detail-section{padding:95px 0 114px;background:white}.detail-backline{display:flex;justify-content:space-between;align-items:center}.small-back{font-size:12px;color:var(--green);font-weight:800;border:none;background:#eef5ef;padding:12px 16px;border-radius:30px}.detail-head{display:flex;align-items:end;justify-content:space-between;margin:14px 0 34px}.label-above{font-size:12px;color:#9aa99e;letter-spacing:.17em;font-weight:800}.detail-head h2{font-family:var(--display);font-size:clamp(36px,4.3vw,63px);letter-spacing:-.075em;line-height:1.1;margin:7px 0}.detail-head p{font-size:13px;color:#7e8980;margin:0}.detail-model-counter{font-size:20px;color:#a5b5a9;font-weight:800;white-space:nowrap}.detail-layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(285px,.78fr);gap:28px;align-items:start}.viewer-column,.parts-column{min-width:0}.vehicle-stage{border-radius:25px;overflow:hidden;background:radial-gradient(ellipse at 52% 28%,#fff 5%,#e8eeea 73%,#e4ebe5 100%);border:1px solid #e1e9e1;position:relative}.stage-top,.stage-footer{display:flex;align-items:center;gap:9px;justify-content:space-between;padding:19px 22px;color:#688071;font-size:9px;font-weight:800;letter-spacing:.12em}.stage-top{justify-content:flex-start}.stage-top-right{margin-left:auto}.dot-indicator{width:7px;height:7px}.car-image-container{position:relative;width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center}.car-image-container:before{content:'';position:absolute;left:12%;right:12%;bottom:12%;height:25px;background:#5c796141;filter:blur(25px);border-radius:100%;pointer-events:none}.car-image-container>img{display:block;width:100%;height:100%;object-fit:contain;position:relative;z-index:1;transition:opacity .2s}.hotspot-layer{position:absolute;inset:0;z-index:4;pointer-events:none}.hotspot{position:absolute;left:var(--x);top:var(--y);width:35px;height:35px;border-radius:50%;background:#fff;color:var(--green);border:1px solid #e0eee4;box-shadow:0 2px 18px #17351b55;display:grid;place-items:center;font-size:19px;font-weight:600;transform:translate(-50%,-50%);pointer-events:auto;transition:transform .15s,background .15s}.hotspot:after{content:'';position:absolute;inset:-6px;border-radius:50%;border:1px solid #ffffffa8;animation:pulse 2.4s infinite}.hotspot:hover,.hotspot:focus-visible{background:var(--green);color:#fff;transform:translate(-50%,-50%) scale(1.12);z-index:9}.hotspot .hotspot-tooltip{position:absolute;bottom:43px;left:50%;transform:translate(-50%,5px);padding:11px 13px;border-radius:9px;background:#14281c;color:white;white-space:normal;min-width:155px;max-width:215px;text-align:center;font-size:10px;line-height:1.5;pointer-events:none;opacity:0;visibility:hidden;transition:all .15s;box-shadow:0 6px 20px #0002}.hotspot:hover .hotspot-tooltip,.hotspot:focus-visible .hotspot-tooltip{opacity:1;visibility:visible;transform:translate(-50%,0)}@keyframes pulse{0%,100%{transform:scale(.88);opacity:.7}50%{transform:scale(1.3);opacity:.15}}.stage-footer{padding:16px 22px 20px}.stage-footer>span:first-child{letter-spacing:0;font-size:11px}.viewer-controls{display:flex;align-items:center;justify-content:space-between;gap:25px;border-bottom:1px solid #e2ebe3;padding:23px 6px}.control-label{display:block;font-size:10px;font-weight:800;letter-spacing:.13em;color:#85968b;margin-bottom:11px}.angles-buttons,.color-swatches{display:flex;align-items:center;gap:9px}.angle-btn{border:1px solid #dae5db;background:#fff;border-radius:30px;padding:10px 16px;font-size:11px;color:#748278;font-weight:800}.angle-btn.active,.angle-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}.swatch{width:29px;height:29px;background:var(--swatch);border:3px solid white;box-shadow:0 0 0 1px #c5cdc7;border-radius:50%;transition:box-shadow .2s,transform .2s}.swatch.active{box-shadow:0 0 0 2px var(--green);transform:scale(1.05)}.viewer-disclaimer{margin:17px 7px;color:#8b9890;font-size:11px;line-height:1.7}.parts-column{background:#f5f7f5;border:1px solid #e8eee8;border-radius:24px;padding:29px 25px}.parts-header h3{font-family:var(--display);font-size:30px;letter-spacing:-.065em;margin:12px 0 8px}.parts-header h3 i{color:var(--green);font-style:normal}.parts-header p{font-size:12px;color:#8b978e;line-height:1.65;margin:0 0 18px}.part-list{max-height:480px;overflow:auto;padding-right:4px;scrollbar-width:thin}.part-item{width:100%;display:flex;align-items:center;gap:14px;border:0;border-top:1px solid #e2e9e3;background:none;padding:14px 0;text-align:left;transition:padding .2s}.part-item:hover{padding-left:5px}.part-thumb{width:62px;height:60px;flex:0 0 62px;background:#e6ece6;border-radius:9px;overflow:hidden}.part-thumb img{width:100%;height:100%;object-fit:cover}.part-meta{flex:1;min-width:0}.part-meta small{display:block;color:#92a094;font-size:10px;letter-spacing:.06em;margin-bottom:3px}.part-meta strong{font-size:12px;line-height:1.45;display:block}.part-item>span:last-child{font-size:20px;color:var(--green)}.aside-cta{display:flex;align-items:center;justify-content:space-between;padding:17px 15px;background:#dfebe2;border-radius:13px;margin-top:14px;transition:background .2s}.aside-cta:hover{background:#c5dfcd}.aside-cta strong,.aside-cta small{display:block}.aside-cta strong{font-size:12px;margin-bottom:3px}.aside-cta small{font-size:11px;color:#61806b}.aside-icon{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--green);color:white;font-size:19px}
+.contact-section{padding:64px 0;background:#f3f5f3}.contact-wrap{border-radius:31px;min-height:520px;background:linear-gradient(125deg,#126041 5%,#196b4a 65%,#267b57 100%);padding:52px 65px 31px;color:#fff;position:relative;overflow:hidden}.contact-wrap:before{content:'';position:absolute;right:-100px;bottom:-330px;width:780px;height:780px;border-radius:50%;border:115px solid #ffffff0b;pointer-events:none}.contact-top,.contact-bottom{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}.small-index.light{color:#b7dec4}.contact-deco,.contact-bottom{font-size:10px;font-weight:800;letter-spacing:.18em;color:#cdebd6}.contact-main{display:flex;justify-content:space-between;align-items:end;position:relative;z-index:1;margin:75px 0 80px;gap:30px}.contact-main h2{font-family:var(--display);font-size:clamp(56px,6.3vw,99px);letter-spacing:-.09em;line-height:.97;margin:0}.contact-main h2 em{font-style:normal;color:#9fd1b2}.contact-main p{max-width:500px;color:#c6e3d0;font-size:13px;line-height:1.8}.contact-button{display:flex;align-items:center;justify-content:space-between;gap:44px;background:white;color:#133c27;border-radius:50px;font-size:13px;padding:12px 12px 12px 25px;font-weight:800;white-space:nowrap;transition:transform .2s}.contact-button:hover{transform:translateY(-4px)}.contact-button span{width:39px;height:39px;display:grid;place-items:center;border-radius:50%;background:#edf4ef;font-size:18px}.contact-bottom{border-top:1px solid #ffffff35;padding-top:25px}.site-footer{background:#fff;padding:25px 0}.footer-row{display:flex;justify-content:space-between;align-items:center;gap:20px;color:#809187;font-size:10px;font-weight:700}.footer-row a{color:var(--green);font-weight:800;white-space:nowrap}
+.modal-overlay{position:fixed;inset:0;background:#0c1611bb;z-index:150;display:flex;align-items:center;justify-content:center;padding:25px;backdrop-filter:blur(7px)}.part-dialog{background:white;width:min(900px,100%);display:grid;grid-template-columns:.95fr 1fr;border-radius:24px;position:relative;overflow:hidden;box-shadow:0 35px 110px #0005;max-height:calc(100vh - 50px)}.modal-close{position:absolute;right:18px;top:18px;border:0;background:#edf2ed;color:#283c2c;border-radius:50%;width:38px;height:38px;font-size:25px;z-index:2}.modal-image-wrap{min-height:410px;background:#e7ece8;display:flex;flex-direction:column;justify-content:space-between}.modal-image-wrap img{width:100%;height:100%;max-height:420px;object-fit:contain;flex:1;padding:20px}.modal-image-caption{display:flex;justify-content:space-between;color:#6d7b70;font-size:10px;letter-spacing:.12em;padding:18px 23px;font-weight:800}.modal-image-caption span{font-size:18px}.modal-body{padding:64px 36px 38px;overflow:auto}.modal-part-label{display:block;font-size:11px;color:#8c9b90;margin-top:27px}.modal-body h2{font-family:var(--display);font-size:34px;letter-spacing:-.065em;line-height:1.15;margin:10px 0 19px}.modal-body>p{font-size:13px;color:#6b7a70;line-height:1.85}.modal-note{border-left:3px solid var(--green);padding:8px 15px;background:#f0f5f1}.modal-bottom{display:flex;flex-wrap:wrap;align-items:center;gap:11px;margin-top:30px}.secondary-btn{border:1px solid #cbd9cd;background:#fff;border-radius:50px;padding:16px 18px;font-size:12px;font-weight:800;color:#4c6654}.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;border-radius:40px;padding:13px 22px;z-index:200;font-size:12px;box-shadow:0 10px 25px #0003}
+@media(max-width:1100px){.wide-container{width:min(100% - 56px,1430px)}.hero-wrap{min-height:auto}.hero-section{min-height:auto}.hero-copy h1{font-size:clamp(52px,7vw,80px)}.hero-cars{margin:20px auto -15px}.how-wrap{gap:25px;grid-template-columns:.65fr 1.35fr}.detail-layout{grid-template-columns:minmax(0,1.28fr) minmax(265px,.72fr);gap:18px}.parts-column{padding:24px 20px}.part-thumb{width:54px;height:54px;flex-basis:54px}}
+@media(max-width:800px){.site-header{height:76px}.wide-container{width:calc(100% - 40px)}.main-nav{display:none}.menu-button{display:flex;flex-direction:column;justify-content:center;gap:5px;border:0;background:#edf4ee;border-radius:10px;width:43px;height:42px;align-items:center}.menu-button span{width:17px;height:2px;background:#18432c;display:block;border-radius:2px}.mobile-nav:not([hidden]){display:flex;flex-direction:column;background:#fff;border-top:1px solid #e5ebe5;box-shadow:0 17px 24px #15281c10}.mobile-nav a{padding:16px 30px;font-size:13px;font-weight:800;border-bottom:1px solid #edf2ed}.logo-toyota{width:122px}.logo-kalla{width:130px}.hero-wrap{padding-top:27px}.hero-topline{font-size:8px;gap:8px}.hero-copy{padding-top:42px}.hero-copy h1{font-size:clamp(48px,9vw,69px)}.hero-side-note{display:none}.hero-cars{width:116%;max-width:none;margin:30px 0 0 -8%}.hero-foot{margin-top:0}.how-wrap{display:block}.how-cards{margin-top:32px}.model-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.catalog-tools{flex-direction:column;align-items:stretch}.catalog-search{width:100%}.detail-layout{grid-template-columns:1fr}.parts-column{display:block}.contact-main{align-items:start;flex-direction:column;margin:50px 0}.contact-wrap{min-height:0;padding:39px}.contact-main h2{font-size:clamp(57px,9vw,88px)}.footer-row{flex-wrap:wrap}.part-dialog{grid-template-columns:1fr;width:min(530px,100%);overflow:auto}.modal-image-wrap{min-height:240px}.modal-image-wrap img{max-height:260px}.modal-body{padding:25px 28px 28px}.modal-part-label{margin-top:16px}}
+@media(max-width:520px){.wide-container{width:calc(100% - 34px)}.site-header{height:68px}.logo-toyota{width:105px}.logo-kalla{width:114px}.header-right{gap:10px}.menu-button{width:39px;height:39px}.hero-topline{font-size:7px;flex-wrap:wrap;justify-content:center}.hero-topline-line{display:none}.hero-copy{padding-top:48px}.hero-copy h1{font-size:46px;line-height:1.05;letter-spacing:-.08em}.hero-copy p{font-size:13px}.pill-outline{font-size:8px}.hero-actions{gap:18px}.primary-btn{font-size:12px}.text-btn{font-size:12px}.hero-cars{width:152%;margin:25px 0 -5px -26%}.hero-foot{height:70px;gap:14px}.hero-foot-item{gap:5px}.hero-foot-item strong{font-size:20px}.hero-foot-item span{font-size:8px}.hero-foot-right{display:none}.how-section,.catalog-section,.detail-section{padding:64px 0}.how-heading h2,.section-intro h2{font-size:37px}.how-cards{grid-template-columns:1fr;gap:10px}.how-step{min-height:0;padding:18px 20px;display:grid;grid-template-columns:24px 37px 1fr;align-items:center;column-gap:10px}.how-step .step-icon{margin:0}.how-step h3{grid-column:3;grid-row:1}.how-step p{grid-column:3;grid-row:2}.section-intro{align-items:start;flex-direction:column}.catalog-counter{display:none}.catalog-tools{margin:28px 0 20px;gap:16px}.filter-list{gap:6px}.filter-btn{font-size:10px;padding:10px 12px}.model-grid{gap:11px}.model-image{height:142px}.model-info{padding:12px}.model-info h3{font-size:13px}.model-info .model-arrow{width:29px;height:29px;font-size:16px}.model-info p{font-size:8px}.model-badge{font-size:8px;top:9px;left:9px;padding:5px 8px}.detail-head{align-items:start;gap:15px}.detail-head h2{font-size:37px}.detail-model-counter{font-size:13px}.detail-backline{align-items:start}.small-back{font-size:10px;padding:9px 12px}.vehicle-stage{border-radius:17px}.stage-top{padding:14px 14px;font-size:7px}.stage-top-right{display:none}.stage-footer{padding:13px;font-size:8px}.stage-footer>span:first-child{font-size:9px}.hotspot{width:30px;height:30px;font-size:16px}.viewer-controls{flex-direction:column;align-items:start;gap:20px}.contact-section{padding:27px 0}.contact-wrap{padding:28px 23px 25px;border-radius:24px}.contact-main h2{font-size:54px}.contact-main p{font-size:12px}.contact-deco{display:none}.contact-bottom span:last-child{display:none}.footer-row{font-size:9px;line-height:1.7}.modal-overlay{padding:12px}.part-dialog{max-height:94vh}.modal-body h2{font-size:28px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:after,*:before{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+
+/* ================================================================
+   REVISION 02 — Navbar melayang, solid sejak Katalog;
+                 hero mobil sebagai layer transparan independen.
+   ================================================================ */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition: background .32s ease, border-color .32s ease, box-shadow .32s ease, backdrop-filter .32s ease;
+}
+.site-header .main-nav {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  transition: background .32s ease, border-color .32s ease, box-shadow .32s ease;
+}
+.site-header .main-nav a:not(.active) {color:#3e5145}
+.site-header .main-nav a:hover:not(.active) {background:rgba(255,255,255,.48);color:var(--ink)}
+.site-header .main-nav a.active {background:#17201d;color:#fff}
+.site-header.is-solid {
+  background: rgba(255,255,255,.94);
+  border-bottom-color:#e4ebe4;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  box-shadow: 0 8px 32px rgba(13,43,24,.045);
+}
+.site-header.is-solid .main-nav {
+  background:#fff;
+  border-color:#e2e9e2;
+  box-shadow:0 7px 22px rgba(20,45,29,.065);
+}
+/* Header tetap terpisah dari Home, jadi hero mengisi sisi atas viewport. */
+.hero-section {
+  min-height: 860px;
+  background:linear-gradient(135deg,#fcfdfb 0%,#f1f5f1 50%,#e5ede6 100%);
+}
+.hero-wrap {min-height:860px;padding-top:125px}
+.hero-copy {padding-top:54px}
+.hero-copy h1 {margin-top:0}
+/* Seluruh background berada di CSS, bukan di berkas foto mobil. */
+.hero-visual {
+  width:min(1250px,100%);
+  margin:-7px auto -23px;
+  position:relative;
+  z-index:1;
+  isolation:isolate;
+  pointer-events:none;
+}
+.hero-visual-backdrop {
+  position:absolute;
+  z-index:-2;
+  width:86%; height:76%; left:7%; top:17%;
+  border-radius:50%;
+  background:radial-gradient(ellipse at center,rgba(218,232,220,.76) 0%,rgba(223,237,225,.3) 50%,transparent 72%);
+}
+.hero-ground-glow {
+  position:absolute;
+  z-index:-1;
+  width:71%; height:9%; left:14.5%; bottom:17%;
+  border-radius:50%;filter:blur(22px);
+  background:rgba(62,86,65,.10);
+}
+.hero-visual-reveal {
+  opacity:0;
+  animation:hero-reveal .95s cubic-bezier(.19,.95,.28,1) .14s both;
+}
+.hero-cars {
+  display:block;
+  width:100%; height:auto;
+  margin:0;
+  mix-blend-mode:normal;
+  mask-image:none;
+  -webkit-mask-image:none;
+  transform-origin:center bottom;
+  animation:hero-float 7s ease-in-out 1.1s infinite;
+  will-change:transform;
+}
+@keyframes hero-reveal {
+  0% {opacity:0;transform:translateY(45px) scale(.985)}
+  100% {opacity:1;transform:translateY(0) scale(1)}
+}
+@keyframes hero-float {
+  0%,100% {transform:translateY(0)}
+  50% {transform:translateY(-9px)}
+}
+.hero-foot{margin-top:-13px}
+@media(max-width:900px){
+  .hero-section,.hero-wrap{min-height:0}
+  .hero-wrap{padding-top:118px}
+  .hero-visual{margin:20px auto -15px}
+}
+@media(max-width:640px){
+  .hero-wrap{padding-top:108px}
+  .hero-copy{padding-top:34px}
+  .hero-visual{width:calc(100% + 18px);margin-left:-9px;margin-right:-9px;margin-top:28px}
+  .hero-ground-glow{filter:blur(12px)}
+  .site-header .main-nav{background:transparent;border-color:transparent;box-shadow:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-visual-reveal,.hero-cars{animation:none!important;opacity:1!important;transform:none!important;will-change:auto}
+}
+
+/* Remove doubled anchor offsets (scroll-padding and scroll-margin) so the
+   solid header activates exactly when the Katalog section is reached. */
+html {scroll-padding-top:0}
+.section-anchor {scroll-margin-top:90px}
+@media(max-width:800px){.section-anchor{scroll-margin-top:82px}}
+@media(max-width:520px){.section-anchor{scroll-margin-top:74px}}
+
+/* ===============================================================
+   REVISION 03 — exact user-approved 'MORE STYLE / MORE YOU' hero.
+   Mobil berdiri pada layer transparan; grafis dan teks terpisah.
+   =============================================================== */
+:root {--green:#167c48}
+.site-header {height:106px}
+.site-header .topbar {position:relative}
+.site-header .logo-toyota {width:175px}
+.site-header .logo-kalla {width:222px}
+.site-header .main-nav {gap:51px;padding:0;border:none;background:none;box-shadow:none}
+.site-header .main-nav a {position:relative;padding:10px 0 12px;border-radius:0;background:transparent!important;color:#666c70!important;font-size:16px;font-weight:500;letter-spacing:0;box-shadow:none}
+.site-header .main-nav a.active {color:#192025!important;font-weight:700}
+.site-header .main-nav a::after {content:"";position:absolute;bottom:1px;left:50%;width:0;height:2px;transform:translateX(-50%);background:#159444;transition:width .23s ease}
+.site-header .main-nav a.active::after {width:31px}
+.site-header .main-nav a:hover {color:#111b16!important}
+.site-header .main-nav a:hover::after {width:31px}
+.site-header.is-solid {background:rgba(255,255,255,.92);border-bottom:1px solid #e7ebea;box-shadow:0 9px 35px #17251b12;backdrop-filter:blur(15px)}
+.site-header.is-solid .main-nav {padding:6px 30px;background:#fff!important;border:1px solid #e9ecea!important;border-radius:100px;box-shadow:0 8px 24px #14221911}
+.site-header.is-solid .main-nav a {padding:10px 0 12px}
+.hero-section {height:100svh;min-height:800px;overflow:hidden;isolation:isolate;background:radial-gradient(ellipse 50% 50% at 50% 55%,#fafafa 0%,#e9ebed 100%)}
+.hero-section::before {content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(119deg,#eaeced66 0%,#fafafa50 43%,#f2f3f400 64%),radial-gradient(ellipse 85% 54% at 51% 47%,#f9fafac0,#f1f3f321 65%,transparent 90%)}
+.hero-angle {position:absolute;z-index:-1;pointer-events:none}
+.hero-angle-left {left:-9%;top:4%;width:43%;height:60%;background:linear-gradient(130deg,#e2e4e570,#fbfbfcbb);clip-path:polygon(0 0,58% 0,100% 93%,70% 100%,0 34%);opacity:.65}
+.hero-angle-right {right:-5%;top:7%;width:42%;height:57%;background:linear-gradient(20deg,#e8eaec75,#f7f9f9a8);clip-path:polygon(55% 0,100% 0,100% 85%,0 100%);opacity:.72}
+.hero-lines {position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.hero-lines path {fill:none;stroke-width:2;vector-effect:non-scaling-stroke}
+.hero-lines .hero-line-white {stroke:#fff;opacity:.92}
+.hero-lines .hero-line-green {stroke:#4fc437;stroke-width:2.5}
+.hero-wrap {height:100%;min-height:0!important;padding:0!important;position:relative}
+.hero-copy {position:absolute;top:13.45%;left:0;right:0;z-index:5;text-align:center;padding:0!important}
+.hero-copy .hero-kicker {margin:0 0 18px;font-size:17px;font-weight:400;letter-spacing:.42em;color:#586166;line-height:1.6}
+.hero-copy h1 {margin:0!important;font-family:var(--display);font-size:clamp(58px,6.55vw,102px);font-style:italic;font-weight:800;letter-spacing:-.062em;line-height:.99;color:#060f14}
+.hero-copy h1 span {display:block}
+.hero-copy h1 .gradient-text {background:linear-gradient(105deg,#061015 22%,#147238 62%,#52c42d 90%);background-clip:text;-webkit-background-clip:text;color:transparent}
+.hero-copy .hero-description {font-size:18px;line-height:1.48;letter-spacing:.002em;color:#73767a;max-width:990px;margin:17px auto 0}
+.hero-progress {position:absolute;top:36.9%;left:0;z-index:6;display:flex;flex-direction:column;gap:21px}
+.progress-item {display:flex;align-items:center;gap:16px;font-size:12px;font-weight:500;color:#a0a6a8}
+.progress-item.current {color:#172229;font-weight:800}
+.progress-line {width:18px;height:2px;background:#c9cbcc;display:block}
+.current .progress-line {background:#129247}
+.hero-visual {position:absolute;left:50%;bottom:2%;transform:translateX(-50%);width:min(1500px,102%);max-width:none;margin:0!important;z-index:3;pointer-events:none;isolation:auto}
+.hero-visual-reveal {opacity:1;animation:hero-reveal .9s cubic-bezier(.19,.95,.28,1) both}
+.hero-cars {display:block;width:100%;height:auto;object-fit:contain;margin:0;mix-blend-mode:normal;mask-image:none;-webkit-mask-image:none;animation:hero-float 9s ease-in-out .9s infinite}
+@keyframes hero-float {0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.hero-bottom {position:absolute;bottom:5.8%;left:8px;right:8px;display:flex;justify-content:space-between;align-items:end;z-index:6}
+.scroll-indicator {display:flex;gap:25px;align-items:center;color:#616a6f;font-size:10px;letter-spacing:.27em;font-weight:500;line-height:1.85}
+.mouse-outline {width:33px;height:54px;border:1.5px solid #28343a;border-radius:22px;display:flex;justify-content:center;padding-top:11px}
+.mouse-wheel {width:2px;height:13px;background:#28343a;border-radius:3px}
+.explore-catalog {display:flex;gap:23px;align-items:center;text-align:right;color:#626a70;font-size:10px;letter-spacing:.24em;line-height:1.55;font-weight:600}
+.explore-arrow {width:82px;height:82px;border-radius:50%;border:1px solid #178547;display:grid;place-items:center;font-size:35px;font-weight:300;line-height:1;color:#0d372a;transition:background .2s, transform .2s}
+.explore-catalog:hover .explore-arrow {background:#ddefd9;transform:translate(4px,4px)}
+/* Navbar warna putih baru aktif di halaman katalog/detail/contact. */
+@media (max-width:1100px){.hero-section{min-height:740px}.hero-copy{top:15%}.hero-copy h1{font-size:clamp(56px,8vw,88px)}.hero-copy .hero-description{font-size:15px;max-width:640px}.hero-visual{width:113%;bottom:4%}.hero-progress{left:0;top:39%}.hero-bottom{bottom:4%}}
+@media (max-width:800px){.site-header{height:77px}.site-header .logo-toyota{width:125px}.site-header .logo-kalla{width:142px}.hero-section{height:860px;min-height:760px}.hero-copy{top:17%;padding:0 10px!important}.hero-copy .hero-kicker{font-size:11px;letter-spacing:.25em;margin-bottom:18px}.hero-copy h1{font-size:clamp(46px,10.7vw,76px)}.hero-copy .hero-description{font-size:13px;max-width:540px;line-height:1.6}.desktop-only{display:none}.hero-visual{width:136%;bottom:13%;}.hero-progress{left:2px;top:49%;gap:15px}.hero-bottom{bottom:3%}.scroll-indicator{gap:9px;font-size:8px}.explore-catalog{font-size:8px;gap:9px}.explore-arrow{width:57px;height:57px;font-size:26px}.site-header.is-solid .main-nav{display:none}}
+@media (max-width:520px){.site-header{height:68px}.site-header .logo-toyota{width:108px}.site-header .logo-kalla{width:116px}.hero-section{height:calc(100svh - 0px);min-height:640px;max-height:810px}.hero-copy{top:16.5%}.hero-copy .hero-kicker{font-size:8px;letter-spacing:.19em}.hero-copy h1{font-size:clamp(41px,11.5vw,58px);line-height:1.05;letter-spacing:-.067em}.hero-copy .hero-description{font-size:11px;margin-top:12px}.hero-visual{width:174%;bottom:14%;}.hero-progress{left:0;top:44%;gap:12px}.progress-item{font-size:9px;gap:7px}.progress-line{width:11px}.hero-bottom{bottom:4%;left:0;right:0}.scroll-indicator{font-size:8px;letter-spacing:.13em}.mouse-outline{width:25px;height:43px}.explore-catalog{letter-spacing:.1em}.explore-arrow{width:48px;height:48px;font-size:22px}.hero-lines .hero-line-green{opacity:.6}}
+@media (prefers-reduced-motion:reduce){.hero-visual-reveal,.hero-cars{animation:none!important;opacity:1!important;transform:none!important}}
+/* Keep the top of the cars safely below the subtitle, matching the reference. */
+@media(min-width:1101px){.hero-visual{bottom:-3%}}
+
+
+/* ================================================================
+   REVISION 04 — Jarang headline/subtitle dan mobil, floating pill
+   di Home, ticker 01–03 interaktif, dan label benar-benar centered.
+   ================================================================ */
+/* Hanya kotak navigasi yang melayang; kedua logo tanpa panel latar. */
+.site-header:not(.is-solid){background:transparent;border-color:transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+.site-header .main-nav,
+.site-header:not(.is-solid) .main-nav {
+  display:flex;
+  align-items:center;
+  gap:28px;
+  padding:7px 29px;
+  border:1px solid rgba(221,226,223,.92);
+  border-radius:999px;
+  background:rgba(255,255,255,.86)!important;
+  box-shadow:0 12px 30px rgba(22,38,32,.075);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+.site-header.is-solid .main-nav{background:#fff!important;border:1px solid #e1e7e3!important;box-shadow:0 10px 26px #14221916;gap:28px;padding:7px 29px}
+.site-header .main-nav a,
+.site-header.is-solid .main-nav a{padding:10px 7px 12px;font-size:15px;white-space:nowrap}
+/* Teks kecil tidak mewarisi max-width + margin dari .hero-copy p. */
+.hero-copy .hero-kicker {
+  display:block;
+  width:100%;
+  max-width:none;
+  margin:0 auto 18px;
+  text-align:center;
+}
+/* Area teks berdiri sendiri di atas kendaraan; jarak sengaja disisakan. */
+.hero-copy{z-index:5}
+.hero-copy .hero-description{
+  position:relative;
+  z-index:6;
+  max-width:960px;
+  margin:20px auto 0;
+  color:#5f6669;
+  font-weight:500;
+  text-shadow:0 1px 2px rgba(255,255,255,.5);
+}
+.hero-lines .hero-line-green{display:none!important}
+/* Versi gambar dipangkas transparansinya supaya betul-betul duduk di
+   bagian bawah dan tidak menimpa subtitle ketika skala responsif. */
+.hero-visual{
+  width:min(1160px,82vw);
+  bottom:0!important;
+  z-index:3;
+  max-width:none;
+}
+.hero-cars{width:100%;height:auto;max-width:unset}
+/* Progress adalah tiga tombol berbentuk indikator, bukan teks dekoratif. */
+.hero-progress{gap:15px}
+.hero-progress .progress-item{
+  display:flex;align-items:center;gap:16px;
+  min-width:76px;min-height:28px;
+  padding:4px 4px 4px 0;
+  background:transparent;border:0;border-radius:5px;
+  text-align:left;cursor:pointer;
+  transition:color .2s ease,transform .2s ease;
+}
+.hero-progress .progress-item:hover,
+.hero-progress .progress-item:focus-visible{color:#0e6b3b;transform:translateX(4px)}
+.hero-progress .progress-item .progress-line{transition:width .2s,background .2s}
+.hero-progress .progress-item:hover .progress-line{width:24px;background:#159444}
+.hero-progress .progress-item.current .progress-line{width:24px;background:#159444}
+@media(min-width:1101px){.hero-visual{bottom:0!important}}
+@media(max-width:1100px){
+  .site-header .main-nav,.site-header.is-solid .main-nav{gap:16px;padding:6px 21px}
+  .site-header .main-nav a{font-size:13px}
+  .hero-visual{width:min(1050px,94vw);bottom:2%!important}
+  .hero-copy .hero-description{max-width:700px}
+}
+@media(max-width:800px){
+  .site-header .main-nav,.site-header.is-solid .main-nav{display:none}
+  .hero-copy .hero-kicker{max-width:none;text-align:center}
+  .hero-visual{width:125vw;bottom:11%!important}
+  .hero-copy .hero-description{max-width:535px;margin:20px auto 0}
+}
+@media(max-width:520px){
+  .hero-copy{top:15%!important;padding:0 15px!important}
+  .hero-copy .hero-kicker{font-size:8px;letter-spacing:.17em;margin-bottom:22px}
+  .hero-copy h1{font-size:clamp(37px,10.8vw,55px)}
+  .hero-copy .hero-description{max-width:320px;font-size:11px;line-height:1.62;margin-top:18px}
+  .hero-visual{width:154vw;bottom:15%!important}
+  .hero-progress{top:49%!important;gap:7px}
+  .hero-progress .progress-item{min-width:40px;min-height:29px;gap:8px}
+  .hero-progress .progress-item .progress-line{width:12px}
+  .hero-progress .progress-item.current .progress-line{width:16px}
+}
+/* Final spacing refinements: reserve free space for Explore Catalog. */
+@media(min-width:1101px){
+  .hero-visual{left:46.5%}
+}
+@media(min-width:801px) and (max-width:1100px){
+  .hero-visual{bottom:12%!important;left:48%;width:94vw}
+}
+/* Tablet and phone use the hamburger; the floating desktop pill must not overflow. */
+@media(max-width:800px){
+  .site-header .main-nav,
+  .site-header:not(.is-solid) .main-nav,
+  .site-header.is-solid .main-nav{display:none!important}
+  .site-header .logo-toyota{flex-shrink:0}
+  .header-right{margin-left:auto}
+}
+
+
+/* ===========================================================
+   v05 / HERO THREE DISTINCT ASSETS – NO IMAGE ELEMENT CROP
+   =========================================================== */
+.hero-section{min-height:820px;overflow:hidden}
+.hero-wrap{height:100%;overflow:visible}
+.hero-copy{z-index:6}
+.hero-copy .hero-kicker{text-align:center;margin-left:auto;margin-right:auto}
+.hero-copy .hero-description{max-width:970px;position:relative;z-index:7}
+.hero-visual-v5{
+  position:absolute;left:50%;bottom:4.4%!important;
+  transform:translateX(-50%);width:min(1480px,94vw);
+  max-width:none;z-index:3;pointer-events:none;
+}
+.hero-trio-scene{position:relative;width:100%;aspect-ratio:1672/522;animation:trio-enter .9s ease-out both}
+.hero-car-layer{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:contain;object-position:center;max-width:none;user-select:none}
+.hero-layer-agya{z-index:1}
+.hero-layer-raize{z-index:2}
+.hero-layer-zenix{z-index:3}
+.car-plate{position:absolute;z-index:5;display:inline-flex;align-items:center;justify-content:center;
+  padding:.24em .55em;min-height:1.45em;background:#111519;color:#fff;
+  border:1px solid #454a4d;border-radius:2px;white-space:nowrap;
+  font-size:clamp(6px,.83vw,13px);font-weight:800;letter-spacing:.025em;
+  text-shadow:0 1px 1px #0007;box-shadow:0 2px 3px #0003;
+}
+.car-plate-agya{left:11.5%;top:63.5%;transform:translateX(-50%)}
+.car-plate-zenix{left:44.6%;top:71.5%;transform:translateX(-50%)}
+.car-plate-raize{left:89%;top:62%;transform:translateX(-50%)}
+@keyframes trio-enter {from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+/* Vehicle and copy occupy independent zones; larger minimum hero prevents overlap. */
+@media(min-width:1101px){
+  .hero-section{min-height:920px;height:calc(100svh - 90px)}
+  .hero-copy{top:8.5%}
+  .hero-copy .hero-description{margin-top:16px}
+  .hero-visual-v5{bottom:6.2%!important}
+  .hero-bottom{bottom:2.3%}
+}
+@media(min-width:801px) and (max-width:1100px){
+  .hero-section{min-height:810px;height:calc(100svh - 80px)}
+  .hero-copy{top:12%}
+  .hero-visual-v5{width:96vw;bottom:8%!important}
+}
+@media(max-width:800px){
+  .hero-section{min-height:750px;height:calc(100svh - 60px)}
+  .hero-copy{top:14%}
+  .hero-visual-v5{width:127vw;bottom:17%!important}
+  .hero-bottom{bottom:3%}
+}
+@media(max-width:520px){
+  .hero-section{min-height:690px;height:100svh;max-height:none}
+  .hero-copy{top:17%!important}
+  .hero-copy .hero-description{font-size:11px;max-width:330px}
+  .hero-visual-v5{width:150vw;bottom:19%!important}
+  .hero-bottom{bottom:4%}
+  .car-plate{font-size:6px;padding:.2em .36em}
+}
+@media(prefers-reduced-motion:reduce){.hero-trio-scene{animation:none!important}}
+
+/* A full-scene underlay fills subpixel edges between the editable vehicle image layers. */
+.hero-photo-seamfix{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:0;pointer-events:none}
+
+
+/* ===== Hero v06: separate HD car files, no plates ===== */
+.hero-visual-v6{
+  position:absolute;left:50%;bottom:5.2%!important;
+  transform:translateX(-50%);width:min(1500px,95vw);
+  max-width:none;z-index:3;pointer-events:none;
+}
+.hero-trio-split{
+  position:relative;
+  width:100%;
+  aspect-ratio: 1500 / 620;
+  animation:trio-enter .9s ease-out both;
+  overflow:visible;
+}
+.hero-trio-split .hero-car-solo{
+  position:absolute;
+  bottom:0;
+  height:auto;
+  object-fit:contain;
+  user-select:none;
+  -webkit-user-drag:none;
+  filter: drop-shadow(0 20px 22px rgba(0,0,0,.12));
+}
+.hero-trio-split .hero-car-agya{
+  left:1%;
+  width:33%;
+  z-index:1;
+}
+.hero-trio-split .hero-car-zenix{
+  left:50%;
+  transform:translateX(-50%);
+  width:48%;
+  z-index:3;
+}
+.hero-trio-split .hero-car-raize{
+  right:0.8%;
+  width:32%;
+  z-index:2;
+}
+@media(min-width:1101px){
+  .hero-visual-v6{bottom:7%!important}
+}
+@media(min-width:801px) and (max-width:1100px){
+  .hero-visual-v6{width:98vw;bottom:9%!important}
+  .hero-trio-split .hero-car-agya{width:32%}
+  .hero-trio-split .hero-car-zenix{width:50%}
+  .hero-trio-split .hero-car-raize{width:31%}
+}
+@media(max-width:800px){
+  .hero-visual-v6{width:128vw;bottom:17%!important}
+  .hero-trio-split{aspect-ratio:1500/700}
+  .hero-trio-split .hero-car-agya{left:-2%;width:38%}
+  .hero-trio-split .hero-car-zenix{width:56%}
+  .hero-trio-split .hero-car-raize{right:-2%;width:36%}
+}
+@media(max-width:520px){
+  .hero-visual-v6{width:158vw;bottom:18%!important}
+  .hero-trio-split .hero-car-agya{left:-1.5%;width:41%}
+  .hero-trio-split .hero-car-zenix{width:60%}
+  .hero-trio-split .hero-car-raize{right:-1.5%;width:39%}
+}
+
+
+/* ================================================================
+   HERO V08 — Satu gambar 3 mobil, tanpa layer terpisah, tanpa plat HTML.
+   File gambar: assets/hero-trio-combined.png
+   ================================================================ */
+.hero-visual-v08{
+  position:absolute;
+  left:50%;
+  bottom:-1.5% !important;
+  transform:translateX(-50%);
+  width:min(1500px,96vw);
+  max-width:none;
+  margin:0 !important;
+  z-index:3;
+  pointer-events:none;
+  overflow:visible;
+}
+.hero-trio-combined{
+  display:block;
+  width:100%;
+  height:auto;
+  object-fit:contain;
+  max-width:none;
+  user-select:none;
+  -webkit-user-drag:none;
+  animation:hero-float 9s ease-in-out 1s infinite;
+}
+@media(min-width:1101px){
+  .hero-visual-v08{bottom:-2.5% !important;width:min(1500px,95vw)}
+}
+@media(min-width:801px) and (max-width:1100px){
+  .hero-visual-v08{bottom:3% !important;width:100vw}
+}
+@media(max-width:800px){
+  .hero-visual-v08{bottom:14% !important;width:125vw}
+}
+@media(max-width:520px){
+  .hero-visual-v08{bottom:17% !important;width:148vw}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-trio-combined{animation:none !important}
+}
+
+
+/* ================================================================
+   v09 - Jarak navbar ke Toyota Customization Option
+   Hero copy digeser sedikit ke bawah tanpa mengubah posisi mobil.
+   ================================================================ */
+@media (min-width:1101px){
+  .hero-copy{top:calc(8.5% + 48px)}
+}
+@media (min-width:801px) and (max-width:1100px){
+  .hero-copy{top:calc(12% + 32px)}
+}
+@media (min-width:521px) and (max-width:800px){
+  .hero-copy{top:calc(14% + 24px)}
+}
+@media (max-width:520px){
+  .hero-copy{top:calc(17% + 14px)!important}
+}
+
+/* ===== v10 MULTI-PAGE CATALOGUE, POSTER CARDS, AUTOCOMPLETE ===== */
+.search-wrapper{position:relative;width:min(100%,390px);flex:0 0 auto;z-index:32}
+.search-wrapper .catalog-search{width:100%;min-height:54px;gap:9px;border-radius:32px;padding:0 9px 0 19px}
+.search-wrapper .catalog-search input{min-width:0;flex:1;font-size:13px}
+.search-wrapper .search-submit{border:0;background:#edf4ee;color:#155e3c;width:39px;height:39px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto;cursor:pointer;transition:background-color .2s,color .2s}
+.search-wrapper .search-submit:hover,.search-wrapper .search-submit:focus-visible{background:#147a48;color:#fff}
+.search-wrapper .search-submit:focus-visible{outline:2px solid #147a48;outline-offset:3px}
+.search-wrapper .search-submit svg{display:block;pointer-events:none}
+.search-suggestions{position:absolute;top:calc(100% + 8px);left:0;right:0;background:white;border:1px solid #dce9df;border-radius:20px;box-shadow:0 18px 42px #17362125;overflow:hidden;max-height:420px;overflow-y:auto}
+.search-suggestions .suggestion{display:flex;gap:12px;align-items:center;padding:8px 14px;border-bottom:1px solid #f0f4f0;cursor:pointer}
+.search-suggestions .suggestion:last-child{border-bottom:0}
+.search-suggestions .suggestion:hover,.search-suggestions .suggestion.selected{background:#eff6f0}
+.search-suggestions .suggestion img{flex:0 0 49px;width:49px;height:65px;object-fit:cover;object-position:center;border-radius:7px;background:#e6ede7;display:block}
+.search-suggestions .suggestion strong,.search-suggestions .suggestion small{display:block;font-size:12px;line-height:1.5}
+.search-suggestions .suggestion small{font-size:10px;color:#78887b}
+.search-suggestions .suggestion>span:last-child{margin-left:auto;color:#167c48}
+.poster-card .poster-image{height:auto;aspect-ratio:1/1.12;background:#eaf0ea}
+.poster-card .poster-image img{object-fit:cover;width:100%;height:100%;padding:0;filter:none!important}
+.poster-card .poster-image:after{height:20%;background:linear-gradient(transparent,rgba(235,244,236,.22))}
+.poster-card .model-badge{font-size:10px;padding:7px 12px}
+.detail-page{background:#f5f7f5}
+.detail-page .site-header{background:#ffffffea!important;border-color:#e0e8e1!important}
+.detail-page .detail-page-section{padding-top:82px;min-height:calc(100vh - 210px)}
+.detail-page .main-nav{background:#fff!important}
+.detail-page .small-back{display:inline-block}
+.detail-page .car-image-container{aspect-ratio:4/3}
+@media(max-width:800px){.search-wrapper{width:100%;flex:auto}.catalog-tools{gap:20px}}
+@media(max-width:520px){.poster-card .poster-image{aspect-ratio:1/1.07}.poster-card .model-info h3{font-size:12px}.search-wrapper{max-width:none}}
+
+/* v11: status for models whose 2026 part photos are not provided */
+.parts-empty{padding:22px 20px;border-radius:16px;background:#edf3ee;color:#496452;line-height:1.6;font-size:14px}

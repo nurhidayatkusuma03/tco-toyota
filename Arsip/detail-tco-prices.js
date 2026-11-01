@@ -1,0 +1,1613 @@
+/* RTCO After Tax Juli 2026 — National TCO Master Part and Price List, halaman 9.
+   Pembeda harga per part/part bulletin/referensi belum terverifikasi dipertahankan. */
+window.TCO_PRICES = {
+  "source": "National TCO Master Part and Price List July 2026 (TCO(2).pdf)",
+  "period": "Juli 2026",
+  "units": {
+    "agya": [
+      {
+        "name": "Front Bumper Spoiler, Set, White*",
+        "sku": "P5154BYA0U47",
+        "price": 1475000,
+        "page": 9
+      },
+      {
+        "name": "Front Bumper Spoiler, Set, Black*",
+        "sku": "P5154BYA0U1J",
+        "price": 1475000,
+        "page": 9
+      },
+      {
+        "name": "Front Bumper Spoiler, Set, Red*",
+        "sku": "P5154BYA0U3F",
+        "price": 1475000,
+        "page": 9
+      },
+      {
+        "name": "Front Bumper Spoiler, Set, Silver Metallic*",
+        "sku": "P5154BYA132G",
+        "price": 1475000,
+        "page": 9
+      },
+      {
+        "name": "Front Bumper Spoiler, Set, Gray Metallic*",
+        "sku": "P5154BYA1324",
+        "price": 1475000,
+        "page": 9
+      },
+      {
+        "name": "Front Bumper Spoiler, Set, Yellow*",
+        "sku": "P5154BYA132H",
+        "price": 1475000,
+        "page": 9
+      },
+      {
+        "name": "Front Bumper Spoiler, Set, Orange*",
+        "sku": "P5154BYA133G",
+        "price": 1475000,
+        "page": 9
+      },
+      {
+        "name": "Rear Bumper Spoiler, Set, White*",
+        "sku": "P5158BYA0X47",
+        "price": 1299000,
+        "page": 9
+      },
+      {
+        "name": "Rear Bumper Spoiler, Set, Black*",
+        "sku": "P5158BYA0X1J",
+        "price": 1299000,
+        "page": 9
+      },
+      {
+        "name": "Rear Bumper Spoiler, Set, Red*",
+        "sku": "P5158BYA0X3F",
+        "price": 1299000,
+        "page": 9
+      },
+      {
+        "name": "Rear Bumper Spoiler, Set, Silver Metalic*",
+        "sku": "P5158BYA182G",
+        "price": 1299000,
+        "page": 9
+      },
+      {
+        "name": "Rear Bumper Spoiler, Set, Gray Metalic*",
+        "sku": "P5158BYA1824",
+        "price": 1299000,
+        "page": 9
+      },
+      {
+        "name": "Rear Bumper Spoiler, Set, Yellow*",
+        "sku": "P5158BYA182H",
+        "price": 1299000,
+        "page": 9
+      },
+      {
+        "name": "Rear Bumper Spoiler, Set, Orange*",
+        "sku": "P5158BYA183G",
+        "price": 1299000,
+        "page": 9
+      },
+      {
+        "name": "SideSkirt,Set,White*",
+        "sku": "P5156BYA0T47",
+        "price": 2375000,
+        "page": 9
+      },
+      {
+        "name": "SideSkirt,Set,Black*",
+        "sku": "P5156BYA0T1J",
+        "price": 2375000,
+        "page": 9
+      },
+      {
+        "name": "SideSkirt,Set,Red*",
+        "sku": "P5156BYA0T3F",
+        "price": 2375000,
+        "page": 9
+      },
+      {
+        "name": "SideSkirt,Set,SilverMetallic*",
+        "sku": "P5156BYA0U2G",
+        "price": 2375000,
+        "page": 9
+      },
+      {
+        "name": "SideSkirt,Set,grayMetallic*",
+        "sku": "P5156BYA0U24",
+        "price": 2375000,
+        "page": 9
+      },
+      {
+        "name": "SideSkirt,Set,Yellow*",
+        "sku": "P5156BYA0U2H",
+        "price": 2375000,
+        "page": 9
+      },
+      {
+        "name": "SideSkirt,Set,Orange*",
+        "sku": "P5156BYA0U3G",
+        "price": 2375000,
+        "page": 9
+      },
+      {
+        "name": "Sporty Roof Spoiler, Set*",
+        "sku": "P5150BYA02",
+        "price": 1090000,
+        "page": 9
+      },
+      {
+        "name": "DVR*",
+        "sku": "P56A3BYA05",
+        "price": 1999000,
+        "page": 9
+      },
+      {
+        "name": "Back Camera, Set*",
+        "sku": "P5634BYA0V",
+        "price": 959000,
+        "page": 9
+      },
+      {
+        "name": "WIRE HARNESS PREMIUM HORN, SET */**",
+        "sku": "6A205TAD74",
+        "price": 212000,
+        "page": 9
+      },
+      {
+        "name": "HORN ASSY, LOW PITCHED */**",
+        "sku": "86510TA042",
+        "price": 115000,
+        "page": 9
+      },
+      {
+        "name": "HORN HI (H) */**",
+        "sku": "86510TA081",
+        "price": 115000,
+        "page": 9
+      },
+      {
+        "name": "T-Emblem, RAD Grille",
+        "sku": "75311-BZ470",
+        "price": null,
+        "page": 9,
+        "status": "part_bulletin"
+      },
+      {
+        "name": "Emblem Base",
+        "sku": "75312-BZ140",
+        "price": null,
+        "page": 9,
+        "status": "part_bulletin"
+      }
+    ],
+    "calya": [
+      {
+        "name": "Side Visor",
+        "sku": "16251TAD79",
+        "price": 425000,
+        "page": 5
+      },
+      {
+        "name": "Console Box",
+        "sku": "28161TAD79",
+        "price": 1025000,
+        "page": 5
+      },
+      {
+        "name": "Side Body Moulding",
+        "sku": "17071TAD79",
+        "price": 999000,
+        "page": 5
+      },
+      {
+        "name": "Cargo Net",
+        "sku": "24691TAD79",
+        "price": 283000,
+        "page": 5
+      },
+      {
+        "name": "Mud Guard",
+        "sku": "38981TAD79",
+        "price": 325000,
+        "page": 5
+      },
+      {
+        "name": "Rear Back Door Glass Ornament",
+        "sku": "40581TAD79",
+        "price": 299000,
+        "page": 5
+      },
+      {
+        "name": "Air Purifier*",
+        "sku": "P55B0BZA07",
+        "price": 1650000,
+        "page": 5
+      },
+      {
+        "name": "Front Foglamp Ornament",
+        "sku": "40102TAD52",
+        "price": 675000,
+        "page": 5
+      },
+      {
+        "name": "Door Handle Protector",
+        "sku": "P5186BZA1K",
+        "price": 725000,
+        "page": 5
+      },
+      {
+        "name": "Seat Cover Regular*",
+        "sku": "22002TAD52",
+        "price": 1975000,
+        "page": 5
+      },
+      {
+        "name": "Seat Cover Value Spec Calya*",
+        "sku": "22005TAD52",
+        "price": 950000,
+        "page": 5
+      },
+      {
+        "name": "Back Camera*",
+        "sku": "PC634BZ01UV3",
+        "price": 1350000,
+        "page": 5
+      }
+    ],
+    "raize": [
+      {
+        "name": "Cargo Net",
+        "sku": "P5246BZA02",
+        "price": 269000,
+        "page": 8
+      },
+      {
+        "name": "Side Body Moulding",
+        "sku": "P5170BZA13",
+        "price": 838000,
+        "page": 8
+      },
+      {
+        "name": "Door Scuff Plate (GR)",
+        "sku": "P5382BZA02",
+        "price": 1199000,
+        "page": 8
+      },
+      {
+        "name": "Door Handle Protector (GR)",
+        "sku": "P5168BZA02",
+        "price": 599000,
+        "page": 8
+      },
+      {
+        "name": "Air Purifier*",
+        "sku": "P55B0BZA01TC",
+        "price": 1449000,
+        "page": 8
+      },
+      {
+        "name": "Sporty Outer Mirror Cover",
+        "sku": "P5401BYA15",
+        "price": 559000,
+        "page": 8
+      },
+      {
+        "name": "Sporty Roof Spoiler, Set",
+        "sku": "P5150BYA05",
+        "price": 1090000,
+        "page": 8
+      },
+      {
+        "name": "Sporty Shift Knob GR",
+        "sku": "P5466BYA02",
+        "price": 725000,
+        "page": 8
+      },
+      {
+        "name": "Side Visor, Set",
+        "sku": "P5162BZA15M2",
+        "price": 399000,
+        "page": 8
+      },
+      {
+        "name": "Smart Car Fragrance Single Channel, Set",
+        "sku": "PC556BY001A1",
+        "price": 699000,
+        "page": 8
+      },
+      {
+        "name": "Scents NTCO Oceanic Joy",
+        "sku": "PC5560K00AA1",
+        "price": 199000,
+        "page": 8
+      },
+      {
+        "name": "Scents NTCO Amber Haven",
+        "sku": "PC5560K008A1",
+        "price": 199000,
+        "page": 8
+      },
+      {
+        "name": "Scents NTCO Blossom Whisper",
+        "sku": "PC5560K006A1",
+        "price": 199000,
+        "page": 8
+      },
+      {
+        "name": "Scents NTCO Sunlit Zest",
+        "sku": "PC5560K009A1",
+        "price": 199000,
+        "page": 8
+      },
+      {
+        "name": "DVR, set",
+        "sku": "P56A3BYA0Q",
+        "price": 1699000,
+        "page": 8
+      },
+      {
+        "name": "Telematic Box, Set (T-Intouch)",
+        "sku": "P55C3BYA0J",
+        "price": 2499000,
+        "page": 8
+      }
+    ],
+    "rush": [
+      {
+        "name": "Spare Tire Cover",
+        "sku": "45801TAD14",
+        "price": 745000,
+        "page": 8
+      },
+      {
+        "name": "Cargo Net",
+        "sku": "24611TAD14",
+        "price": 283000,
+        "page": 8
+      },
+      {
+        "name": "Health Care : Air purifier*",
+        "sku": "5B001TAD14TC",
+        "price": 1399000,
+        "page": 8
+      },
+      {
+        "name": "Sporty Outer Mirror Cover",
+        "sku": "P5401BYA15",
+        "price": 559000,
+        "page": 8
+      },
+      {
+        "name": "DVR*",
+        "sku": "P56A3BYA0D",
+        "price": 1879000,
+        "page": 8
+      }
+    ],
+    "yaris-cross": [
+      {
+        "name": "Front Inner Grill Sporty Ornament",
+        "sku": "P5401BYA0Y",
+        "price": 649000,
+        "page": 10
+      },
+      {
+        "name": "Back Door Sporty Ornament",
+        "sku": "P5405BYA0D",
+        "price": 610000,
+        "page": 10
+      },
+      {
+        "name": "Ducktail",
+        "sku": "P5405BYA0J",
+        "price": 1125000,
+        "page": 10
+      },
+      {
+        "name": "Cargo Net",
+        "sku": "P5246BYA06",
+        "price": 280000,
+        "page": 10
+      },
+      {
+        "name": "Black Outer Mirror Cover",
+        "sku": "P5401BYA0D",
+        "price": 425000,
+        "page": 10
+      },
+      {
+        "name": "Sporty Outer Mirror Cover",
+        "sku": "P5401BYA15",
+        "price": 559000,
+        "page": 10
+      },
+      {
+        "name": "Health Care : Air purifier*",
+        "sku": "P55B0BYA0A",
+        "price": 1715000,
+        "page": 10
+      }
+    ],
+    "fortuner": [
+      {
+        "name": "Cargo Net",
+        "sku": "24601TA338",
+        "price": 289000,
+        "page": 6
+      },
+      {
+        "name": "Spare Tire Cover",
+        "sku": "45801TA338",
+        "price": 989000,
+        "page": 6
+      },
+      {
+        "name": "Sporty Outer Mirror Cover",
+        "sku": "64102TA274",
+        "price": 469000,
+        "page": 6
+      },
+      {
+        "name": "Black Outer Mirror Cover",
+        "sku": "64102TA560",
+        "price": 420000,
+        "page": 6
+      },
+      {
+        "name": "DVR*",
+        "sku": "P56A30KA0F",
+        "price": 1799000,
+        "page": 6
+      },
+      {
+        "name": "Premium Horn*",
+        "sku": "6A201TA560",
+        "price": 299000,
+        "page": 6
+      },
+      {
+        "name": "Air Purifier*",
+        "sku": "5B001TA655TC",
+        "price": 1572000,
+        "page": 6
+      },
+      {
+        "name": "Air Fragrance Device Set Fortuner",
+        "sku": "PC5560K00B",
+        "price": 1439000,
+        "page": 6
+      },
+      {
+        "name": "Scents NTCO Oceanic Joy",
+        "sku": "PC5560K00AA1",
+        "price": 199000,
+        "page": 6
+      },
+      {
+        "name": "Scents NTCO Amber Haven",
+        "sku": "PC5560K008A1",
+        "price": 199000,
+        "page": 6
+      },
+      {
+        "name": "Scents NTCO Blossom Whisper",
+        "sku": "PC5560K006A1",
+        "price": 199000,
+        "page": 6
+      },
+      {
+        "name": "Scents NTCO Sunlit Zest",
+        "sku": "PC5560K009A1",
+        "price": 199000,
+        "page": 6
+      },
+      {
+        "name": "Sporty Door Handle Protector",
+        "sku": "16802TA274",
+        "price": 499000,
+        "page": 6
+      },
+      {
+        "name": "Sporty Door Housing Protector",
+        "sku": "1680RTA274",
+        "price": 729000,
+        "page": 6
+      },
+      {
+        "name": "Black Door Handle Protector",
+        "sku": "16809TA274",
+        "price": 299000,
+        "page": 6
+      },
+      {
+        "name": "Black Door Housing Protector",
+        "sku": "16812TA274",
+        "price": 389000,
+        "page": 6
+      },
+      {
+        "name": "Sporty Door Handle Protector G",
+        "sku": "1680HTA274",
+        "price": 499000,
+        "page": 6
+      },
+      {
+        "name": "Sporty Door Housing Protector G",
+        "sku": "1680TTA274",
+        "price": 729000,
+        "page": 6
+      },
+      {
+        "name": "Black Door Handle Protector G",
+        "sku": "1680MTA274",
+        "price": 299000,
+        "page": 6
+      },
+      {
+        "name": "Black Door Housing Protector G",
+        "sku": "16814TA274",
+        "price": 389000,
+        "page": 6
+      }
+    ],
+    "land-cruiser": [
+      {
+        "name": "Bonnet Protector",
+        "sku": "PZQ1560250",
+        "price": 2500000,
+        "page": 11
+      },
+      {
+        "name": "Rubber Floor Mat",
+        "sku": "PZQ2060520",
+        "price": 2100000,
+        "page": 11
+      },
+      {
+        "name": "Door Housing Protector",
+        "sku": "16802TALC3",
+        "price": 1450000,
+        "page": 11
+      },
+      {
+        "name": "Air Fragrance Device Set LC300",
+        "sku": "PC55660001",
+        "price": 1999000,
+        "page": 11
+      },
+      {
+        "name": "Scents NTCO Oceanic Joy",
+        "sku": "PC5560K00AA1",
+        "price": 199000,
+        "page": 11
+      },
+      {
+        "name": "Scents NTCO Amber Haven",
+        "sku": "PC5560K008A1",
+        "price": 199000,
+        "page": 11
+      },
+      {
+        "name": "Scents NTCO Blossom Whisper",
+        "sku": "PC5560K006A1",
+        "price": 199000,
+        "page": 11
+      },
+      {
+        "name": "Scents NTCO Sunlit Zest",
+        "sku": "PC5560K009A1",
+        "price": 199000,
+        "page": 11
+      }
+    ],
+    "avanza": [
+      {
+        "name": "Cargo Net",
+        "sku": "P5246BYA02",
+        "price": 255000,
+        "page": 7
+      },
+      {
+        "name": "Seat Cover Regular*",
+        "sku": "P5220BYA06",
+        "price": 1899000,
+        "page": 7
+      },
+      {
+        "name": "Seat Cover Value Spec New Avanza*",
+        "sku": "22002TAD26",
+        "price": 1075000,
+        "page": 7
+      },
+      {
+        "name": "Spare Tire Cover",
+        "sku": "P5458BYA02",
+        "price": 750000,
+        "page": 7
+      },
+      {
+        "name": "Back door glass chrome ornament",
+        "sku": "P5405BYA06",
+        "price": 475000,
+        "page": 7
+      },
+      {
+        "name": "Front grille ornament",
+        "sku": "P5401BYA02",
+        "price": 675000,
+        "page": 7
+      },
+      {
+        "name": "Side body moulding Gunmetal",
+        "sku": "P5170BYA1D",
+        "price": 1150000,
+        "page": 7
+      },
+      {
+        "name": "Back door moulding chrome",
+        "sku": "P5405BYA02",
+        "price": 539000,
+        "page": 7
+      },
+      {
+        "name": "Black Outer Mirror Cover",
+        "sku": "P5401BYA0D",
+        "price": 425000,
+        "page": 7
+      },
+      {
+        "name": "Sporty Outer Mirror Cover",
+        "sku": "P5401BYA15",
+        "price": 559000,
+        "page": 7
+      },
+      {
+        "name": "DVR, Set*",
+        "sku": "P56A3BYA0M",
+        "price": 1999000,
+        "page": 7
+      },
+      {
+        "name": "WIRE HARNESS PREMIUM HORN, SET */** (Avanza)",
+        "sku": "6A205TAD26",
+        "price": 249000,
+        "page": 7
+      },
+      {
+        "name": "HORN ASSY, LOW PITCHED */**",
+        "sku": "86510TA042",
+        "price": 115000,
+        "page": 7
+      },
+      {
+        "name": "HORN HI (H) */**",
+        "sku": "86510TA081",
+        "price": 115000,
+        "page": 7
+      }
+    ],
+    "veloz": [
+      {
+        "name": "Cargo Net",
+        "sku": "P5246BYA02",
+        "price": 255000,
+        "page": 7
+      },
+      {
+        "name": "Seat Cover Regular*",
+        "sku": "P5220BYA06",
+        "price": 1899000,
+        "page": 7
+      },
+      {
+        "name": "Spare Tire Cover",
+        "sku": "P5458BYA02",
+        "price": 750000,
+        "page": 7
+      },
+      {
+        "name": "Back door glass chrome ornament",
+        "sku": "P5405BYA06",
+        "price": 475000,
+        "page": 7
+      },
+      {
+        "name": "Front grille ornament",
+        "sku": "P5401BYA02",
+        "price": 675000,
+        "page": 7
+      },
+      {
+        "name": "Side body moulding Gunmetal",
+        "sku": "P5170BYA1D",
+        "price": 1150000,
+        "page": 7
+      },
+      {
+        "name": "Back door moulding chrome",
+        "sku": "P5405BYA02",
+        "price": 539000,
+        "page": 7
+      },
+      {
+        "name": "Black Outer Mirror Cover",
+        "sku": "P5401BYA0D",
+        "price": 425000,
+        "page": 7
+      },
+      {
+        "name": "Sporty Outer Mirror Cover",
+        "sku": "P5401BYA15",
+        "price": 559000,
+        "page": 7
+      },
+      {
+        "name": "DVR, Set*",
+        "sku": "P56A3BYA0M",
+        "price": 1999000,
+        "page": 7
+      },
+      {
+        "name": "WIRE HARNESS PREMIUM HORN, SET */** (Veloz)",
+        "sku": "6A211TAD37",
+        "price": 280000,
+        "page": 7
+      },
+      {
+        "name": "HORN ASSY, LOW PITCHED */**",
+        "sku": "86510TA042",
+        "price": 115000,
+        "page": 7
+      },
+      {
+        "name": "HORN HI (H) */**",
+        "sku": "86510TA081",
+        "price": 115000,
+        "page": 7
+      },
+      {
+        "name": "Smart Car Fragrance Veloz",
+        "sku": "PC556-BY009",
+        "price": 699000,
+        "page": 7
+      },
+      {
+        "name": "Scents NTCO Oceanic Joy",
+        "sku": "PC5560K00AA1",
+        "price": 199000,
+        "page": 7
+      },
+      {
+        "name": "Scents NTCO Amber Haven",
+        "sku": "PC5560K008A1",
+        "price": 199000,
+        "page": 7
+      },
+      {
+        "name": "Scents NTCO Blossom Whisper",
+        "sku": "PC5560K006A1",
+        "price": 199000,
+        "page": 7
+      },
+      {
+        "name": "Scents NTCO Sunlit Zest",
+        "sku": "PC5560K009A1",
+        "price": 199000,
+        "page": 7
+      }
+    ],
+    "innova-zenix": [
+      {
+        "name": "Spare Tire Cover",
+        "sku": "45802TA560",
+        "price": 950000,
+        "page": 3
+      },
+      {
+        "name": "Cargo Net",
+        "sku": "24602TA560",
+        "price": 375000,
+        "page": 3
+      },
+      {
+        "name": "Black Outer Mirror Ornament",
+        "sku": "64102TA560",
+        "price": 420000,
+        "page": 3
+      },
+      {
+        "name": "Upper Grille Ornament Modelista",
+        "sku": "P54010KA0Q",
+        "price": 1189000,
+        "page": 3
+      },
+      {
+        "name": "Storage Organizer",
+        "sku": "24606TA560",
+        "price": 739000,
+        "page": 3
+      },
+      {
+        "name": "Mudguard",
+        "sku": "P53890KA08",
+        "price": 599000,
+        "page": 3
+      },
+      {
+        "name": "Multifunction Box",
+        "sku": "05502TA560",
+        "price": 266000,
+        "page": 3
+      },
+      {
+        "name": "Scuff Plate",
+        "sku": "PC3820K01J",
+        "price": 1825000,
+        "page": 3
+      },
+      {
+        "name": "Air Purifier*",
+        "sku": "P55B00KA0F",
+        "price": 1399000,
+        "page": 3
+      },
+      {
+        "name": "Premium Horn*",
+        "sku": "6A201TA560",
+        "price": 299000,
+        "page": 3
+      },
+      {
+        "name": "Air Fragrance Device Set Zenix",
+        "sku": "PC5560K001",
+        "price": 1399000,
+        "page": 3
+      },
+      {
+        "name": "Scents NTCO Oceanic Joy",
+        "sku": "PC5560K00AA1",
+        "price": 199000,
+        "page": 3
+      },
+      {
+        "name": "Scents NTCO Amber Haven",
+        "sku": "PC5560K008A1",
+        "price": 199000,
+        "page": 3
+      },
+      {
+        "name": "Scents NTCO Blossom Whisper",
+        "sku": "PC5560K006A1",
+        "price": 199000,
+        "page": 3
+      },
+      {
+        "name": "Scents NTCO Sunlit Zest",
+        "sku": "PC5560K009A1",
+        "price": 199000,
+        "page": 3
+      },
+      {
+        "name": "DVR, Set**",
+        "sku": "PC6A30K01F02",
+        "price": 2690000,
+        "page": 3
+      },
+      {
+        "name": "DVR Wire Harnes, set**",
+        "sku": "P56A30KA0T01",
+        "price": 279000,
+        "page": 3
+      },
+      {
+        "name": "Side Body Moulding*",
+        "sku": "P51700KA0S",
+        "price": 1099000,
+        "page": 3
+      },
+      {
+        "name": "Dashboard Ornament, Set*",
+        "sku": "P52800KA05",
+        "price": 399000,
+        "page": 3
+      },
+      {
+        "name": "Front Side Grille, Set*",
+        "sku": "P54010KA0L",
+        "price": 699000,
+        "page": 3
+      },
+      {
+        "name": "Seat Cover Private G, Set",
+        "sku": "P5N0A00004",
+        "price": 2999000,
+        "page": 3
+      },
+      {
+        "name": "Seat Cover Private V, Set",
+        "sku": "P5N0A00005",
+        "price": 2999000,
+        "page": 3
+      },
+      {
+        "name": "Seat Cover Private V RSE, Set",
+        "sku": "P5N0A00006",
+        "price": 2999000,
+        "page": 3
+      },
+      {
+        "name": "Front Bumper Spoiler, Set, Super White2*",
+        "sku": "P51540KA2D11",
+        "price": 2750000,
+        "page": 3
+      },
+      {
+        "name": "Front Bumper Spoiler, Set, Silver Metalic*",
+        "sku": "P51540KA2D85",
+        "price": 2750000,
+        "page": 3
+      },
+      {
+        "name": "Front Bumper Spoiler, Set, Gray Metalic*",
+        "sku": "P51540KA2D24",
+        "price": 2750000,
+        "page": 3
+      },
+      {
+        "name": "Front Bumper Spoiler, Set, Attitude Black MC*",
+        "sku": "P51540KA2D43",
+        "price": 2750000,
+        "page": 3
+      },
+      {
+        "name": "Front Bumper Spoiler, Platinum White Pearl MC*",
+        "sku": "P51540KA2D2M",
+        "price": 2750000,
+        "page": 3
+      },
+      {
+        "name": "Side Skirt, Set, Super White2*",
+        "sku": "P51560KA0X11",
+        "price": 2800000,
+        "page": 3
+      },
+      {
+        "name": "Side Skirt, Set, Silver Metalic*",
+        "sku": "P51560KA0X85",
+        "price": 2800000,
+        "page": 3
+      },
+      {
+        "name": "Side Skirt, Set, Gray Metalic*",
+        "sku": "P51560KA0X24",
+        "price": 2800000,
+        "page": 3
+      },
+      {
+        "name": "Side Skirt, Set, Attitude Black MC*",
+        "sku": "P51560KA0X43",
+        "price": 2800000,
+        "page": 3
+      },
+      {
+        "name": "Side Skirt, Platinum White Pearl MC*",
+        "sku": "P51560KA0X2M",
+        "price": 2800000,
+        "page": 3
+      },
+      {
+        "name": "Rear Bumper Spoiler, Set, Super White2 */**",
+        "sku": "P51580KA2011",
+        "price": 2885000,
+        "page": 3
+      },
+      {
+        "name": "Rear Sensor Bracket LH */**",
+        "sku": "P55040KA3N",
+        "price": 59000,
+        "page": 3
+      },
+      {
+        "name": "Rear Sensor Bracket RH */**",
+        "sku": "P55040KA3Q",
+        "price": 59000,
+        "page": 3
+      },
+      {
+        "name": "Rear Bumper Spoiler, Set, Silver Metalic */**",
+        "sku": "P51580KA2085",
+        "price": 2885000,
+        "page": 3
+      },
+      {
+        "name": "Rear Sensor Bracket LH */**",
+        "sku": "P55040KA3N",
+        "price": 59000,
+        "page": 3
+      },
+      {
+        "name": "Rear Sensor Bracket RH */**",
+        "sku": "P55040KA3Q",
+        "price": 59000,
+        "page": 3
+      },
+      {
+        "name": "Rear Bumper Spoiler, Set, Gray Metalic */**",
+        "sku": "P51580KA2024",
+        "price": 2885000,
+        "page": 3
+      },
+      {
+        "name": "Rear Sensor Bracket LH */**",
+        "sku": "P55040KA3N",
+        "price": 59000,
+        "page": 3
+      },
+      {
+        "name": "Rear Sensor Bracket RH */**",
+        "sku": "P55040KA3Q",
+        "price": 59000,
+        "page": 3
+      },
+      {
+        "name": "Rear Bumper Spoiler, Set, Attitude Black MC**",
+        "sku": "P51580KA2043",
+        "price": 2885000,
+        "page": 3
+      },
+      {
+        "name": "Rear Sensor Bracket LH **",
+        "sku": "P55040KA3N",
+        "price": 59000,
+        "page": 3
+      },
+      {
+        "name": "Rear Sensor Bracket RH **",
+        "sku": "P55040KA3Q",
+        "price": 59000,
+        "page": 3
+      },
+      {
+        "name": "Rear Bumper Spoiler, Platinum White Pearl MC */**",
+        "sku": "P51580KA202M",
+        "price": 2885000,
+        "page": 3
+      },
+      {
+        "name": "Rear Sensor Bracket LH */**",
+        "sku": "P55040KA3N",
+        "price": 59000,
+        "page": 3
+      },
+      {
+        "name": "Rear Sensor Bracket RH */**",
+        "sku": "P55040KA3Q",
+        "price": 59000,
+        "page": 3
+      }
+    ],
+    "innova-reborn": [
+      {
+        "name": "Spare Tire Cover",
+        "sku": "45801TA591",
+        "price": 899000,
+        "page": 4
+      },
+      {
+        "name": "Rear Bumper Ornament",
+        "sku": "41101TA591",
+        "price": 1475000,
+        "page": 4
+      },
+      {
+        "name": "Rear Bumper Step Guard",
+        "sku": "P51580KA07",
+        "price": 350000,
+        "page": 4
+      },
+      {
+        "name": "Premium Horn*",
+        "sku": "6A201TA560",
+        "price": 299000,
+        "page": 4
+      }
+    ],
+    "voxy": [
+      {
+        "name": "Front bumper spoiler, set, 070 white pearl CS",
+        "sku": "1540ATA670",
+        "price": 9100000,
+        "page": 13
+      },
+      {
+        "name": "Front bumper spoiler, set, 226 Glitter Black GF",
+        "sku": "1540BTA670",
+        "price": 9100000,
+        "page": 13
+      },
+      {
+        "name": "Front bumper spoiler, set, 220 Sparkling Black CS",
+        "sku": "1540CTA670",
+        "price": 9100000,
+        "page": 13
+      },
+      {
+        "name": "Front bumper spoiler, set, 1K0 Metal Stream ME",
+        "sku": "1540DTA670",
+        "price": 9100000,
+        "page": 13
+      },
+      {
+        "name": "Rear Bumper Spoiler, set, 070 White Peal CS",
+        "sku": "1580ATA670",
+        "price": 8081000,
+        "page": 13
+      },
+      {
+        "name": "Rear Bumper Spoiler, set, 226 Glitter Black GF",
+        "sku": "1580BTA670",
+        "price": 8081000,
+        "page": 13
+      },
+      {
+        "name": "Rear Bumper Spoiler, set, 220 Sparkling Black CS",
+        "sku": "1580CTA670",
+        "price": 8081000,
+        "page": 13
+      },
+      {
+        "name": "Rear Bumper Spoiler, set, 1K0 Metal Stream ME",
+        "sku": "1580DTA670",
+        "price": 8081000,
+        "page": 13
+      },
+      {
+        "name": "Signature Grille Illumination, Set",
+        "sku": "15415TA670",
+        "price": 8450000,
+        "page": 13
+      },
+      {
+        "name": "WIRE HARNESS PREMIUM HORN, SET **",
+        "sku": "6A214TA670",
+        "price": 199000,
+        "page": 13
+      },
+      {
+        "name": "HORN ASSY, LOW PITCHED **",
+        "sku": "86510TA042",
+        "price": 115000,
+        "page": 13
+      },
+      {
+        "name": "HORN HI (H) **",
+        "sku": "86510TA081",
+        "price": 115000,
+        "page": 13
+      }
+    ],
+    "alphard": [
+      {
+        "name": "Front bumper spoiler, set, platinum white pearl *",
+        "sku": "15404TA970",
+        "price": 22500000,
+        "page": 12
+      },
+      {
+        "name": "Front Bumper Spoiler, Set, Black * / **",
+        "sku": "15405TA970",
+        "price": 22500000,
+        "page": 12
+      },
+      {
+        "name": "Rear Bumper Spoiler, Set, Platinum White Pearl *",
+        "sku": "15804TA970",
+        "price": 17500000,
+        "page": 12
+      },
+      {
+        "name": "Rear Bumper Spoiler, Set, Black * / **",
+        "sku": "15805TA970",
+        "price": 17500000,
+        "page": 12
+      },
+      {
+        "name": "Side Skirt, Set, Platinum White Pearl (HEV) [grade XE] *",
+        "sku": "15607TA970",
+        "price": 24900000,
+        "page": 12
+      },
+      {
+        "name": "Side Skirt, Set, Platinum White Pearl (GAS) [grade XE] *",
+        "sku": "15609TA970",
+        "price": 24900000,
+        "page": 12
+      },
+      {
+        "name": "Side Skirt, Set, Black (HEV) [grade XE] * / **",
+        "sku": "15608TA970",
+        "price": 24900000,
+        "page": 12
+      },
+      {
+        "name": "Side Skirt, Set, Black (GAS) [grade XE] * / **",
+        "sku": "1560ATA970",
+        "price": 24900000,
+        "page": 12
+      },
+      {
+        "name": "Side Skirt, Set, Platinum White Pearl (HEV) [grade G] *",
+        "sku": "15625TA970",
+        "price": 24900000,
+        "page": 12
+      },
+      {
+        "name": "Side Skirt, Set, Platinum White Pearl (GAS) [grade G] *",
+        "sku": "15627TA970",
+        "price": 24900000,
+        "page": 12
+      },
+      {
+        "name": "Side Skirt, Set, Black (HEV) [grade G] * / **",
+        "sku": "15626TA970",
+        "price": 24900000,
+        "page": 12
+      },
+      {
+        "name": "Side Skirt, Set, Black (GAS) [grade G] * / **",
+        "sku": "15628TA970",
+        "price": 24900000,
+        "page": 12
+      },
+      {
+        "name": "Air Fragrance Device Set Alphard",
+        "sku": "PC55658001",
+        "price": 1999000,
+        "page": 12
+      },
+      {
+        "name": "Scents NTCO Oceanic Joy",
+        "sku": "PC5560K00AA1",
+        "price": 199000,
+        "page": 12
+      },
+      {
+        "name": "Scents NTCO Amber Haven",
+        "sku": "PC5560K008A1",
+        "price": 199000,
+        "page": 12
+      },
+      {
+        "name": "Scents NTCO Blossom Whisper",
+        "sku": "PC5560K006A1",
+        "price": 199000,
+        "page": 12
+      },
+      {
+        "name": "Scents NTCO Sunlit Zest",
+        "sku": "PC5560K009A1",
+        "price": 199000,
+        "page": 12
+      }
+    ],
+    "vellfire": [],
+    "hilux-d-cab": [
+      {
+        "name": "Sporty Outer Mirror Cover",
+        "sku": "64102TA274",
+        "price": 469000,
+        "page": 2
+      },
+      {
+        "name": "Premium Horn *",
+        "sku": "6A201TA560",
+        "price": 299000,
+        "page": 2
+      }
+    ],
+    "hilux-rangga": [
+      {
+        "name": "Interior IP Garnish",
+        "sku": "28002TA320",
+        "price": 629000,
+        "page": 11
+      },
+      {
+        "name": "Sporty Shift Knob",
+        "sku": "46601TA320",
+        "price": 849000,
+        "page": 11
+      },
+      {
+        "name": "Bed Liner (1 Way)",
+        "sku": "35002TA320",
+        "price": 7499000,
+        "page": 11
+      },
+      {
+        "name": "Bed Liner (3 Way)",
+        "sku": "35001TA320",
+        "price": 7499000,
+        "page": 11
+      },
+      {
+        "name": "Cover Glove Box",
+        "sku": "P52870KA02",
+        "price": 499000,
+        "page": 11
+      },
+      {
+        "name": "Black Outer Mirror Cover",
+        "sku": "64102TA560",
+        "price": 420000,
+        "page": 11
+      },
+      {
+        "name": "Side Visor",
+        "sku": "16202TA320",
+        "price": 239000,
+        "page": 11
+      }
+    ]
+  },
+  "agyaCards": [
+    {
+      "id": "t-emblem-rad-grille",
+      "title": "T-Emblem RAD Grille",
+      "file": "t-emblem-rad-grille.png",
+      "kind": "exterior",
+      "description": "Emblem Toyota pada grille depan. Harga satuannya mengikuti Part Bulletin.",
+      "price": null,
+      "priceLabel": "Mengikuti Part Bulletin",
+      "partNumber": "75311-BZ470",
+      "grades": [
+        "E",
+        "G"
+      ],
+      "pos": {
+        "front": [
+          21.7,
+          58.6
+        ]
+      },
+      "status": "bulletin"
+    },
+    {
+      "id": "base-grille-emblem",
+      "title": "Emblem Base (Base Grille Emblem)",
+      "file": "base-grille-emblem.png",
+      "kind": "exterior",
+      "description": "Dudukan emblem Toyota pada grille depan. Komponen ini berada di balik emblem, sehingga tidak diberi hotspot terpisah pada foto eksterior. Harga mengikuti Part Bulletin.",
+      "price": null,
+      "priceLabel": "Mengikuti Part Bulletin",
+      "partNumber": "75312-BZ140",
+      "grades": [
+        "E",
+        "G"
+      ],
+      "pos": {},
+      "status": "bulletin",
+      "sourcePage": 9,
+      "photoStatus": "Ilustrasi, bukan foto part resmi."
+    },
+    {
+      "id": "gr-front-aeromudguard",
+      "title": "GR Front Aeromudguard",
+      "file": "gr-front-aeromudguard.png",
+      "kind": "exterior",
+      "description": "Aerokit di tepi bumper depan. Pada daftar harga satuan disebut Front Bumper Spoiler, Set; nama/nomor part tidak sama pada kedua tabel; harga belum dapat dianggap harga pasti untuk aksesori GR.",
+      "price": null,
+      "referencePrice": 1475000,
+      "priceLabel": "Harga part satuan perlu verifikasi",
+      "relatedSKUs": {
+        "white": "P5154BYA0U47",
+        "black": "P5154BYA0U1J",
+        "red": "P5154BYA0U3F",
+        "silver": "P5154BYA132G",
+        "gray": "P5154BYA1324",
+        "yellow": "P5154BYA132H",
+        "orange": "P5154BYA133G"
+      },
+      "grades": [
+        "E",
+        "G"
+      ],
+      "pos": {
+        "front": [
+          12.7,
+          76.3
+        ]
+      },
+      "status": "verify",
+      "referenceName": "Front Bumper Spoiler, Set",
+      "sourcePage": 9
+    },
+    {
+      "id": "gr-side-skirt",
+      "title": "GR Side Skirt",
+      "file": "gr-side-skirt.png",
+      "kind": "exterior",
+      "description": "Aksen sepanjang panel bawah pintu. Pada daftar harga satuan disebut SideSkirt, Set; nama/nomor part tidak sama pada kedua tabel; harga belum dapat dianggap harga pasti untuk aksesori GR.",
+      "price": null,
+      "referencePrice": 2375000,
+      "priceLabel": "Harga part satuan perlu verifikasi",
+      "relatedSKUs": {
+        "white": "P5156BYA0T47",
+        "black": "P5156BYA0T1J",
+        "red": "P5156BYA0T3F",
+        "silver": "P5156BYA0U2G",
+        "gray": "P5156BYA0U24",
+        "yellow": "P5156BYA0U2H",
+        "orange": "P5156BYA0U3G"
+      },
+      "grades": [
+        "E",
+        "G"
+      ],
+      "pos": {
+        "front": [
+          70.5,
+          74.8
+        ],
+        "rear": [
+          64.0,
+          69.0
+        ]
+      },
+      "status": "verify",
+      "referenceName": "SideSkirt, Set",
+      "sourcePage": 9
+    },
+    {
+      "id": "gr-rear-detail",
+      "title": "GR Rear Aeromudguard",
+      "file": "gr-rear-detail.png",
+      "kind": "exterior",
+      "description": "Aerokit sudut bumper belakang. Pada tabel harga satuan disebut Rear Bumper Spoiler, Set; kecocokan part perlu dipastikan.",
+      "price": null,
+      "referencePrice": 1299000,
+      "priceLabel": "Harga part satuan perlu verifikasi",
+      "relatedSKUs": {
+        "white": "P5158BYA0X47",
+        "black": "P5158BYA0X1J",
+        "red": "P5158BYA0X3F",
+        "silver": "P5158BYA182G",
+        "gray": "P5158BYA1824",
+        "yellow": "P5158BYA182H",
+        "orange": "P5158BYA183G"
+      },
+      "grades": [
+        "E",
+        "G"
+      ],
+      "pos": {
+        "rear": [
+          9.9,
+          69.4
+        ]
+      },
+      "status": "verify",
+      "referenceName": "Rear Bumper Spoiler, Set",
+      "sourcePage": 9
+    },
+    {
+      "id": "sporty-roof-spoiler",
+      "title": "Sporty Roof Spoiler (New)",
+      "file": "sporty-roof-spoiler.png",
+      "kind": "exterior",
+      "description": "Spoiler pada ujung atap belakang.",
+      "price": 1090000,
+      "partNumber": "P5150BYA02",
+      "grades": [
+        "E",
+        "G"
+      ],
+      "pos": {
+        "rear": [
+          18.7,
+          21.4
+        ]
+      }
+    },
+    {
+      "id": "back-camera",
+      "title": "Back Camera",
+      "file": "back-camera.png",
+      "kind": "exterior",
+      "description": "Kamera bantu parkir mundur di area tailgate dekat plat belakang. Berlaku untuk Agya grade G pada daftar TCO.",
+      "price": 959000,
+      "partNumber": "P5634BYA0V",
+      "grades": [
+        "G"
+      ],
+      "pos": {
+        "rear": [
+          19.0,
+          48.3
+        ]
+      }
+    },
+    {
+      "id": "premium-horn",
+      "title": "Premium Horn (3 komponen)",
+      "file": "premium-horn.png",
+      "kind": "interior",
+      "description": "Rangkaian klakson premium berisi 3 komponen wajib. Foto tombol setir hanya ilustrasi, bukan posisi komponen klakson.",
+      "price": 442000,
+      "priceLabel": "Total 3 komponen, bukan harga paket resmi",
+      "grades": [
+        "E",
+        "G",
+        "GR"
+      ],
+      "components": [
+        {
+          "name": "Wire Harness Premium Horn",
+          "sku": "6A205TAD74",
+          "price": 212000
+        },
+        {
+          "name": "Horn Assy Low Pitched",
+          "sku": "86510TA042",
+          "price": 115000
+        },
+        {
+          "name": "Horn Hi (H)",
+          "sku": "86510TA081",
+          "price": 115000
+        }
+      ],
+      "pos": {}
+    },
+    {
+      "id": "dvr",
+      "title": "DVR (Dashcam)",
+      "file": "dvr.png",
+      "kind": "interior",
+      "description": "Perangkat perekam perjalanan di area kaca depan.",
+      "price": 1999000,
+      "partNumber": "P56A3BYA05",
+      "grades": [
+        "E",
+        "G",
+        "GR"
+      ],
+      "pos": {}
+    }
+  ],
+  "agyaColorSKUs": {
+    "front": {
+      "white": "P5154BYA0U47",
+      "black": "P5154BYA0U1J",
+      "red": "P5154BYA0U3F",
+      "silver": "P5154BYA132G",
+      "gray": "P5154BYA1324",
+      "yellow": "P5154BYA132H",
+      "orange": "P5154BYA133G"
+    },
+    "rear": {
+      "white": "P5158BYA0X47",
+      "black": "P5158BYA0X1J",
+      "red": "P5158BYA0X3F",
+      "silver": "P5158BYA182G",
+      "gray": "P5158BYA1824",
+      "yellow": "P5158BYA182H",
+      "orange": "P5158BYA183G"
+    },
+    "side": {
+      "white": "P5156BYA0T47",
+      "black": "P5156BYA0T1J",
+      "red": "P5156BYA0T3F",
+      "silver": "P5156BYA0U2G",
+      "gray": "P5156BYA0U24",
+      "yellow": "P5156BYA0U2H",
+      "orange": "P5156BYA0U3G"
+    }
+  },
+  "notes": {
+    "vellfire": "Pada halaman Vellfire tercantum harga paket Modellista Rp69.800.000, tidak ada daftar harga satuan pada PDF ini.",
+    "agya": "Agya: 9 jenis entri katalog (termasuk T-Emblem dan Emblem Base). Tabel paket menamai GR Aeromudguard, daftar harga satuan memakai Bumper Spoiler, Set. Jangan samakan SKU atau harga tanpa konfirmasi. Harga Premium Horn merupakan penjumlahan 3 komponen. Periode harga Juli 2026."
+  }
+};

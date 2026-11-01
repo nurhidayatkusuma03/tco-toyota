@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f8f6">
+  <title>Detail Unit — TCO Kalla Toyota</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="detail.css">
+  <link rel="stylesheet" href="shared-navbar.css">
+</head>
+<body>
+  <header class="site-header" id="site-header">
+    <div class="wide-container topbar">
+      <a href="index.html#home" class="logo-toyota" aria-label="Toyota Let's Go Beyond, ke home"><img src="assets/toyota-beyond.png" alt="Toyota Let's Go Beyond"></a>
+      <nav class="main-nav" id="main-nav" aria-label="Navigasi utama">
+        <a href="index.html#home" class="nav-link" data-section="home">Home</a>
+        <a href="index.html#katalog" class="nav-link active" aria-current="page" data-section="katalog">Katalog</a>
+        <a href="index.html#contact" class="nav-link" data-section="contact">Hubungi Kami</a>
+      </nav>
+      <div class="header-right">
+        <a class="logo-kalla" href="index.html#contact" aria-label="Kalla Toyota, informasi kontak"><img src="assets/kalla-toyota.png" alt="Kalla Toyota"></a>
+        <button id="menu-button" class="menu-button" type="button" aria-label="Buka menu" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Navigasi seluler" hidden>
+      <a href="index.html#home">Home</a><a href="index.html#katalog" aria-current="page">Katalog</a><a href="index.html#contact">Hubungi Kami</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="breadcrumbs"><a href="index.html#katalog">Katalog</a><span>›</span><strong id="breadcrumb-unit">Agya</strong></div>
+        <div class="hero-copy"><span class="eyebrow">TOYOTA CUSTOMIZATION OPTION</span><h1 id="hero-title">NEW <em>AGYA</em></h1><p id="hero-tagline" class="tagline">Explore the details.</p></div>
+        <div class="hero-visual"><img id="hero-car" src="" alt="Tampak depan unit"></div>
+        <p id="hero-image-error" class="image-error" hidden>Foto unit belum tersedia.</p>
+        <div class="color-panel" id="color-panel"><strong>PILIH WARNA</strong><div class="color-list" id="color-list"></div><small id="color-name">White</small></div>
+        <div class="hero-stats"><div class="stat"><strong id="hero-category">Hatchback</strong><small>Model Toyota</small></div><div class="stat"><strong>Juli 2026</strong><small>Periode harga TCO</small></div><div class="stat"><strong>Katalog Informasi</strong><small>Bukan transaksi</small></div></div>
+      </div>
+    </section>
+    <section class="details-section">
+      <div class="content-wrap">
+        <div class="unit-switcher" id="swipe-zone" aria-label="Navigasi unit"><button class="unit-arrow" id="prev-unit" type="button" aria-label="Unit sebelumnya">←</button><div class="unit-switcher-center"><small>EXPLORE TOYOTA MODELS</small><strong id="unit-switch-label">AGYA</strong><span id="unit-counter">01 / 17</span></div><button class="unit-arrow" id="next-unit" type="button" aria-label="Unit berikutnya">→</button></div>
+        <div class="detail-tabs" role="tablist" aria-label="Kategori part"><button type="button" role="tab" data-tab="all" class="active" aria-selected="true">All <span id="part-count" class="tab-count">0</span></button><button type="button" role="tab" data-tab="interior">Interior</button><button type="button" role="tab" data-tab="exterior">Exterior</button></div>
+        <section class="explorer-section" id="explorer-section"><div class="section-heading"><span class="eyebrow green">INTERACTIVE PART EXPLORER</span><h2>Jelajahi aksesori kendaraan</h2><p id="explorer-description">Foto kendaraan dan aksesori mengikuti warna yang dipilih. Arahkan kursor atau ketuk titik interaktif untuk melihat informasi.</p></div><div id="angle-gallery" class="angle-gallery"></div></section>
+        <section class="parts-section"><div class="section-heading"><h2>Daftar sparepart &amp; harga</h2><p>Harga merupakan <strong>RTCO After Tax (Selling Price to Customer)</strong> pada dokumen National TCO Master Part and Price List Juli 2026. Bukan harga transaksi maupun penawaran aktif.</p></div><div id="tab-content" role="tabpanel" aria-live="polite"></div></section>
+        <div class="information-note"><strong>Informasi harga TCO</strong><p>Harga dan kecocokan grade mengikuti tabel sumber. Jika harga belum tercantum atau nama part berbeda antara tabel paket dan satuan, statusnya ditampilkan apa adanya. Tidak tersedia keranjang, checkout, maupun pembayaran.</p></div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">© 2026 Kalla Toyota · Katalog Informasi Toyota Customization Option</footer>
+  <aside id="part-popover" class="part-popover" hidden aria-live="polite"><button id="popover-close" class="popover-close" type="button" aria-label="Tutup detail aksesori">&times;</button><img id="popover-image" alt="Foto part"><div class="popover-copy"><small>DETAIL AKSESORI</small><strong id="popover-title"></strong><span id="popover-sku"></span><b id="popover-price"></b><p id="popover-description"></p><span class="status-note" id="popover-note"></span></div></aside>
+  <script src="data.js"></script>
+  
+  
+  <script src="detail.js"></script>
+</body>
+</html>
