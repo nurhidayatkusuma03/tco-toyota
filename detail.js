@@ -158,8 +158,8 @@
     $('#tab-content').innerHTML=`<div class="parts-grid">${visible.map(p=>{
       const partRows=p.partsForColor?.length>1?componentRows(p.partsForColor,'Pilihan SKU sesuai grade/varian'):'';
       const optionRows=componentRows(p.options,'Pilihan aroma / varian');
-      const componentTable=componentRows(p.components,p.componentsNote||'Rincian komponen');
-      const noSkuText=p.variantUnavailable?'SKU warna ini belum terdaftar':p.components?.length||p.options?.length?'Lihat SKU pada rincian':'P/N belum tersedia';
+      const componentTable=componentRows(p.components,p.componentsNote||'Rincian sparepart / komponen');
+      const noSkuText=p.variantUnavailable?'SKU warna ini belum terdaftar':p.components?.length||p.options?.length?'Lihat nomor part pada rincian':'P/N belum tersedia';
       const pno=sku(p)?`P/N: ${sku(p)}`:noSkuText;
       return `<article class="part-card" data-part-id="${escapeHTML(p.id)}"><div class="part-media ${p.image?'':'no-photo'}">${p.image?`<img src="${escapeHTML(p.image)}" loading="lazy" alt="Ilustrasi ${escapeHTML(title(p))}">`:''}<span class="media-placeholder" ${p.image?'hidden':''}>Foto part belum tersedia</span></div><div class="part-body"><h3>${escapeHTML(title(p))}</h3><span class="part-sku">${escapeHTML(pno)}</span><span class="price ${p.status||p.variantUnavailable||p.options?.length?'uncertain':''}">${escapeHTML(priceText(p))}</span>${p.priceLabel&&!p.components?.length?`<span class="price-hint">${escapeHTML(p.priceLabel)}</span>`:''}<p>${escapeHTML(p.description||'Aksesori sesuai daftar TCO.')}</p>${partRows}${optionRows}${componentTable}${p.componentsNote?`<span class="part-photo-status">${escapeHTML(p.componentsNote)}</span>`:''}${descriptionNote(p)?`<span class="part-photo-status">${escapeHTML(descriptionNote(p))}</span>`:''}${p.photoStatus?`<span class="part-photo-status">${escapeHTML(p.photoStatus)}</span>`:''}${p.grades?.length?`<div class="part-grade">${p.grades.map(g=>`<span>${escapeHTML(g)}</span>`).join('')}</div>`:''}</div></article>`;
     }).join('')}</div>`;

@@ -60,28 +60,26 @@ window.TCO_UNIT_DATA["agya"] = {
   "parts": [
     {
       "id": "rad-grille-emblem-set",
-      "title": "T-Emblem RAD Grille + Emblem Base",
+      "title": "Set Emblem Grille Depan",
       "file": "t-emblem-rad-grille.png",
       "kind": "exterior",
-      "description": "Set emblem grille depan yang terdiri dari emblem Toyota dan dudukan emblem/base grille emblem. Karena keduanya merupakan satu rangkaian pada grille depan, card ditampilkan sebagai satu item.",
-      "price": null,
-      "priceLabel": "Mengikuti Part Bulletin",
+      "description": "Set emblem grille depan yang terdiri dari emblem Toyota dan dudukan emblem/base grille emblem.",
+      "price": 108000,
+      "priceLabel": "Total 2 komponen",
       "grades": [
         "E",
         "G"
       ],
       "components": [
         {
-          "name": "T-Emblem RAD Grille",
+          "name": "Emblem TOYOTA (Front Grille Emblem)",
           "sku": "75311-BZ470",
-          "price": null,
-          "priceLabel": "Mengikuti Part Bulletin"
+          "price": 80000,
         },
         {
           "name": "Emblem Base (Base Grille Emblem)",
           "sku": "75312-BZ140",
-          "price": null,
-          "priceLabel": "Mengikuti Part Bulletin"
+          "price": 28000,
         }
       ],
       "pos": {
@@ -90,84 +88,163 @@ window.TCO_UNIT_DATA["agya"] = {
           58.6
         ]
       },
-      "status": "bulletin",
       "sku": null,
       "image": "assets/vehicles/agya/parts/t-emblem-rad-grille.png",
-      "sourcePage": 9,
-      "photoStatus": "Foto menggunakan emblem depan; base emblem adalah komponen dudukan di balik emblem dan tidak memiliki hotspot terpisah."
+      "sourcePage": 9
     },
     {
-      "id": "gr-front-aeromudguard",
-      "title": "GR Front Aeromudguard",
-      "file": "gr-front-aeromudguard.png",
-      "kind": "exterior",
-      "description": "Aerokit di tepi bumper depan. Pada daftar harga satuan disebut Front Bumper Spoiler, Set; nama/nomor part tidak sama pada kedua tabel; harga belum dapat dianggap harga pasti untuk aksesori GR.",
-      "price": 1475000,
-      "referencePrice": 1475000,
-      "priceLabel": "Harga part satuan perlu verifikasi",
-      "relatedSKUs": {
-        "white": "P5154BYA0U47",
-        "black": "P5154BYA0U1J",
-        "red": "P5154BYA0U3F",
-        "silver": "P5154BYA132G",
-        "gray": "P5154BYA1324",
-        "yellow": "P5154BYA132H",
-        "orange": "P5154BYA133G"
-      },
-      "grades": [
-        "E",
-        "G"
-      ],
-      "pos": {
-        "front": [
-          12.7,
-          76.3
-        ]
-      },
-      "status": "verify",
-      "referenceName": "Front Bumper Spoiler, Set",
-      "sourcePage": 9,
-      "sku": null,
-      "image": "assets/vehicles/agya/parts/gr-front-aeromudguard.png"
-    },
+       id: "gr-front-aeromudguard",
+        title: "Spoiler Bumper Depan",
+        file: "gr-front-aeromudguard.png",
+        kind: "exterior",
+
+        description: "Bikin Toyota Agya makin agresif dan stylish dengan Front Bumper Spoiler yang bikin tampilannya makin mencuri perhatian!",
+
+        // Harga sama untuk seluruh warna
+        price: 1475000,
+
+          // Nomor Part berbeda berdasarkan warna
+          "variants": {
+  "white": [
+    {
+      "name": "GR Front Aeromudguard White",
+      "sku": "P5154BYA0U47",
+      "price": 1475000
+    }
+  ],
+  "black": [
+    {
+      "name": "GR Front Aeromudguard Black",
+      "sku": "P5154BYA0U1J",
+      "price": 1475000
+    }
+  ],
+  "red": [
+    {
+      "name": "GR Front Aeromudguard Red",
+      "sku": "P5154BYA0U3F",
+      "price": 1475000
+    }
+  ],
+  "silver": [
+    {
+      "name": "GR Front Aeromudguard Silver",
+      "sku": "P5154BYA132G",
+      "price": 1475000
+    }
+  ],
+  "gray": [
+    {
+      "name": "GR Front Aeromudguard Gray",
+      "sku": "P5154BYA1324",
+      "price": 1475000
+    }
+  ],
+  "yellow": [
+    {
+      "name": "GR Front Aeromudguard Yellow",
+      "sku": "P5154BYA132H",
+      "price": 1475000
+    }
+  ],
+  "orange": [
+    {
+      "name": "GR Front Aeromudguard Orange",
+      "sku": "P5154BYA133G",
+      "price": 1475000
+    }
+  ]
+},
+
+  grades: ["E", "G"],
+
+  image: "assets/vehicles/agya/parts/gr-front-aeromudguard.png",
+
+  // Jika foto berbeda setiap warna
+  imagesByColor: {
+    white: "assets/vehicles/agya/parts/gr-front-aeromudguard.png",
+    black: "assets/vehicles/agya/parts/gr-front-aeromudguard.png",
+    red: "assets/vehicles/agya/parts/gr-front-aeromudguard-merah.png"
+  },
+
+  pos: {}
+},
     {
       "id": "gr-side-skirt",
-      "title": "GR Side Skirt",
+      "title": "Body Kit Samping (Side Skirt)",
       "file": "gr-side-skirt.png",
       "kind": "exterior",
-      "description": "Aksen sepanjang panel bawah pintu. Pada daftar harga satuan disebut SideSkirt, Set; nama/nomor part tidak sama pada kedua tabel; harga belum dapat dianggap harga pasti untuk aksesori GR.",
-      "price": null,
-      "referencePrice": 2375000,
-      "priceLabel": "Harga part satuan perlu verifikasi",
-      "relatedSKUs": {
-        "white": "P5156BYA0T47",
-        "black": "P5156BYA0T1J",
-        "red": "P5156BYA0T3F",
-        "silver": "P5156BYA0U2G",
-        "gray": "P5156BYA0U24",
-        "yellow": "P5156BYA0U2H",
-        "orange": "P5156BYA0U3G"
-      },
-      "grades": [
-        "E",
-        "G"
-      ],
-      "pos": {
-        "front": [
-          70.5,
-          74.8
-        ],
-        "rear": [
-          64.0,
-          69.0
-        ]
-      },
-      "status": "verify",
-      "referenceName": "SideSkirt, Set",
-      "sourcePage": 9,
-      "sku": null,
-      "image": "assets/vehicles/agya/parts/gr-side-skirt.png"
-    },
+
+        description: "Bikin Toyota Agya makin agresif dan stylish dengan Body Kit Samping yang bikin tampilannya makin mencuri perhatian!",
+
+        // Harga sama untuk seluruh warna
+        price: 2375000,
+
+          // Nomor Part berbeda berdasarkan warna
+          "variants": {
+  "white": [
+    {
+      "name": "GR Side Skirt Set White",
+      "sku": "P5156BYA0T47",
+      "price": 2375000
+    }
+  ],
+  "black": [
+    {
+      "name": "GR Side Skirt Set Black",
+      "sku": "P5156BYA0T1J",
+      "price": 2375000
+    }
+  ],
+  "red": [
+    {
+      "name": "GR Side Skirt Set Red",
+      "sku": "P5156BYA0T3F",
+      "price": 2375000
+    }
+  ],
+  "silver": [
+    {
+      "name": "GR Side Skirt Set Silver",
+      "sku": "P5156BYA0T2G",
+      "price": 2375000
+    }
+  ],
+  "gray": [
+    {
+      "name": "GR Side Skirt Set Gray",
+      "sku": "P5156BYA0T24",
+      "price": 2375000
+    }
+  ],
+  "yellow": [
+    {
+      "name": "GR Side Skirt Set Yellow",
+      "sku": "P5156BYA0T2H",
+      "price": 2375000
+    }
+  ],
+  "orange": [
+    {
+      "name": "GR Side Skirt Set Orange",
+      "sku": "P5156BYA0T3G",
+      "price": 2375000
+    }
+  ]
+},
+
+  grades: ["E", "G"],
+
+  image: "assets/vehicles/agya/parts/gr-side-skirt.png",
+
+  // Jika foto berbeda setiap warna
+  imagesByColor: {
+    white: "assets/vehicles/agya/parts/gr-side-skirt.png",
+    black: "assets/vehicles/agya/parts/gr-side-skirt.png"
+  },
+
+  pos: {}
+},
     {
       "id": "gr-rear-detail",
       "title": "GR Rear Aeromudguard",
@@ -295,207 +372,7 @@ window.TCO_UNIT_DATA["agya"] = {
       "image": "assets/vehicles/agya/parts/dvr.png",
       "sourcePage": 9
     },
-    {
-      "id": "front-bumper-spoiler-set",
-      "title": "Front Bumper Spoiler, Set",
-      "kind": "exterior",
-      "description": "Aksesori eksterior. Nomor part dan harga ditampilkan untuk warna bodi yang dipilih.",
-      "sourcePage": 9,
-      "variants": {
-        "white": [
-          {
-            "name": "Front Bumper Spoiler, Set, White",
-            "sku": "P5154BYA0U47",
-            "price": 1475000,
-            "sourcePage": 9
-          }
-        ],
-        "black": [
-          {
-            "name": "Front Bumper Spoiler, Set, Black",
-            "sku": "P5154BYA0U1J",
-            "price": 1475000,
-            "sourcePage": 9
-          }
-        ],
-        "red": [
-          {
-            "name": "Front Bumper Spoiler, Set, Red",
-            "sku": "P5154BYA0U3F",
-            "price": 1475000,
-            "sourcePage": 9
-          }
-        ],
-        "silver": [
-          {
-            "name": "Front Bumper Spoiler, Set, Silver Metallic",
-            "sku": "P5154BYA132G",
-            "price": 1475000,
-            "sourcePage": 9
-          }
-        ],
-        "gray": [
-          {
-            "name": "Front Bumper Spoiler, Set, Gray Metallic",
-            "sku": "P5154BYA1324",
-            "price": 1475000,
-            "sourcePage": 9
-          }
-        ],
-        "yellow": [
-          {
-            "name": "Front Bumper Spoiler, Set, Yellow",
-            "sku": "P5154BYA132H",
-            "price": 1475000,
-            "sourcePage": 9
-          }
-        ],
-        "orange": [
-          {
-            "name": "Front Bumper Spoiler, Set, Orange",
-            "sku": "P5154BYA133G",
-            "price": 1475000,
-            "sourcePage": 9
-          }
-        ]
-      },
-      "pos": {},
-      "note": "Varian warna menggunakan SKU sesuai dokumen National TCO Juli 2026."
-    },
-    {
-      "id": "rear-bumper-spoiler-set",
-      "title": "Rear Bumper Spoiler, Set",
-      "kind": "exterior",
-      "description": "Aksesori eksterior. Nomor part dan harga ditampilkan untuk warna bodi yang dipilih.",
-      "sourcePage": 9,
-      "variants": {
-        "white": [
-          {
-            "name": "Rear Bumper Spoiler, Set, White",
-            "sku": "P5158BYA0X47",
-            "price": 1299000,
-            "sourcePage": 9
-          }
-        ],
-        "black": [
-          {
-            "name": "Rear Bumper Spoiler, Set, Black",
-            "sku": "P5158BYA0X1J",
-            "price": 1299000,
-            "sourcePage": 9
-          }
-        ],
-        "red": [
-          {
-            "name": "Rear Bumper Spoiler, Set, Red",
-            "sku": "P5158BYA0X3F",
-            "price": 1299000,
-            "sourcePage": 9
-          }
-        ],
-        "silver": [
-          {
-            "name": "Rear Bumper Spoiler, Set, Silver Metalic",
-            "sku": "P5158BYA182G",
-            "price": 1299000,
-            "sourcePage": 9
-          }
-        ],
-        "gray": [
-          {
-            "name": "Rear Bumper Spoiler, Set, Gray Metalic",
-            "sku": "P5158BYA1824",
-            "price": 1299000,
-            "sourcePage": 9
-          }
-        ],
-        "yellow": [
-          {
-            "name": "Rear Bumper Spoiler, Set, Yellow",
-            "sku": "P5158BYA182H",
-            "price": 1299000,
-            "sourcePage": 9
-          }
-        ],
-        "orange": [
-          {
-            "name": "Rear Bumper Spoiler, Set, Orange",
-            "sku": "P5158BYA183G",
-            "price": 1299000,
-            "sourcePage": 9
-          }
-        ]
-      },
-      "pos": {},
-      "note": "Varian warna menggunakan SKU sesuai dokumen National TCO Juli 2026."
-    },
-    {
-      "id": "side-skirt-set",
-      "title": "Side Skirt, Set",
-      "kind": "exterior",
-      "description": "Aksesori eksterior. Nomor part dan harga ditampilkan untuk warna bodi yang dipilih.",
-      "sourcePage": 9,
-      "variants": {
-        "white": [
-          {
-            "name": "SideSkirt,Set,White",
-            "sku": "P5156BYA0T47",
-            "price": 2375000,
-            "sourcePage": 9
-          }
-        ],
-        "black": [
-          {
-            "name": "SideSkirt,Set,Black",
-            "sku": "P5156BYA0T1J",
-            "price": 2375000,
-            "sourcePage": 9
-          }
-        ],
-        "red": [
-          {
-            "name": "SideSkirt,Set,Red",
-            "sku": "P5156BYA0T3F",
-            "price": 2375000,
-            "sourcePage": 9
-          }
-        ],
-        "silver": [
-          {
-            "name": "SideSkirt,Set,SilverMetallic",
-            "sku": "P5156BYA0U2G",
-            "price": 2375000,
-            "sourcePage": 9
-          }
-        ],
-        "gray": [
-          {
-            "name": "SideSkirt,Set,grayMetallic",
-            "sku": "P5156BYA0U24",
-            "price": 2375000,
-            "sourcePage": 9
-          }
-        ],
-        "yellow": [
-          {
-            "name": "SideSkirt,Set,Yellow",
-            "sku": "P5156BYA0U2H",
-            "price": 2375000,
-            "sourcePage": 9
-          }
-        ],
-        "orange": [
-          {
-            "name": "SideSkirt,Set,Orange",
-            "sku": "P5156BYA0U3G",
-            "price": 2375000,
-            "sourcePage": 9
-          }
-        ]
-      },
-      "pos": {},
-      "note": "Varian warna menggunakan SKU sesuai dokumen National TCO Juli 2026."
-    }
+    
   ],
   "notes": {
     "source": "National TCO Master Part and Price List Juli 2026 (RTCO After Tax)",
