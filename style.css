@@ -860,3 +860,121 @@ body.home-page .hero-progress {
   }
 }
 
+
+
+/* ==========================================
+   HOME & CATALOG SPACING IMPROVEMENT
+   TCO KALLA TOYOTA
+   ========================================== */
+
+
+/* ==========================================
+   1. HOME: POSISI NAVIGASI BAWAH
+   ========================================== */
+
+/* Desktop dan laptop */
+@media (min-width: 801px) {
+  body.home-page #home .hero-bottom {
+    position: absolute !important;
+    top: calc(100svh - 140px) !important;
+    bottom: auto !important;
+    z-index: 10;
+  }
+}
+
+/* Tablet */
+@media (min-width: 521px) and (max-width: 800px) {
+  body.home-page #home .hero-bottom {
+    position: absolute !important;
+    top: calc(100svh - 112px) !important;
+    bottom: auto !important;
+  }
+}
+
+/* Mobile */
+@media (max-width: 520px) {
+  body.home-page #home .hero-bottom {
+    position: absolute !important;
+    top: calc(100svh - 95px) !important;
+    bottom: auto !important;
+  }
+
+  body.home-page #home .explore-arrow {
+    width: 45px;
+    height: 45px;
+    font-size: 22px;
+  }
+}
+
+
+/* ==========================================
+   2. KATALOG: KURANGI SPASI ATAS
+   ========================================== */
+
+body.home-page #katalog.catalog-section {
+  padding-top: 30px !important;
+}
+
+/* Rapatkan judul dan deskripsi */
+body.home-page #katalog .section-intro h2 {
+  margin-top: 10px;
+  margin-bottom: 12px;
+}
+
+/* Rapatkan filter dan pencarian */
+body.home-page #katalog .catalog-tools {
+  margin-top: 26px;
+  margin-bottom: 24px;
+}
+
+/* Tablet */
+@media (min-width: 521px) and (max-width: 800px) {
+  body.home-page #katalog.catalog-section {
+    padding-top: 35px !important;
+  }
+
+  body.home-page #katalog .catalog-tools {
+    margin-top: 22px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 520px) {
+  body.home-page #katalog.catalog-section {
+    padding-top: 30px !important;
+  }
+
+  body.home-page #katalog .catalog-tools {
+    margin-top: 20px;
+    margin-bottom: 18px;
+  }
+}
+
+
+/* ==========================================
+   HOME — POSISI TOMBOL EXPLORE
+   ========================================== */
+
+/* Desktop */
+@media (min-width: 801px) {
+  body.home-page #home .scroll-indicator,
+  body.home-page #home .explore-catalog {
+    transform: translateY(45px) !important;
+  }
+}
+
+/* Tablet */
+@media (min-width: 521px) and (max-width: 800px) {
+  body.home-page #home .scroll-indicator,
+  body.home-page #home .explore-catalog {
+    transform: translateY(25px) !important;
+  }
+}
+
+/* Mobile */
+@media (max-width: 520px) {
+  body.home-page #home .scroll-indicator,
+  body.home-page #home .explore-catalog {
+    transform: translateY(15px) !important;
+  }
+}
