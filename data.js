@@ -3,7 +3,7 @@ window.CATALOG = [
   {
     "slug": "agya",
     "name": "Agya",
-    "category": "Hatchback",
+    "category": "LCGC",
     "poster": "assets/posters/agya.png",
     "frontImage": "assets/agya-front.webp",
     "rearImage": "assets/agya-rear.webp",
@@ -14,7 +14,7 @@ window.CATALOG = [
   {
     "slug": "calya",
     "name": "Calya",
-    "category": "MPV",
+    "category": "LCGC",
     "poster": "assets/posters/calya.png",
     "frontImage": "assets/calya-front.webp",
     "rearImage": "assets/calya-rear.webp",

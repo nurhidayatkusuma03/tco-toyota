@@ -5,7 +5,7 @@
   const $$=(s,root=document)=>Array.from(root.querySelectorAll(s));
   const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   let category='Semua',term='',highlight=-1,visibleSuggestions=[];
-  const categories=['Semua','MPV','SUV','Hatchback','Commercial'];
+  const categories=['Semua','LCGC','MPV','SUV','Commercial'];
   const search=$('#model-search'),suggestions=$('#search-suggestions'),wrapper=$('#search-wrapper');
   const header=$('#site-header'), catalog=$('#katalog'), home=$('#home');
   function isMatching(m){return (category==='Semua'||category===m.category) && (`${m.name} ${m.slug} ${m.category}`.toLocaleLowerCase('id-ID').includes(term));}
