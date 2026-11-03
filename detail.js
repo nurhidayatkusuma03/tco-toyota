@@ -11,7 +11,7 @@
   if (!catalog.length) { $('#hero-title').textContent='Katalog belum tersedia';return; }
   const loaded=new Map();
   let index=Math.max(0,catalog.findIndex(m=>m.slug===(new URLSearchParams(location.search).get('unit')||'agya')));
-  let tab='all',selectedColor='white',focusedPart=null,hideTimer=0,loadToken=0;
+  let tab='all',selectedColor='white',focusedPart=null,selectedPartId=null,hideTimer=0,loadToken=0;
   const hoverCapable=window.matchMedia('(hover:hover) and (pointer:fine)').matches;
   const model=()=>catalog[index];
   const data=()=>window.TCO_UNIT_DATA[model().slug]||null;
@@ -27,8 +27,15 @@
       const script=document.createElement('script');
       script.src=`data/units/${encodeURIComponent(slug)}.js`;
       script.async=true;
-      script.onload=()=>resolve(!!window.TCO_UNIT_DATA[slug]);
-      script.onerror=()=>resolve(false);
+      script.onload=()=>{
+        const ok=!!window.TCO_UNIT_DATA[slug];
+        if(!ok)loaded.delete(slug);
+        resolve(ok);
+      };
+      script.onerror=()=>{
+        loaded.delete(slug);
+        resolve(false);
+      };
       document.head.appendChild(script);
     });
     loaded.set(slug,task);
@@ -45,7 +52,7 @@
       p.sku=p.partsForColor.length===1?p.partsForColor[0].sku:null;
       p.price=p.partsForColor.length&&p.partsForColor.every(v=>v.price===p.partsForColor[0].price)?p.partsForColor[0].price:null;
       p.variantUnavailable=!p.hasColorVariant;
-      p.note=p.hasColorVariant?`SKU khusus warna ${chosen()?.name||selectedColor}. ${part.note||''}`:`Tidak ada SKU untuk warna ${chosen()?.name||selectedColor} dalam data unit ini. Harga tidak diasumsikan sama dengan warna lain.`;
+      p.note=p.hasColorVariant?`Part Number khusus warna ${chosen()?.name||selectedColor}. ${part.note||''}`:`Part Number untuk warna ${chosen()?.name||selectedColor} belum tersedia dalam data unit ini. Harga tidak diasumsikan sama dengan warna lain.`;
     }
     return p;
   }
@@ -61,12 +68,12 @@
   }
   function descriptionNote(p){
     if(p.variantUnavailable)return p.note;
-    if(p.status==='verify')return `Harga pembanding: ${money(p.referencePrice)} untuk ${p.referenceName||'nama part berbeda'}. SKU belum dapat dipastikan sama.`;
+    if(p.status==='verify')return `Harga pembanding: ${money(p.referencePrice)} untuk ${p.referenceName||'nama part berbeda'}. Kesamaan Part Number belum dapat dipastikan.`;
     return p.note||p.priceLabel||'';
   }
   function componentRows(parts,heading){
     if(!parts?.length)return '';
-    return `<div class="part-components"><strong>${escapeHTML(heading)}</strong>${parts.map(p=>`<div><span>${escapeHTML(p.name||p.title)} <small>${escapeHTML(p.sku||'')}</small></span><b>${escapeHTML(money(p.price))}</b></div>`).join('')}</div>`;
+    return `<div class="part-components"><strong>${escapeHTML(heading)}</strong>${parts.map(p=>`<div><span>${escapeHTML(p.name||p.title)} <small>${p.sku?`Part Number: ${escapeHTML(p.sku)}`:'Part Number belum tersedia'}</small></span><b>${escapeHTML(money(p.price))}</b></div>`).join('')}</div>`;
   }
   function hidePopover(){clearTimeout(hideTimer);$('#part-popover').hidden=true;focusedPart=null;$$('.hotspot').forEach(b=>{b.classList.remove('is-active');b.setAttribute('aria-expanded','false')})}
   function delayHide(){clearTimeout(hideTimer);hideTimer=setTimeout(hidePopover,165)}
@@ -75,7 +82,7 @@
     clearTimeout(hideTimer);focusedPart=part.id;
     $$('.hotspot').forEach(b=>{const active=b.dataset.partId===part.id;b.classList.toggle('is-active',active);b.setAttribute('aria-expanded',String(active))});
     $('#popover-title').textContent=title(part);
-    $('#popover-sku').textContent=sku(part)?`Part Number: ${sku(part)}`:part.partsForColor?.length>1?'Beberapa SKU (lihat card)':'Part Number: lihat rincian';
+    $('#popover-sku').textContent=sku(part)?`Part Number: ${sku(part)}`:part.partsForColor?.length>1?'Beberapa Part Number (lihat kartu)':'Part Number: lihat rincian';
     $('#popover-price').textContent=priceText(part);
     $('#popover-description').textContent=part.description||'Informasi aksesori TCO.';
     $('#popover-note').textContent=descriptionNote(part);
@@ -87,13 +94,67 @@
     pop.style.left=clamp(rect.left+rect.width/2-w/2,10,Math.max(10,innerWidth-w-10))+'px';
     pop.style.top=clamp(rect.bottom+h+12<innerHeight?rect.bottom+12:rect.top-h-12,topMin,Math.max(topMin,innerHeight-h-12))+'px';
   }
-  function attachHotspot(button,part){
-    if(hoverCapable){button.addEventListener('mouseenter',()=>showPopover(part,button));button.addEventListener('mouseleave',delayHide)}
-    button.addEventListener('click',e=>{e.stopPropagation();if(!hoverCapable&&focusedPart===part.id&&!$('#part-popover').hidden)hidePopover();else showPopover(part,button)});
-    button.addEventListener('blur',delayHide);
+ function attachHotspot(button,part){
+  if(!part)return;
+
+  if(hoverCapable){
+    button.addEventListener('mouseenter',()=>{
+      showPopover(part,button);
+    });
+
+    button.addEventListener('mouseleave',delayHide);
   }
+
+  button.addEventListener('click',e=>{
+    e.stopPropagation();
+    clearTimeout(hideTimer);
+    showPopover(part,button);
+  });
+
+  button.addEventListener('blur',delayHide);
+}
   $('#part-popover').addEventListener('mouseenter',()=>clearTimeout(hideTimer));
   $('#part-popover').addEventListener('mouseleave',delayHide);
+  $('#part-popover').addEventListener('click',e=>{
+  if(e.target.closest('#popover-close'))return;
+
+  const partId=focusedPart;
+const part=allParts().find(p=>p.id===partId);
+if(!part)return;
+
+  e.stopPropagation();
+
+  // Tampilkan semua kategori jika part ada di tab lain.
+  if(tab!=='all' && part.kind!==tab){
+    tab='all';
+    renderCards(allParts());
+
+    $$('.detail-tabs [data-tab]').forEach(b=>{
+      const active=b.dataset.tab==='all';
+      b.classList.toggle('active',active);
+      b.setAttribute('aria-selected',String(active));
+    });
+  }
+
+  const card=$$('.part-card').find(
+    item=>item.dataset.partId===part.id
+  );
+
+  if(!card)return;
+
+  hidePopover();
+
+  $$('.part-card').forEach(item=>{
+    item.classList.remove('is-highlighted');
+  });
+
+  card.classList.add('is-highlighted');
+
+  card.scrollIntoView({
+    behavior:'smooth',
+    block:'center'
+  });
+});
   $('#popover-close').addEventListener('click',hidePopover);
   document.addEventListener('pointerdown',e=>{if(!e.target.closest('.hotspot,.part-popover'))hidePopover()});
   document.addEventListener('keydown',e=>{if(e.key==='Escape')hidePopover()});
@@ -117,7 +178,27 @@
     const color=chosen(),photo=$('#hero-car'),notice=$('#hero-image-error');
     photo.alt=`${m.name} warna ${color?.name||'putih'} tampak depan`;
     notice.hidden=true;
-    assignImage(photo,color?.front||m.frontImage||m.main,()=>{notice.textContent=`Foto warna ${color?.name||'pilihan'} belum tersedia. Tidak menggunakan foto warna lain.`;notice.hidden=false},()=>{notice.hidden=true});
+    assignImage(
+  photo,
+  color?.front || m.frontImage || m.main,
+
+  // Jika foto gagal dimuat
+  () => {
+    notice.textContent =
+      `Foto warna ${color?.name || 'pilihan'} belum tersedia. Tidak menggunakan foto warna lain.`;
+
+    notice.hidden = false;
+
+    const layer = ensureHeroHitLayer();
+    if (layer) layer.innerHTML = '';
+  },
+
+  // Jika foto berhasil dimuat
+  () => {
+    notice.hidden = true;
+    renderHeroHotspots(allParts());
+  }
+);
     $('#color-list').innerHTML=palette().map(c=>{
       const bg=c.twoTone?`linear-gradient(90deg,${c.hex} 0 50%,#16191d 50% 100%)`:c.hex;
       return `<button class="color-swatch${c.twoTone?' two-tone':''}" type="button" style="--swatch:${escapeHTML(bg)}" data-color="${escapeHTML(c.key)}" aria-label="${escapeHTML(c.name)}" title="${escapeHTML(c.name)}" aria-pressed="${c.key===selectedColor}"></button>`;
@@ -129,11 +210,37 @@
     }));
     updateColorDock();
   }
+
+  function ensureHeroHitLayer(){
+  const visual=$('.hero-visual');
+
+  if(!visual)return null;
+
+  let layer=$('#hero-hit-layer');
+
+  if(!layer){
+    layer=document.createElement('div');
+    layer.id='hero-hit-layer';
+    layer.className='hero-hit-layer';
+    layer.setAttribute(
+      'aria-label',
+      'Titik aksesori kendaraan'
+    );
+
+    visual.appendChild(layer);
+  }
+
+  return layer;
+}
+
   function renderAngles(parts){
+    
     const gallery=$('#angle-gallery');gallery.innerHTML='';
-    const active=chosen(),unit=model(),isCalibrated=['agya','calya','raize'].includes(unit.slug);
+    const active=chosen(),unit=model();
+    // Hotspot aktif untuk unit mana pun yang memang memiliki data posisi.
+    const isCalibrated=parts.some(p=>['front','rear'].some(view=>Array.isArray((p.positionsByColor?.[selectedColor]||p.pos)?.[view])));
     const hasNamedColor=palette().length>1;
-    $('#explorer-description').innerHTML=`Foto kendaraan mengikuti warna <strong>${escapeHTML(active?.name||'pilihan')}</strong>. Hover titik hijau atau ketuk pada ponsel untuk melihat aksesori, SKU, dan harga. Posisi titik mengikuti kalibrasi gambar referensi; varian dengan crop berbeda perlu disesuaikan.`;
+    $('#explorer-description').innerHTML=`Foto kendaraan mengikuti warna <strong>${escapeHTML(active?.name||'pilihan')}</strong>. Arahkan atau ketuk titik hijau untuk melihat aksesori, Part Number, dan harga. Posisi titik mengikuti kalibrasi gambar referensi; varian dengan crop berbeda perlu disesuaikan.`;
     const views=[{key:'front',label:'TAMPAK DEPAN'},{key:'rear',label:'TAMPAK BELAKANG'}];
     gallery.classList.remove('single');
     for(const v of views){
@@ -148,19 +255,94 @@
       assignImage(img,url,()=>{missing.hidden=false;dots.hidden=true},()=>{missing.hidden=true;dots.hidden=!positioned.length});
     }
   }
+  function renderHeroHotspots(parts){
+  const visual=$('.hero-visual');
+  const image=$('#hero-car');
+  const layer=ensureHeroHitLayer();
+
+  if(!visual||!image||!layer)return;
+  if(image.hidden||!image.complete||!image.naturalWidth)return;
+
+  layer.innerHTML='';
+
+  const box=visual.getBoundingClientRect();
+  const rect=image.getBoundingClientRect();
+
+  const scale=Math.min(
+    rect.width/image.naturalWidth,
+    rect.height/image.naturalHeight
+  );
+
+  const drawnW=image.naturalWidth*scale;
+  const drawnH=image.naturalHeight*scale;
+  const offsetX=(rect.width-drawnW)/2;
+  const offsetY=rect.height-drawnH;
+
+  const positioned=(parts||[]).filter(part=>{
+    if(part.variantUnavailable)return false;
+
+    const positions=
+      part.positionsByColor?.[selectedColor]||part.pos||{};
+
+    return Array.isArray(positions.front);
+  });
+
+  positioned.forEach((part,i)=>{
+    const positions=
+      part.positionsByColor?.[selectedColor]||part.pos;
+
+    const xy=positions.front;
+
+    const px=rect.left-box.left+offsetX+(xy[0]/100)*drawnW;
+    const py=rect.top-box.top+offsetY+(xy[1]/100)*drawnH;
+
+    const button=document.createElement('button');
+
+    button.type='button';
+    button.className='hotspot hero-hotspot';
+    button.dataset.partId=part.id;
+
+    button.style.setProperty(
+      '--x',
+      `${(px/box.width)*100}%`
+    );
+
+    button.style.setProperty(
+      '--y',
+      `${(py/box.height)*100}%`
+    );
+
+    button.textContent=String(i+1);
+    button.title=title(part);
+    button.setAttribute(
+      'aria-label',
+      `Lihat aksesori ${title(part)}`
+    );
+
+    attachHotspot(button,part);
+    layer.appendChild(button);
+  });
+}
   function renderCards(parts){
     const visible=parts.filter(p=>tab==='all'||p.kind===tab);
     $('#part-count').textContent=parts.length;
     if(!visible.length){
-      $('#tab-content').innerHTML=`<div class="empty-state">${model().slug==='bz4x'?'Data SKU dan harga aksesori bZ4X belum terverifikasi.':'Belum ada part pada kategori ini. Tambahkan pada data/units/'+escapeHTML(model().slug)+'.js.'}</div>`;
+      $('#tab-content').innerHTML=`<div class="empty-state">${model().slug==='bz4x'?'Data Part Number dan harga aksesori bZ4X belum terverifikasi.':'Belum ada part pada kategori ini. Tambahkan pada data/units/'+escapeHTML(model().slug)+'.js.'}</div>`;
       return;
     }
     $('#tab-content').innerHTML=`<div class="parts-grid">${visible.map(p=>{
-      const partRows=p.partsForColor?.length>1?componentRows(p.partsForColor,'Pilihan SKU sesuai grade/varian'):'';
+      const partRows=p.partsForColor?.length>1?componentRows(p.partsForColor,'Pilihan Part Number sesuai grade/varian'):'';
       const optionRows=componentRows(p.options,'Pilihan aroma / varian');
       const componentTable=componentRows(p.components,p.componentsNote||'Rincian sparepart / komponen');
-      const noSkuText=p.variantUnavailable?'SKU warna ini belum terdaftar':p.components?.length||p.options?.length?'Lihat nomor part pada rincian':'P/N belum tersedia';
-      const pno=sku(p)?`P/N: ${sku(p)}`:noSkuText;
+      const noSkuText=p.variantUnavailable
+  ? 'Nomor part warna ini belum terdaftar'
+  : p.components?.length||p.options?.length
+    ? 'Lihat nomor part pada rincian'
+    : 'Nomor part belum tersedia';
+
+const pno=sku(p)
+  ? `Part Number: ${sku(p)}`
+  : noSkuText;
       return `<article class="part-card" data-part-id="${escapeHTML(p.id)}"><div class="part-media ${p.image?'':'no-photo'}">${p.image?`<img src="${escapeHTML(p.image)}" loading="lazy" alt="Ilustrasi ${escapeHTML(title(p))}">`:''}<span class="media-placeholder" ${p.image?'hidden':''}>Foto part belum tersedia</span></div><div class="part-body"><h3>${escapeHTML(title(p))}</h3><span class="part-sku">${escapeHTML(pno)}</span><span class="price ${p.status||p.variantUnavailable||p.options?.length?'uncertain':''}">${escapeHTML(priceText(p))}</span>${p.priceLabel&&!p.components?.length?`<span class="price-hint">${escapeHTML(p.priceLabel)}</span>`:''}<p>${escapeHTML(p.description||'Aksesori sesuai daftar TCO.')}</p>${partRows}${optionRows}${componentTable}${p.componentsNote?`<span class="part-photo-status">${escapeHTML(p.componentsNote)}</span>`:''}${descriptionNote(p)?`<span class="part-photo-status">${escapeHTML(descriptionNote(p))}</span>`:''}${p.photoStatus?`<span class="part-photo-status">${escapeHTML(p.photoStatus)}</span>`:''}${p.grades?.length?`<div class="part-grade">${p.grades.map(g=>`<span>${escapeHTML(g)}</span>`).join('')}</div>`:''}</div></article>`;
     }).join('')}</div>`;
     $$('.part-card img').forEach(img=>img.addEventListener('error',()=>{img.hidden=true;const placeholder=$('.media-placeholder',img.parentElement);if(placeholder)placeholder.hidden=false}));

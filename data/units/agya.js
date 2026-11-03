@@ -67,6 +67,7 @@ window.TCO_UNIT_DATA["agya"] = {
       "price": 108000,
       "priceLabel": "Total 2 komponen",
       "grades": [
+        "Untuk Agya Type : ",
         "E",
         "G"
       ],
@@ -98,7 +99,7 @@ window.TCO_UNIT_DATA["agya"] = {
         file: "gr-front-aeromudguard.png",
         kind: "exterior",
 
-        description: "Bikin Toyota Agya makin agresif dan stylish dengan Front Bumper Spoiler yang bikin tampilannya makin mencuri perhatian!",
+        description: "Perpaduan performa aerodinamis dan tampilan yang lebih sophisticated. Bumper depan terlihat lebih agresif dan stylish dengan GR Front Aeromudguard.",
 
         // Harga sama untuk seluruh warna
         price: 1475000,
@@ -156,7 +157,7 @@ window.TCO_UNIT_DATA["agya"] = {
   ]
 },
 
-  grades: ["E", "G"],
+  grades: ["Untuk Agya Type : ","E", "G"],
 
   image: "assets/vehicles/agya/parts/gr-front-aeromudguard.png",
 
@@ -233,7 +234,7 @@ window.TCO_UNIT_DATA["agya"] = {
   ]
 },
 
-  grades: ["E", "G"],
+  grades: ["Untuk Agya Type : ","E", "G"],
 
   image: "assets/vehicles/agya/parts/gr-side-skirt.png",
 
@@ -264,6 +265,7 @@ window.TCO_UNIT_DATA["agya"] = {
         "orange": "P5158BYA183G"
       },
       "grades": [
+        "Untuk Agya Type : ",
         "E",
         "G"
       ],
@@ -284,9 +286,10 @@ window.TCO_UNIT_DATA["agya"] = {
       "title": "Sporty Roof Spoiler (New)",
       "file": "sporty-roof-spoiler.png",
       "kind": "exterior",
-      "description": "Spoiler pada ujung atap belakang.",
+      "description": "Profil stylish yang memperkuat karakter sporty kendaraan Anda.",
       "price": 1090000,
       "grades": [
+        "Untuk Agya Type : ",
         "E",
         "G"
       ],
@@ -303,12 +306,14 @@ window.TCO_UNIT_DATA["agya"] = {
     {
       "id": "back-camera",
       "title": "Back Camera",
-      "file": "back-camera.png",
+      "file": "back-camera.JPG",
       "kind": "exterior",
-      "description": "Kamera bantu parkir mundur di area tailgate dekat plat belakang. Berlaku untuk Agya grade G pada daftar TCO.",
+      "description": "Membantu menampilkan area yang tidak terlihat untuk meningkatkan kemudahan saat parkir.",
       "price": 959000,
       "grades": [
-        "G"
+        "Untuk Agya Type : ",
+        "G",
+        "E"
       ],
       "pos": {
         "rear": [
@@ -317,18 +322,19 @@ window.TCO_UNIT_DATA["agya"] = {
         ]
       },
       "sku": "P5634BYA0V",
-      "image": "assets/vehicles/agya/parts/back-camera.png",
+      "image": "assets/vehicles/agya/parts/back-camera.jpg",
       "sourcePage": 9
     },
     {
       "id": "premium-horn",
-      "title": "Premium Horn (3 komponen)",
+      "title": "Set Premium Horn",
       "file": "premium-horn.png",
       "kind": "interior",
-      "description": "Rangkaian klakson premium berisi 3 komponen wajib. Foto tombol setir hanya ilustrasi, bukan posisi komponen klakson.",
+      "description": "Rasakan suara premium yang lembut dan elegan.",
       "price": 442000,
       "priceLabel": "Total 3 komponen, bukan harga paket resmi",
       "grades": [
+        "Untuk Agya Type : ",
         "E",
         "G",
         "GR"
@@ -358,18 +364,19 @@ window.TCO_UNIT_DATA["agya"] = {
     {
       "id": "dvr",
       "title": "DVR (Dashcam)",
-      "file": "dvr.png",
+      "file": "dvr.JPG",
       "kind": "interior",
-      "description": "Perangkat perekam perjalanan di area kaca depan.",
+      "description": "Toyota Genuine Dash Camera secara otomatis merekam perjalanan Anda, sehingga setiap momen berkendara dapat terdokumentasi.",
       "price": 1999000,
       "grades": [
+        "Untuk Agya Type : ",
         "E",
         "G",
         "GR"
       ],
       "pos": {},
       "sku": "P56A3BYA05",
-      "image": "assets/vehicles/agya/parts/dvr.png",
+      "image": "assets/vehicles/agya/parts/dvr.JPG",
       "sourcePage": 9
     },
     
