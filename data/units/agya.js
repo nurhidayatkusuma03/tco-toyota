@@ -240,7 +240,7 @@ window.TCO_UNIT_DATA["agya"] = {
 
   // Jika foto berbeda setiap warna
   imagesByColor: {
-    white: "assets/vehicles/agya/parts/gr-side-skirt.png",
+    white: "assets/vehicles/agya/parts/gr-side-skirt-white.png",
     black: "assets/vehicles/agya/parts/gr-side-skirt.png"
   },
 
