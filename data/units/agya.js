@@ -1,389 +1,549 @@
-/* DATA UNIT: Agya — edit parts/colors di file ini saja; SKU/harga wajib sesuai TCO. */
-window.TCO_UNIT_DATA=window.TCO_UNIT_DATA||{};
-window.TCO_UNIT_DATA["agya"] = {
-  "slug": "agya",
-  "name": "Agya",
-  "title": "NEW|AGYA",
-  "tagline": "Move with your style.",
-  "heroColor": "orange",
-  "colors": [
-    {
-      "key": "white",
-      "name": "White",
-      "hex": "#f7f7f5",
-      "front": "assets/vehicles/agya/colors/front-white.png",
-      "rear": "assets/vehicles/agya/colors/rear-white.png"
+window.TCO_UNIT_DATA = window.TCO_UNIT_DATA || {};
+
+(() => {
+  'use strict';
+
+  const base = 'assets/vehicles/agya/';
+
+  const partPhoto = name =>
+    base + 'parts/' + name;
+
+  const keys = [
+    'white',
+    'black',
+    'red',
+    'yellow',
+    'silver',
+    'gray',
+    'orange'
+  ];
+
+  const colorInfo = {
+    white: ['White', '#f7f7f5'],
+    black: ['Black', '#17191b'],
+    red: ['Red', '#c32335'],
+    yellow: ['Yellow', '#f9d416'],
+    silver: ['Silver Metallic', '#b7bec3'],
+    gray: ['Gray Metallic', '#5d656b'],
+    orange: ['Orange', '#e77c24']
+  };
+
+  // Referensi nama foto part per warna
+  const photos = (stem, available = keys) =>
+    Object.fromEntries(
+      available.map(key => [
+        key,
+        partPhoto(`${stem}-${key}.png`)
+      ])
+    );
+
+  // SKU dan harga berdasarkan varian warna
+  const variants = (title, price, codes) =>
+    Object.fromEntries(
+      keys.map(key => [
+        key,
+        [{
+          name: `${title}, ${colorInfo[key][0]}`,
+          sku: codes[key],
+          price,
+          sourcePage: 9
+        }]
+      ])
+    );
+
+  const gradeEG = ['E', 'G'];
+
+  /*
+    PART NUMBER BERDASARKAN WARNA
+
+    Diambil dari data TCO yang sebelumnya
+    digunakan pada proyek.
+
+    Front Bumper Spoiler, Set
+    SideSkirt, Set
+    Rear Bumper Spoiler, Set
+  */
+
+  const tcoSkus = {
+
+    front: {
+      white: 'P5154BYA0U47',
+      black: 'P5154BYA0U1J',
+      red: 'P5154BYA0U3F',
+      silver: 'P5154BYA132G',
+      gray: 'P5154BYA1324',
+      yellow: 'P5154BYA132H',
+      orange: 'P5154BYA133G'
     },
-    {
-      "key": "black",
-      "name": "Black",
-      "hex": "#17191b",
-      "front": "assets/vehicles/agya/colors/front-black.png",
-      "rear": "assets/vehicles/agya/colors/rear-black.png"
+
+    side: {
+      white: 'P5156BYA0T47',
+      black: 'P5156BYA0T1J',
+      red: 'P5156BYA0T3F',
+      silver: 'P5156BYA0U2G',
+      gray: 'P5156BYA0U24',
+      yellow: 'P5156BYA0U2H',
+      orange: 'P5156BYA0U3G'
     },
-    {
-      "key": "red",
-      "name": "Red",
-      "hex": "#c32335",
-      "front": "assets/vehicles/agya/colors/front-red.png",
-      "rear": "assets/vehicles/agya/colors/rear-red.png"
-    },
-    {
-      "key": "yellow",
-      "name": "Yellow",
-      "hex": "#f9d416",
-      "front": "assets/vehicles/agya/colors/front-yellow.png",
-      "rear": "assets/vehicles/agya/colors/rear-yellow.png"
-    },
-    {
-      "key": "silver",
-      "name": "Silver Metallic",
-      "hex": "#b7bec3",
-      "front": "assets/vehicles/agya/colors/front-silver.png",
-      "rear": "assets/vehicles/agya/colors/rear-silver.png"
-    },
-    {
-      "key": "gray",
-      "name": "Gray Metallic",
-      "hex": "#5d656b",
-      "front": "assets/vehicles/agya/colors/front-gray.png",
-      "rear": "assets/vehicles/agya/colors/rear-gray.png"
-    },
-    {
-      "key": "orange",
-      "name": "Orange",
-      "hex": "#e77c24",
-      "front": "assets/vehicles/agya/colors/front-orange.png",
-      "rear": "assets/vehicles/agya/colors/rear-orange.png"
+
+    rear: {
+      white: 'P5158BYA0X47',
+      black: 'P5158BYA0X1J',
+      red: 'P5158BYA0X3F',
+      silver: 'P5158BYA182G',
+      gray: 'P5158BYA1824',
+      yellow: 'P5158BYA182H',
+      orange: 'P5158BYA183G'
     }
-  ],
-  "parts": [
-    {
-      "id": "rad-grille-emblem-set",
-      "title": "Set Emblem Grille Depan",
-      "file": "t-emblem-rad-grille.png",
-      "kind": "exterior",
-      "description": "Set emblem grille depan yang terdiri dari emblem Toyota dan dudukan emblem/base grille emblem.",
-      "price": 108000,
-      "priceLabel": "Total 2 komponen",
-      "grades": [
-        "Untuk Agya Type : ",
-        "E",
-        "G"
-      ],
-      "components": [
-        {
-          "name": "Emblem TOYOTA (Front Grille Emblem)",
-          "sku": "75311-BZ470",
-          "price": 80000,
-        },
-        {
-          "name": "Emblem Base (Base Grille Emblem)",
-          "sku": "75312-BZ140",
-          "price": 28000,
+
+  };
+
+
+  /* ==========================================
+     DATA UNIT AGYA
+     ========================================== */
+
+  window.TCO_UNIT_DATA.agya = {
+
+    slug: 'agya',
+
+    name: 'Agya',
+
+    title: 'NEW|AGYA',
+
+    tagline: 'Move with your style.',
+
+    heroColor: 'white',
+
+    // Foto depan sudah mencakup
+    // tampak depan dan belakang.
+    heroComposite: true,
+
+
+    /* ========================================
+       WARNA KENDARAAN
+       ======================================== */
+
+    colors: keys.map(key => ({
+
+      key,
+
+      name: colorInfo[key][0],
+
+      hex: colorInfo[key][1],
+
+      front:
+        `${base}colors/front-${key}.png`
+
+    })),
+
+
+    /* ========================================
+       DAFTAR SPAREPART AGYA
+       TOTAL: 8 CARD
+       ======================================== */
+
+    parts: [
+
+
+      /* ======================================
+         1. SET EMBLEM GRILLE DEPAN
+         ====================================== */
+
+      {
+
+        id: 'rad-grille-emblem-set',
+
+        title:
+          'T-Emblem RAD Grille + Emblem Base',
+
+        kind: 'exterior',
+
+        sourcePage: 9,
+
+        grades: gradeEG,
+
+        description:
+          'Emblem Toyota pada grille depan beserta dudukannya.',
+
+        price: 108000,
+
+        priceLabel:
+          'Rp. 108.000',
+
+        status: 'bulletin',
+
+        sku: null,
+
+        // Dua komponen dalam satu card.
+        components: [
+
+          {
+            name: 'T-Emblem RAD Grille',
+
+            sku: '75311-BZ470',
+
+            price: 80000,
+
+            priceLabel:
+              'Rp. 80.000'
+          },
+
+          {
+            name:
+              'Emblem Base (Base Grille Emblem)',
+
+            sku: '75312-BZ140',
+
+            price: 20000,
+
+            priceLabel:
+              'Rp. 20.000'
+          }
+
+        ],
+
+        imagesByColor: photos(
+          't-emblem-rad-grille'
+        ),
+
+        hotspot: {
+          composite: [36, 68]
         }
-      ],
-      "pos": {
-        "front": [
-          21.7,
-          58.6
-        ]
+
       },
-      "sku": null,
-      "image": "assets/vehicles/agya/parts/t-emblem-rad-grille.png",
-      "sourcePage": 9
-    },
-    {
-       id: "gr-front-aeromudguard",
-        title: "Spoiler Bumper Depan",
-        file: "gr-front-aeromudguard.png",
-        kind: "exterior",
 
-        description: "Perpaduan performa aerodinamis dan tampilan yang lebih sophisticated. Bumper depan terlihat lebih agresif dan stylish dengan GR Front Aeromudguard.",
 
-        // Harga sama untuk seluruh warna
+      /* ======================================
+         2. GR FRONT AEROMUDGUARD
+         ====================================== */
+
+      {
+
+        id: 'gr-front-aeromudguard',
+
+        title:
+          'GR Front Aeromudguard',
+
+        kind: 'exterior',
+
+        sourcePage: 9,
+
+        grades: gradeEG,
+
+        description:
+          'Aerokit pada sudut bumper depan.',
+
+        // Harga mengikuti entri
+        // Front Bumper Spoiler, Set.
         price: 1475000,
 
-          // Nomor Part berbeda berdasarkan warna
-          "variants": {
-  "white": [
-    {
-      "name": "GR Front Aeromudguard White",
-      "sku": "P5154BYA0U47",
-      "price": 1475000
-    }
-  ],
-  "black": [
-    {
-      "name": "GR Front Aeromudguard Black",
-      "sku": "P5154BYA0U1J",
-      "price": 1475000
-    }
-  ],
-  "red": [
-    {
-      "name": "GR Front Aeromudguard Red",
-      "sku": "P5154BYA0U3F",
-      "price": 1475000
-    }
-  ],
-  "silver": [
-    {
-      "name": "GR Front Aeromudguard Silver",
-      "sku": "P5154BYA132G",
-      "price": 1475000
-    }
-  ],
-  "gray": [
-    {
-      "name": "GR Front Aeromudguard Gray",
-      "sku": "P5154BYA1324",
-      "price": 1475000
-    }
-  ],
-  "yellow": [
-    {
-      "name": "GR Front Aeromudguard Yellow",
-      "sku": "P5154BYA132H",
-      "price": 1475000
-    }
-  ],
-  "orange": [
-    {
-      "name": "GR Front Aeromudguard Orange",
-      "sku": "P5154BYA133G",
-      "price": 1475000
-    }
-  ]
-},
+        referencePrice: 1475000,
 
-  grades: ["Untuk Agya Type : ","E", "G"],
+        referenceName:
+          'Front Bumper Spoiler, Set',
 
-  image: "assets/vehicles/agya/parts/gr-front-aeromudguard.png",
+        relatedSKUs: tcoSkus.front,
 
-  // Jika foto berbeda setiap warna
-  imagesByColor: {
-    white: "assets/vehicles/agya/parts/gr-front-aeromudguard.png",
-    black: "assets/vehicles/agya/parts/gr-front-aeromudguard.png",
-    red: "assets/vehicles/agya/parts/gr-front-aeromudguard-merah.png"
-  },
+        variants: variants(
+          'Front Bumper Spoiler, Set',
+          1475000,
+          tcoSkus.front
+        ),
 
-  pos: {}
-},
-    {
-      "id": "gr-side-skirt",
-      "title": "Body Kit Samping (Side Skirt)",
-      "file": "gr-side-skirt.png",
-      "kind": "exterior",
+        imagesByColor: photos(
+          'gr-front-aeromudguard'
+        ),
 
-        description: "Bikin Toyota Agya makin agresif dan stylish dengan Body Kit Samping yang bikin tampilannya makin mencuri perhatian!",
+        hotspot: {
+          composite: [44, 84]
+        }
 
-        // Harga sama untuk seluruh warna
+      },
+
+
+      /* ======================================
+         3. GR SIDE SKIRT
+         ====================================== */
+
+      {
+
+        id: 'gr-side-skirt',
+
+        title:
+          'GR Side Skirt',
+
+        kind: 'exterior',
+
+        sourcePage: 9,
+
+        grades: gradeEG,
+
+        description:
+          'Aksesori pada bagian bawah sisi bodi kendaraan.',
+
+        // Harga mengikuti entri
+        // SideSkirt, Set.
         price: 2375000,
 
-          // Nomor Part berbeda berdasarkan warna
-          "variants": {
-  "white": [
-    {
-      "name": "GR Side Skirt Set White",
-      "sku": "P5156BYA0T47",
-      "price": 2375000
-    }
-  ],
-  "black": [
-    {
-      "name": "GR Side Skirt Set Black",
-      "sku": "P5156BYA0T1J",
-      "price": 2375000
-    }
-  ],
-  "red": [
-    {
-      "name": "GR Side Skirt Set Red",
-      "sku": "P5156BYA0T3F",
-      "price": 2375000
-    }
-  ],
-  "silver": [
-    {
-      "name": "GR Side Skirt Set Silver",
-      "sku": "P5156BYA0T2G",
-      "price": 2375000
-    }
-  ],
-  "gray": [
-    {
-      "name": "GR Side Skirt Set Gray",
-      "sku": "P5156BYA0T24",
-      "price": 2375000
-    }
-  ],
-  "yellow": [
-    {
-      "name": "GR Side Skirt Set Yellow",
-      "sku": "P5156BYA0T2H",
-      "price": 2375000
-    }
-  ],
-  "orange": [
-    {
-      "name": "GR Side Skirt Set Orange",
-      "sku": "P5156BYA0T3G",
-      "price": 2375000
-    }
-  ]
-},
+        referencePrice: 2375000,
 
-  grades: ["Untuk Agya Type : ","E", "G"],
+        referenceName:
+          'SideSkirt, Set',
 
-  image: "assets/vehicles/agya/parts/gr-side-skirt.png",
+        relatedSKUs: tcoSkus.side,
 
-  // Jika foto berbeda setiap warna
-  imagesByColor: {
-    white: "assets/vehicles/agya/parts/gr-side-skirt-white.png",
-    black: "assets/vehicles/agya/parts/gr-side-skirt.png"
-  },
+        variants: variants(
+          'SideSkirt, Set',
+          2375000,
+          tcoSkus.side
+        ),
 
-  pos: {}
-},
-    {
-      "id": "gr-rear-detail",
-      "title": "GR Rear Aeromudguard",
-      "file": "gr-rear-detail.png",
-      "kind": "exterior",
-      "description": "Aerokit sudut bumper belakang. Pada tabel harga satuan disebut Rear Bumper Spoiler, Set; kecocokan part perlu dipastikan.",
-      "price": 1299000,
-      "referencePrice": 1299000,
-      "priceLabel": "Harga part satuan perlu verifikasi",
-      "relatedSKUs": {
-        "white": "P5158BYA0X47",
-        "black": "P5158BYA0X1J",
-        "red": "P5158BYA0X3F",
-        "silver": "P5158BYA182G",
-        "gray": "P5158BYA1824",
-        "yellow": "P5158BYA182H",
-        "orange": "P5158BYA183G"
-      },
-      "grades": [
-        "Untuk Agya Type : ",
-        "E",
-        "G"
-      ],
-      "pos": {
-        "rear": [
-          9.9,
-          69.4
-        ]
-      },
-      "status": "verify",
-      "referenceName": "Rear Bumper Spoiler, Set",
-      "sourcePage": 9,
-      "sku": null,
-      "image": "assets/vehicles/agya/parts/gr-rear-detail.png"
-    },
-    {
-      "id": "sporty-roof-spoiler",
-      "title": "Sporty Roof Spoiler (New)",
-      "file": "sporty-roof-spoiler.png",
-      "kind": "exterior",
-      "description": "Profil stylish yang memperkuat karakter sporty kendaraan Anda.",
-      "price": 1090000,
-      "grades": [
-        "Untuk Agya Type : ",
-        "E",
-        "G"
-      ],
-      "pos": {
-        "rear": [
-          18.7,
-          21.4
-        ]
-      },
-      "sku": "P5150BYA02",
-      "image": "assets/vehicles/agya/parts/sporty-roof-spoiler.png",
-      "sourcePage": 9
-    },
-    {
-      "id": "back-camera",
-      "title": "Back Camera",
-      "file": "back-camera.JPG",
-      "kind": "exterior",
-      "description": "Membantu menampilkan area yang tidak terlihat untuk meningkatkan kemudahan saat parkir.",
-      "price": 959000,
-      "grades": [
-        "Untuk Agya Type : ",
-        "G",
-        "E"
-      ],
-      "pos": {
-        "rear": [
-          19.0,
-          48.3
-        ]
-      },
-      "sku": "P5634BYA0V",
-      "image": "assets/vehicles/agya/parts/back-camera.jpg",
-      "sourcePage": 9
-    },
-    {
-      "id": "premium-horn",
-      "title": "Set Premium Horn",
-      "file": "premium-horn.png",
-      "kind": "interior",
-      "description": "Rasakan suara premium yang lembut dan elegan.",
-      "price": 442000,
-      "priceLabel": "Total 3 komponen, bukan harga paket resmi",
-      "grades": [
-        "Untuk Agya Type : ",
-        "E",
-        "G",
-        "GR"
-      ],
-      "components": [
-        {
-          "name": "Wire Harness Premium Horn",
-          "sku": "6A205TAD74",
-          "price": 212000
-        },
-        {
-          "name": "Horn Assy Low Pitched",
-          "sku": "86510TA042",
-          "price": 115000
-        },
-        {
-          "name": "Horn Hi (H)",
-          "sku": "86510TA081",
-          "price": 115000
+        // Hanya warna yang sudah memiliki
+        // foto pada folder parts.
+        imagesByColor: photos(
+          'gr-side-skirt',
+          [
+            'red',
+            'yellow',
+            'gray',
+            'silver',
+            'white',
+            'black',
+            'orange'
+          ]
+        ),
+
+        hotspot: {
+          composite: [26, 82]
         }
-      ],
-      "pos": {},
-      "sku": null,
-      "image": "assets/vehicles/agya/parts/premium-horn.png",
-      "sourcePage": 9
-    },
-    {
-      "id": "dvr",
-      "title": "DVR (Dashcam)",
-      "file": "dvr.JPG",
-      "kind": "interior",
-      "description": "Toyota Genuine Dash Camera secara otomatis merekam perjalanan Anda, sehingga setiap momen berkendara dapat terdokumentasi.",
-      "price": 1999000,
-      "grades": [
-        "Untuk Agya Type : ",
-        "E",
-        "G",
-        "GR"
-      ],
-      "pos": {},
-      "sku": "P56A3BYA05",
-      "image": "assets/vehicles/agya/parts/dvr.JPG",
-      "sourcePage": 9
-    },
-    
-  ],
-  "notes": {
-    "source": "National TCO Master Part and Price List Juli 2026 (RTCO After Tax)",
-    "readme": "Tambahkan part pada array parts di file ini. HTML tidak perlu diedit.",
-    "fallback": "Jika file foto warna tidak ada, UI akan menampilkan belum tersedia, bukan warna lain."
-  }
-};
+
+      },
+
+
+      /* ======================================
+         4. GR REAR AEROMUDGUARD
+         ====================================== */
+
+      {
+
+        id: 'gr-rear-detail',
+
+        title:
+          'GR Rear Aeromudguard',
+
+        kind: 'exterior',
+
+        sourcePage: 9,
+
+        grades: gradeEG,
+
+        description:
+          'Aerokit pada sudut bumper belakang.',
+
+        // Harga mengikuti entri
+        // Rear Bumper Spoiler, Set.
+        price: 1299000,
+
+        referencePrice: 1299000,
+
+        referenceName:
+          'Rear Bumper Spoiler, Set',
+
+        relatedSKUs: tcoSkus.rear,
+
+        variants: variants(
+          'Rear Bumper Spoiler, Set',
+          1299000,
+          tcoSkus.rear
+        ),
+
+        imagesByColor: photos(
+          'gr-rear-detail'
+        ),
+
+        hotspot: {
+          composite: [89, 83]
+        }
+
+      },
+
+
+      /* ======================================
+         5. SPORTY ROOF SPOILER
+         ====================================== */
+
+      {
+
+        id: 'sporty-roof-spoiler',
+
+        // Perbaikan nama:
+        // Sebelumnya salah tertulis
+        // "Rear Bumper Spoiler, Set".
+        title:
+          'Sporty Roof Spoiler',
+
+        kind: 'exterior',
+
+        sourcePage: 9,
+
+        grades: gradeEG,
+
+        description:
+          'Spoiler pada ujung atap pintu bagasi belakang.',
+
+        price: 1090000,
+
+        sku: 'P5150BYA02',
+
+        imagesByColor: photos(
+          'sporty-roof-spoiler'
+        ),
+
+        hotspot: {
+          composite: [83, 45]
+        }
+
+      },
+
+
+      /* ======================================
+         6. BACK CAMERA
+         ====================================== */
+
+      {
+
+        id: 'back-camera',
+
+        title:
+          'Back Camera',
+
+        kind: 'exterior',
+
+        sourcePage: 9,
+
+        grades: ['G'],
+
+        description:
+          'Kamera belakang untuk membantu parkir mundur.',
+
+        price: 959000,
+
+        sku: 'P5634BYA0V',
+
+        image: partPhoto(
+          'back-camera.png'
+        )
+
+        // Tidak menggunakan hotspot.
+
+      },
+
+
+      /* ======================================
+         7. PREMIUM HORN
+         ====================================== */
+
+      {
+
+        id: 'premium-horn',
+
+        title:
+          'Premium Horn (3 komponen)',
+
+        kind: 'interior',
+
+        sourcePage: 9,
+
+        grades: ['E', 'G', 'GR'],
+
+        description:
+          'Klakson premium terdiri dari wire harness dan dua unit horn.',
+
+        // Total harga tiga komponen.
+        price: 442000,
+
+        priceLabel:
+          'Total 3 komponen, bukan harga paket resmi',
+
+        sku: null,
+
+        components: [
+
+          {
+            name:
+              'Wire Harness Premium Horn',
+
+            sku: '6A205TAD74',
+
+            price: 212000
+          },
+
+          {
+            name:
+              'Horn Assy Low Pitched',
+
+            sku: '86510TA042',
+
+            price: 115000
+          },
+
+          {
+            name:
+              'Horn Hi (H)',
+
+            sku: '86510TA081',
+
+            price: 115000
+          }
+
+        ],
+
+        image: partPhoto(
+          'premium-horn.png'
+        )
+
+        // Komponen interior:
+        // Tidak menggunakan hotspot.
+
+      },
+
+
+      /* ======================================
+         8. DVR / DASHCAM
+         ====================================== */
+
+      {
+
+        id: 'dvr',
+
+        title:
+          'DVR (Dashcam)',
+
+        kind: 'interior',
+
+        sourcePage: 9,
+
+        grades: ['E', 'G', 'GR'],
+
+        description:
+          'Kamera perekam perjalanan (dashcam).',
+
+        price: 1999000,
+
+        sku: 'P56A3BYA05',
+
+        // Kapitalisasi file sesuai folder.
+        image: partPhoto(
+          'DVR.png'
+        )
+
+        // Tidak menggunakan hotspot.
+
+      }
+
+    ]
+
+  };
+
+})();

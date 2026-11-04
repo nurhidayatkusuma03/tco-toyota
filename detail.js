@@ -1,28 +1,37 @@
 
-/* TCO Kalla Toyota — Detail Unit
-   Agya: 1 PNG gabungan depan + belakang; hotspot khusus exterior.
-   Data SKU dan harga tetap dari data/units/<slug>.js.
-*/
+/*
+ * TCO KALLA TOYOTA
+ * DETAIL UNIT — PERBAIKAN FOTO & HARGA
+ *
+ * Tidak perlu mengubah agya.js atau detail.html.
+ * Foto dimuat melalui Image() secara eager.
+ * Mendukung nama file terbaru dan file:// lokal.
+ */
+
 (() => {
   'use strict';
 
-  const $ = (s, root = document) => root.querySelector(s);
-  const $$ = (s, root = document) => [...root.querySelectorAll(s)];
+  const $ = (s, root = document) =>
+    root.querySelector(s);
 
-  const esc = value => String(value ?? '').replace(
-    /[&<>"']/g,
-    char => ({
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#39;'
-    })[char]
-  );
+  const $$ = (s, root = document) =>
+    Array.from(root.querySelectorAll(s));
 
-  const money = value =>
-    typeof value === 'number' && Number.isFinite(value)
-      ? `Rp${value.toLocaleString('id-ID')}`
+  const esc = value =>
+    String(value ?? '').replace(
+      /[&<>"']/g,
+      c => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      })[c]
+    );
+
+  const rupiah = value =>
+    Number.isFinite(value)
+      ? 'Rp' + value.toLocaleString('id-ID')
       : 'Harga belum tercantum';
 
   const norm = value =>
@@ -30,98 +39,185 @@
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '-');
 
-  const catalog = Array.isArray(window.CATALOG)
-    ? window.CATALOG
-    : [];
+  const catalog =
+    Array.isArray(window.CATALOG)
+      ? window.CATALOG
+      : [];
 
   window.TCO_UNIT_DATA ||= {};
 
-  if (!catalog.length) return;
+  if (!catalog.length) {
+    console.error(
+      '[TCO] Katalog kosong. Periksa data.js.'
+    );
+    return;
+  }
 
-  const loaded = new Map();
+  const cache = new Map();
+
+  const param =
+    new URLSearchParams(
+      location.search
+    ).get('unit') || 'agya';
 
   let index = Math.max(
     0,
-    catalog.findIndex(m =>
-      m.slug === (
-        new URLSearchParams(location.search).get('unit') ||
-        'agya'
-      )
+    catalog.findIndex(
+      x => x.slug === param
     )
   );
 
   let selectedColor = 'white';
   let tab = 'all';
-  let loadToken = 0;
-  let pinned = null;
-  let heroRequest = 0;
+  let unitToken = 0;
+  let popupPinned = null;
 
   const model = () => catalog[index];
 
   const unit = () =>
     window.TCO_UNIT_DATA[model().slug] || null;
 
-  const colors = () =>
-    Array.isArray(unit()?.colors) ? unit().colors : [];
+  const palette = () =>
+    Array.isArray(unit()?.colors)
+      ? unit().colors
+      : [];
 
   const color = () =>
-    colors().find(c => c.key === selectedColor) ||
-    colors()[0];
+    palette().find(
+      c => c.key === selectedColor
+    ) || palette()[0] || null;
 
-  const originals = () =>
-    Array.isArray(unit()?.parts) ? unit().parts : [];
+  const rawParts = () =>
+    Array.isArray(unit()?.parts)
+      ? unit().parts
+      : [];
 
-  const name = p =>
-    p.title || p.name || 'Aksesori Toyota';
+  const idOf = p =>
+    p.id || norm(p.title || p.name);
 
-  const keyOf = p =>
-    p.id || norm(name(p));
+  const titleOf = p =>
+    p.title ||
+    p.name ||
+    'Aksesori Toyota';
 
-  // Agya menggunakan satu PNG yang sudah berisi
-  // tampak depan dan belakang sekaligus.
-  const isComposite = () =>
+  const composite = () =>
     model().slug === 'agya' ||
     unit()?.heroComposite === true;
 
 
-  /* ======================================
-     1. LOAD DATA UNIT
-     ====================================== */
+  /* ==========================================
+     1. MANIFEST FOTO AGYA
+     ========================================== */
+
+  const AGYA_IMAGES = {
+    'rad-grille-emblem-set': {
+      stem: 't-emblem-rad-grille'
+    },
+
+    'gr-front-aeromudguard': {
+      stem: 'gr-front-aeromudguard'
+    },
+
+    'gr-side-skirt': {
+      stem: 'gr-side-skirt',
+      colors: [
+        'red',
+        'yellow',
+        'gray',
+        'silver',
+        'white',
+        'black',
+        'orange'
+      ]
+    },
+
+    'gr-rear-detail': {
+      stem: 'gr-rear-detail'
+    },
+
+    'sporty-roof-spoiler': {
+      stem: 'sporty-roof-spoiler'
+    },
+
+    'back-camera': {
+      file: 'back-camera.png'
+    },
+
+    'premium-horn': {
+      file: 'premium-horn.png'
+    },
+
+    'dvr': {
+      file: 'DVR.png'
+    }
+  };
+
+
+  /* ==========================================
+     2. REFERENSI HARGA TCO
+     ========================================== */
+
+  const AGYA_TCO_SOURCES = {
+    'gr-front-aeromudguard':
+      'Front Bumper Spoiler, Set',
+
+    'gr-rear-detail':
+      'Rear Bumper Spoiler, Set',
+
+    'gr-side-skirt':
+      'SideSkirt, Set'
+  };
+
+
+  /* ==========================================
+     3. LOAD DATA UNIT
+     ========================================== */
 
   function loadUnit(slug) {
     if (window.TCO_UNIT_DATA[slug]) {
       return Promise.resolve(true);
     }
 
-    if (loaded.has(slug)) {
-      return loaded.get(slug);
+    if (cache.has(slug)) {
+      return cache.get(slug);
     }
 
     const task = new Promise(resolve => {
-      const script = document.createElement('script');
+      const script =
+        document.createElement('script');
 
-      script.src =
-        `data/units/${encodeURIComponent(slug)}.js`;
+      script.src = new URL(
+        `data/units/${encodeURIComponent(slug)}.js`,
+        document.baseURI
+      ).href;
 
       script.onload = () =>
-        resolve(Boolean(window.TCO_UNIT_DATA[slug]));
+        resolve(
+          Boolean(window.TCO_UNIT_DATA[slug])
+        );
 
-      script.onerror = () => resolve(false);
+      script.onerror = () => {
+        console.error(
+          '[TCO] Data unit gagal dibaca:',
+          script.src
+        );
+
+        resolve(false);
+      };
 
       document.head.appendChild(script);
     });
 
-    loaded.set(slug, task);
-
+    cache.set(slug, task);
     return task;
   }
 
 
-  /* ======================================
-     2. DATA PART BERDASARKAN WARNA
-     ====================================== */
+  /* ==========================================
+     4. PART SESUAI WARNA
+     ========================================== */
 
-  function activePart(raw) {
+  function partForColor(raw) {
     const p = { ...raw };
 
     p.description =
@@ -129,43 +225,36 @@
       raw.description ??
       '';
 
-    p.image =
-      raw.imagesByColor?.[selectedColor] ||
-      raw.imageByColor?.[selectedColor] ||
-      raw.image;
+    const variant =
+      raw.variants?.[selectedColor];
 
-    p.partsForColor = [];
+    p.partsForColor =
+      Array.isArray(variant)
+        ? variant
+        : variant
+          ? [variant]
+          : [];
+
+    p.variantUnavailable =
+      Boolean(raw.variants) &&
+      !p.partsForColor.length;
 
     if (raw.variants) {
-      const value = raw.variants[selectedColor];
+      p.sku =
+        p.partsForColor.length === 1
+          ? p.partsForColor[0].sku
+          : null;
 
-      p.partsForColor = Array.isArray(value)
-        ? value
-        : value ? [value] : [];
-
-      p.variantUnavailable =
-        p.partsForColor.length === 0;
-
-      if (p.partsForColor.length === 1) {
-        p.sku =
-          p.partsForColor[0].sku || null;
-
-        if (p.partsForColor[0].image) {
-          p.image = p.partsForColor[0].image;
-        }
-      } else {
-        p.sku = null;
-      }
-
-      const same =
+      const samePrice =
         p.partsForColor.length &&
         p.partsForColor.every(
           x =>
-            typeof x.price === 'number' &&
-            x.price === p.partsForColor[0].price
+            Number.isFinite(x.price) &&
+            x.price ===
+              p.partsForColor[0].price
         );
 
-      p.price = same
+      p.price = samePrice
         ? p.partsForColor[0].price
         : null;
     }
@@ -174,26 +263,261 @@
   }
 
   const parts = () =>
-    originals().map(activePart);
+    rawParts().map(partForColor);
 
-  function partNo(p) {
+  const visibleParts = () =>
+    parts().filter(
+      p =>
+        tab === 'all' ||
+        p.kind === tab
+    );
+
+
+  /* ==========================================
+     5. RESOLUSI URL FOTO
+     ========================================== */
+
+  function urlOf(input, type = 'part') {
+    if (!input) return '';
+
+    let path =
+      String(input).replace(/\\/g, '/');
+
     if (
-      p.variantUnavailable ||
-      p.status === 'verify'
+      /^(?:https?:|file:|data:|blob:)/i
+        .test(path)
     ) {
-      return '';
+      return path;
     }
 
-    return p.sku || p.partNumber || '';
+    if (!path.includes('/')) {
+      path =
+        `assets/vehicles/${model().slug}/` +
+        `${type === 'car' ? 'colors' : 'parts'}/` +
+        path;
+    }
+
+    return new URL(
+      path,
+      document.baseURI
+    ).href;
   }
 
-  function priceLabel(p) {
-    if (p.variantUnavailable) {
-      return 'Varian warna belum tersedia';
+
+  /* ==========================================
+     6. PENCARIAN FOTO PART
+     ========================================== */
+
+  function candidatePhotos(p) {
+    const paths = [];
+
+    const add = path => {
+      const url = urlOf(path);
+
+      if (
+        url &&
+        !paths.includes(url)
+      ) {
+        paths.push(url);
+      }
+    };
+
+    if (model().slug === 'agya') {
+      const known = AGYA_IMAGES[idOf(p)];
+
+      if (known) {
+        // Part dengan satu foto tetap.
+        if (known.file) {
+          add(known.file);
+
+          if (known.file === 'DVR.png') {
+            add('dvr.png');
+          }
+        }
+
+        // Part dengan foto per warna.
+        else if (
+          !known.colors ||
+          known.colors.includes(selectedColor)
+        ) {
+          const stem =
+            `${known.stem}-${selectedColor}`;
+
+          // Prioritas PNG.
+          add(stem + '.png');
+
+          // Cadangan bila file asli masih JPG.
+          add(stem + '.jpg');
+          add(stem + '.jpeg');
+
+          // Dukungan penamaan emblem lama.
+          if (
+            known.stem === 't-emblem-rad-grille' &&
+            selectedColor === 'white'
+          ) {
+            add(
+              't-emblem-rad-grille-putih.png'
+            );
+          }
+        }
+
+        // Jangan mengambil foto warna lain.
+        return paths;
+      }
     }
 
-    if (p.status === 'verify') {
-      return 'Harga belum terverifikasi';
+    // Unit selain Agya.
+    const map =
+      p.imagesByColor ||
+      p.imageByColor;
+
+    if (map) {
+      add(map[selectedColor]);
+      return paths;
+    }
+
+    // Foto dari varian SKU.
+    for (
+      const variant of
+      p.partsForColor || []
+    ) {
+      add(variant.image);
+    }
+
+    // Foto standar.
+    add(p.image);
+
+    if (!p.image) {
+      add(p.file);
+    }
+
+    return paths;
+  }
+
+
+  /* ==========================================
+     7. MEMUAT FOTO TANPA LAZY HIDDEN
+     ========================================== */
+
+  function showPhoto(
+    img,
+    candidates,
+    placeholder,
+    label = ''
+  ) {
+    if (!img) return;
+
+    const urls = [
+      ...new Set(
+        candidates.filter(Boolean)
+      )
+    ];
+
+    const ticket = String(
+      (Number(img.dataset.photoTicket) || 0)
+      + 1
+    );
+
+    img.dataset.photoTicket = ticket;
+
+    // PENTING:
+    // Jangan gunakan hidden + lazy loading
+    // saat foto sedang dimuat.
+    img.removeAttribute('loading');
+    img.loading = 'eager';
+
+    img.hidden = true;
+    img.removeAttribute('src');
+
+    if (placeholder) {
+      placeholder.hidden = false;
+
+      placeholder.textContent =
+        urls.length
+          ? 'Memuat foto...'
+          : 'Foto part belum tersedia untuk pilihan ini';
+    }
+
+    if (!urls.length) return;
+
+    let position = 0;
+
+    function next() {
+      if (
+        img.dataset.photoTicket !== ticket
+      ) {
+        return;
+      }
+
+      if (position >= urls.length) {
+        if (placeholder) {
+          placeholder.textContent =
+            'Foto gagal dimuat — periksa nama atau ekstensi file';
+        }
+
+        console.error(
+          '[TCO] Semua alamat foto gagal:',
+          label,
+          urls
+        );
+
+        return;
+      }
+
+      const url = urls[position++];
+
+      // Muat secara independen.
+      const probe = new Image();
+
+      probe.loading = 'eager';
+
+      probe.onload = () => {
+        if (
+          img.dataset.photoTicket !== ticket
+        ) {
+          return;
+        }
+
+        img.src = url;
+        img.hidden = false;
+
+        if (placeholder) {
+          placeholder.hidden = true;
+        }
+
+        if (
+          img.id === 'hero-car' ||
+          img.id === 'hero-car-rear'
+        ) {
+          requestAnimationFrame(
+            positionHotspots
+          );
+        }
+      };
+
+      probe.onerror = () => {
+        console.warn(
+          '[TCO] Foto tidak ditemukan:',
+          url
+        );
+
+        next();
+      };
+
+      probe.src = url;
+    }
+
+    next();
+  }
+
+
+  /* ==========================================
+     8. HARGA DAN PART NUMBER
+     ========================================== */
+
+  function partPrice(p) {
+    if (p.variantUnavailable) {
+      return 'Varian warna belum tersedia';
     }
 
     if (p.status === 'bulletin') {
@@ -201,897 +525,186 @@
         'Mengikuti Part Bulletin';
     }
 
-    if (p.options?.length && p.price == null) {
+    if (
+      model().slug === 'agya' &&
+      AGYA_TCO_SOURCES[idOf(p)]
+    ) {
+      return Number.isFinite(
+        p.referencePrice
+      )
+        ? rupiah(p.referencePrice)
+        : 'Harga TCO belum tersedia';
+    }
+
+    if (
+      p.options?.length &&
+      p.price == null
+    ) {
       return 'Lihat pilihan varian';
     }
 
-    return typeof p.price === 'number'
-      ? money(p.price)
-      : p.priceLabel || 'Harga belum tercantum';
+    return Number.isFinite(p.price)
+      ? rupiah(p.price)
+      : (
+          p.priceLabel ||
+          'Harga belum tercantum'
+        );
   }
 
-  function componentRows(items, heading) {
+  function partNumber(p) {
+    if (p.variantUnavailable) {
+      return 'SKU warna ini belum tersedia';
+    }
+
     if (
-      !Array.isArray(items) ||
-      !items.length
+      model().slug === 'agya' &&
+      AGYA_TCO_SOURCES[idOf(p)]
+    ) {
+      const sku =
+        p.relatedSKUs?.[selectedColor];
+
+      return sku
+        ? (
+            `P/N TCO ${
+              AGYA_TCO_SOURCES[idOf(p)]
+            }: ${sku}`
+          )
+        : 'P/N TCO tidak tersedia';
+    }
+
+    const sku =
+      p.sku ||
+      p.partNumber ||
+      '';
+
+    if (sku) {
+      return `P/N: ${sku}`;
+    }
+
+    return p.components?.length
+      ? 'Lihat nomor part pada rincian'
+      : 'Nomor part belum tersedia';
+  }
+
+
+  /* ==========================================
+     9. DESKRIPSI PART
+     ========================================== */
+
+  function partDescription(p) {
+    if (
+      model().slug !== 'agya' ||
+      !AGYA_TCO_SOURCES[idOf(p)]
+    ) {
+      return p.description || '';
+    }
+
+    const messages = {
+      'gr-front-aeromudguard':
+        'Foto menunjukkan aksesori pada sudut bumper depan. Harga dan P/N yang tampil berasal dari entri Front Bumper Spoiler, Set pada tabel harga satuan TCO Juli 2026.',
+
+      'gr-side-skirt':
+        'Foto menunjukkan aksesori di panel bawah samping. Harga dan P/N yang tampil berasal dari entri SideSkirt, Set pada tabel harga satuan TCO Juli 2026.',
+
+      'gr-rear-detail':
+        'Foto menunjukkan aksesori pada sudut bumper belakang. Harga dan P/N yang tampil berasal dari entri Rear Bumper Spoiler, Set pada tabel harga satuan TCO Juli 2026.'
+    };
+
+    return messages[idOf(p)];
+  }
+
+  function sourceNote(p) {
+    if (
+      model().slug === 'agya' &&
+      AGYA_TCO_SOURCES[idOf(p)]
+    ) {
+      return (
+        `Sumber harga dan P/N: ` +
+        `${AGYA_TCO_SOURCES[idOf(p)]}. ` +
+        `Foto menggunakan nama aksesori GR; ` +
+        `kesamaan fisik keduanya tidak dinyatakan ` +
+        `dalam tabel TCO.`
+      );
+    }
+
+    return (
+      p.note ||
+      p.photoStatus ||
+      ''
+    );
+  }
+
+
+  /* ==========================================
+     10. RINCIAN KOMPONEN
+     ========================================== */
+
+  function componentsHTML(
+    entries,
+    label
+  ) {
+    if (
+      !Array.isArray(entries) ||
+      !entries.length
     ) {
       return '';
     }
 
     return `
       <div class="part-components">
-        <strong>${esc(heading)}</strong>
 
-        ${items.map(x => `
+        <strong>
+          ${esc(label)}
+        </strong>
+
+        ${entries.map(x => `
           <div>
             <span>
-              ${esc(x.name || x.title)}
-              <small>${esc(x.sku || '')}</small>
+              ${esc(
+                x.name ||
+                x.title ||
+                'Komponen'
+              )}
+
+              <small>
+                ${esc(x.sku || '')}
+              </small>
             </span>
 
             <b>
               ${esc(
-                typeof x.price === 'number'
-                  ? money(x.price)
+                Number.isFinite(x.price)
+                  ? rupiah(x.price)
                   : (
                       x.priceLabel ||
-                      'Mengikuti dokumen TCO'
+                      'Harga belum tercantum'
                     )
               )}
             </b>
           </div>
         `).join('')}
+
       </div>
     `;
   }
 
 
-  /* ======================================
-     3. FOTO PART SESUAI WARNA
-     ====================================== */
-
-  const suffixes = {
-    white: ['white', 'putih', 'PUTIH'],
-    black: ['black', 'hitam', 'HITAM'],
-    red: ['red', 'merah'],
-    yellow: ['yellow', 'kuning'],
-    silver: ['silver'],
-    gray: ['gray', 'grey', 'GRAY'],
-    orange: ['orange', 'Orange']
-  };
-
-  const agyaStems = {
-    'rad-grille-emblem-set':
-      't-emblem-rad-grille',
-
-    'gr-front-aeromudguard':
-      'gr-front-aeromudguard',
-
-    'gr-side-skirt':
-      'gr-side-skirt',
-
-    'gr-rear-detail':
-      'gr-rear-detail',
-
-    'sporty-roof-spoiler':
-      'sporty-roof-spoiler'
-  };
-
-  function agyaFamily(p) {
-    const k = norm(keyOf(p));
-    const t = norm(name(p));
-
-    if (agyaStems[k]) return k;
-
-    if (/emblem.*grill|grill.*emblem/.test(t)) {
-      return 'rad-grille-emblem-set';
-    }
-
-    if (/gr.*front.*aeromudguard/.test(t)) {
-      return 'gr-front-aeromudguard';
-    }
-
-    if (/gr.*rear.*aeromudguard/.test(t)) {
-      return 'gr-rear-detail';
-    }
-
-    if (/gr.*side.*skirt/.test(t)) {
-      return 'gr-side-skirt';
-    }
-
-    if (/sporty.*roof.*spoiler/.test(t)) {
-      return 'sporty-roof-spoiler';
-    }
-
-    return null;
-  }
-
-  function imagePaths(p) {
-    const paths = [];
-
-    const add = path => {
-      if (path && !paths.includes(path)) {
-        paths.push(path);
-      }
-    };
-
-    add(p.imagesByColor?.[selectedColor]);
-    add(p.imageByColor?.[selectedColor]);
-
-    p.partsForColor?.forEach(x =>
-      add(x.image)
-    );
-
-    const family =
-      model().slug === 'agya'
-        ? agyaFamily(p)
-        : null;
-
-    if (family) {
-      const stem = agyaStems[family];
-
-      const base =
-        'assets/vehicles/agya/parts/';
-
-      for (
-        const s of suffixes[selectedColor] ||
-        [selectedColor]
-      ) {
-        add(`${base}${stem}-${s}.png`);
-      }
-
-      // Untuk part dengan variasi warna,
-      // jangan fallback ke foto warna lain.
-    } else if (
-      !p.imagesByColor &&
-      !p.imageByColor
-    ) {
-      add(p.image);
-
-      if (p.file) {
-        add(
-          `assets/vehicles/${model().slug}/parts/${p.file}`
-        );
-      }
-
-      if (
-        model().slug === 'agya' &&
-        keyOf(p) === 'dvr'
-      ) {
-        add('assets/vehicles/agya/parts/DVR.png');
-      }
-    }
-
-    return paths;
-  }
-
-  function setPartImage(img, p) {
-    const placeholder = $(
-      '.media-placeholder',
-      img.parentElement
-    );
-
-    const candidates = imagePaths(p);
-    let i = 0;
-
-    img.hidden = true;
-
-    if (placeholder) {
-      placeholder.hidden = false;
-    }
-
-    const next = () => {
-      if (i >= candidates.length) {
-        img.hidden = true;
-        img.removeAttribute('src');
-        return;
-      }
-
-      img.src = candidates[i++];
-    };
-
-    img.onload = () => {
-      img.hidden = false;
-
-      if (placeholder) {
-        placeholder.hidden = true;
-      }
-    };
-
-    img.onerror = next;
-
-    next();
-  }
-
-
-  /* ======================================
-     4. HOTSPOT KHUSUS EXTERIOR AGYA
-     ====================================== */
-
-  // Koordinat dihitung dari keseluruhan
-  // PNG gabungan depan + belakang.
-  // Angka merupakan posisi awal kalibrasi.
-
-  const agyaPositions = {
-    'rad-grille-emblem-set': [35, 59],
-
-    'gr-front-aeromudguard': [42, 81],
-
-    'front-bumper-spoiler-set': [34, 85],
-
-    'gr-side-skirt': [23, 83],
-
-    'side-skirt-set': [65, 83],
-
-    'gr-rear-detail': [90, 80],
-
-    'rear-bumper-spoiler-set': [85, 86],
-
-    'sporty-roof-spoiler': [86, 18]
-  };
-
-  // Tidak ada hotspot interior, kamera,
-  // DVR, maupun komponen tersembunyi.
-
-  const excluded =
-    /premium[\s-]?horn|back[\s-]?camera|kamera|dvr|dash[\s-]?cam|klakson/i;
-
-  const valid = a =>
-    Array.isArray(a) &&
-    a.length >= 2 &&
-    a.slice(0, 2).every(
-      v =>
-        Number.isFinite(Number(v)) &&
-        Number(v) >= 0 &&
-        Number(v) <= 100
-    );
-
-  function hotspotPosition(p) {
-    if (
-      String(p.kind).toLowerCase() !==
-      'exterior'
-    ) {
-      return null;
-    }
-
-    if (
-      excluded.test(
-        `${keyOf(p)} ${name(p)}`
-      )
-    ) {
-      return null;
-    }
-
-    if (isComposite()) {
-      // Posisi yang ditetapkan pada data unit
-      // selalu diprioritaskan.
-
-      const custom =
-        p.hotspot?.composite ||
-        p.pos?.composite;
-
-      if (valid(custom)) {
-        return {
-          view: 'front',
-          xy: custom
-        };
-      }
-
-      if (model().slug !== 'agya') {
-        return null;
-      }
-
-      const k = keyOf(p);
-      const t = norm(name(p));
-
-      let xy =
-        agyaPositions[k] ||
-        agyaPositions[agyaFamily(p)];
-
-      if (
-        !xy &&
-        /spoiler-bumper-depan|front-bumper/.test(t)
-      ) {
-        xy =
-          agyaPositions[
-            'front-bumper-spoiler-set'
-          ];
-      }
-
-      if (
-        !xy &&
-        /spoiler-bumper-belakang|rear-bumper/.test(t)
-      ) {
-        xy =
-          agyaPositions[
-            'rear-bumper-spoiler-set'
-          ];
-      }
-
-      if (
-        !xy &&
-        /body-kit-samping|side-skirt/.test(t)
-      ) {
-        xy =
-          agyaPositions[
-            'side-skirt-set'
-          ];
-      }
-
-      return xy
-        ? {
-            view: 'front',
-            xy
-          }
-        : null;
-    }
-
-    // Unit lain tetap mendukung foto
-    // depan dan belakang terpisah.
-
-    if (valid(p.hotspot?.front)) {
-      return {
-        view: 'front',
-        xy: p.hotspot.front
-      };
-    }
-
-    if (valid(p.hotspot?.rear)) {
-      return {
-        view: 'rear',
-        xy: p.hotspot.rear
-      };
-    }
-
-    if (valid(p.pos?.front)) {
-      return {
-        view: 'front',
-        xy: p.pos.front
-      };
-    }
-
-    if (valid(p.pos?.rear)) {
-      return {
-        view: 'rear',
-        xy: p.pos.rear
-      };
-    }
-
-    return null;
-  }
-
-
-  /* ======================================
-     5. TOOLTIP / POPUP HOTSPOT
-     ====================================== */
-
-  const tooltip = $('#hero-part-tooltip');
-
-  function closeTooltip() {
-    if (tooltip) {
-      tooltip.hidden = true;
-    }
-
-    if (pinned) {
-      pinned.setAttribute(
-        'aria-expanded',
-        'false'
-      );
-    }
-
-    pinned = null;
-  }
-
-  function openTooltip(
-    p,
-    button,
-    pin = false
-  ) {
-    if (!tooltip) return;
-
-    if (
-      pin &&
-      pinned === button &&
-      !tooltip.hidden
-    ) {
-      closeTooltip();
-      return;
-    }
-
-    if (pin) {
-      if (pinned) {
-        pinned.setAttribute(
-          'aria-expanded',
-          'false'
-        );
-      }
-
-      pinned = button;
-
-      button.setAttribute(
-        'aria-expanded',
-        'true'
-      );
-    }
-
-    const no =
-      partNo(p) ||
-      p.partsForColor
-        ?.map(x => x.sku)
-        .filter(Boolean)
-        .join(' · ') ||
-      p.components
-        ?.map(x => x.sku)
-        .filter(Boolean)
-        .join(' · ') ||
-      '';
-
-    tooltip.innerHTML = `
-      <div class="hotspot-tooltip-media">
-        <img
-          alt="Foto ${esc(name(p))}"
-          hidden
-        >
-
-        <span class="media-placeholder">
-          Foto belum tersedia
-        </span>
-      </div>
-
-      <div class="hotspot-tooltip-info">
-        <strong>${esc(name(p))}</strong>
-
-        <span>
-          ${esc(
-            no
-              ? `P/N: ${no}`
-              : 'P/N: lihat rincian part'
-          )}
-        </span>
-
-        <b>${esc(priceLabel(p))}</b>
-      </div>
-    `;
-
-    setPartImage(
-      $('img', tooltip),
-      p
-    );
-
-    tooltip.hidden = false;
-
-    const rect =
-      button.getBoundingClientRect();
-
-    const size =
-      tooltip.getBoundingClientRect();
-
-    const left = Math.max(
-      8,
-      Math.min(
-        innerWidth - size.width - 8,
-        rect.left +
-        rect.width / 2 -
-        size.width / 2
-      )
-    );
-
-    const above =
-      rect.top - size.height - 10;
-
-    const top =
-      above > 90
-        ? above
-        : Math.min(
-            innerHeight - size.height - 8,
-            rect.bottom + 10
-          );
-
-    tooltip.style.left = `${left}px`;
-
-    tooltip.style.top =
-      `${Math.max(8, top)}px`;
-  }
-
-
-  /* ======================================
-     6. PENEMPATAN TITIK PADA GAMBAR
-     ====================================== */
-
-  function positionHotspots() {
-    $$('.hero-angle').forEach(frame => {
-      if (
-        frame.hidden ||
-        getComputedStyle(frame).display === 'none'
-      ) {
-        return;
-      }
-
-      const img = $('img', frame);
-
-      if (
-        !img?.naturalWidth ||
-        !img?.naturalHeight
-      ) {
-        return;
-      }
-
-      const width = frame.clientWidth;
-      const height = frame.clientHeight;
-
-      if (!width || !height) return;
-
-      const scale = Math.min(
-        width / img.naturalWidth,
-        height / img.naturalHeight
-      );
-
-      const w = img.naturalWidth * scale;
-      const h = img.naturalHeight * scale;
-
-      const offsetX = (width - w) / 2;
-      const offsetY = height - h;
-
-      $$('.hero-hotspot', frame).forEach(btn => {
-        btn.style.left = `${
-          offsetX +
-          w * Number(btn.dataset.x) / 100
-        }px`;
-
-        btn.style.top = `${
-          offsetY +
-          h * Number(btn.dataset.y) / 100
-        }px`;
-      });
-    });
-
-    closeTooltip();
-  }
-
-  function renderHotspots() {
-    const front = $('#hero-hotspots-front');
-    const rear = $('#hero-hotspots-rear');
-
-    front?.replaceChildren();
-    rear?.replaceChildren();
-
-    const visible = parts().filter(
-      p =>
-        tab === 'all' ||
-        p.kind === tab
-    );
-
-    visible.forEach(p => {
-      const point = hotspotPosition(p);
-
-      if (!point) return;
-
-      const layer =
-        point.view === 'rear'
-          ? rear
-          : front;
-
-      if (!layer) return;
-
-      const btn =
-        document.createElement('button');
-
-      btn.type = 'button';
-      btn.className = 'hero-hotspot';
-
-      btn.dataset.partId = keyOf(p);
-      btn.dataset.x = String(point.xy[0]);
-      btn.dataset.y = String(point.xy[1]);
-
-      btn.setAttribute(
-        'aria-label',
-        `Lihat ${name(p)}`
-      );
-
-      btn.setAttribute(
-        'aria-expanded',
-        'false'
-      );
-
-      btn.addEventListener(
-        'pointerenter',
-        e => {
-          if (
-            e.pointerType !== 'touch' &&
-            !pinned
-          ) {
-            openTooltip(p, btn);
-          }
-        }
-      );
-
-      btn.addEventListener(
-        'pointerleave',
-        () => {
-          if (!pinned) closeTooltip();
-        }
-      );
-
-      btn.addEventListener(
-        'focus',
-        () => openTooltip(p, btn)
-      );
-
-      btn.addEventListener(
-        'blur',
-        () => {
-          if (!pinned) closeTooltip();
-        }
-      );
-
-      btn.addEventListener(
-        'click',
-        e => {
-          e.stopPropagation();
-
-          openTooltip(p, btn, true);
-        }
-      );
-
-      layer.appendChild(btn);
-    });
-
-    requestAnimationFrame(
-      positionHotspots
-    );
-  }
-
-
-  /* ======================================
-     7. LOAD FOTO MOBIL
-     ====================================== */
-
-  function loadCar(
-    img,
-    src,
-    onSuccess,
-    onError
-  ) {
-    const request = ++heroRequest;
-
-    img.hidden = true;
-
-    img.onload = () => {
-      if (request !== heroRequest) {
-        return;
-      }
-
-      img.hidden = false;
-
-      onSuccess?.();
-
-      requestAnimationFrame(
-        positionHotspots
-      );
-    };
-
-    img.onerror = () => {
-      if (request === heroRequest) {
-        onError?.();
-      }
-    };
-
-    if (src) {
-      img.src = src;
-    } else {
-      img.removeAttribute('src');
-      onError?.();
-    }
-  }
-
-
-  /* ======================================
-     8. RENDER HERO
-     ====================================== */
-
-  function renderHero() {
-    const m = model();
-    const d = unit();
-    const c = color();
-
-    const words =
-      (d.title || m.name).split('|');
-
-    document.title =
-      `${m.name} — TCO Kalla Toyota`;
-
-    $('#breadcrumb-unit').textContent =
-      m.name;
-
-    $('#hero-title').innerHTML =
-      esc(words[0]) +
-      (
-        words.length > 1
-          ? ` <em>${
-              esc(words.slice(1).join(' '))
-            }</em>`
-          : ''
-      );
-
-    $('#hero-tagline').textContent =
-      d.tagline || '';
-
-    $('#hero-category').textContent =
-      m.category || '';
-
-    const front = $('#hero-car');
-    const rear = $('#hero-car-rear');
-
-    const frontFrame =
-      $('.hero-angle-front');
-
-    const rearFrame =
-      $('.hero-angle-rear');
-
-    const visual = $('#hero-visual');
-    const notice = $('#hero-image-error');
-
-    const composite = isComposite();
-
-    const frontSrc =
-      c?.front ||
-      (
-        !c
-          ? (m.frontImage || m.main)
-          : null
-      );
-
-    // Untuk Agya: tidak mengambil rear-white.png.
-    const rearSrc = composite
-      ? null
-      : (
-          c?.rear ||
-          (!c ? m.rearImage : null)
-        );
-
-    notice.hidden = true;
-
-    frontFrame.hidden = false;
-
-    rearFrame.hidden =
-      composite || !rearSrc;
-
-    visual.classList.toggle(
-      'is-composite',
-      composite
-    );
-
-    visual.classList.toggle(
-      'is-single',
-      composite || !rearSrc
-    );
-
-    visual.classList.remove(
-      'show-rear'
-    );
-
-    $('#hero-view-toggle').hidden =
-      composite || !rearSrc;
-
-    $$('#hero-view-toggle [data-hero-view]')
-      .forEach(b =>
-        b.setAttribute(
-          'aria-pressed',
-          String(
-            b.dataset.heroView === 'front'
-          )
-        )
-      );
-
-    front.alt = composite
-      ? `${m.name} ${c?.name || ''} tampak depan dan belakang`
-      : `${m.name} ${c?.name || ''} tampak depan`;
-
-    rear.alt =
-      `${m.name} ${c?.name || ''} tampak belakang`;
-
-    // Hanya satu PNG untuk Agya.
-    loadCar(
-      front,
-      frontSrc,
-
-      () => {
-        notice.hidden = true;
-      },
-
-      () => {
-        notice.textContent =
-          `Foto ${m.name} warna ${
-            c?.name || ''
-          } belum tersedia.`;
-
-        notice.hidden = false;
-      }
-    );
-
-    // Bersihkan gambar rear sebelumnya.
-    rear.onload = null;
-    rear.onerror = null;
-    rear.removeAttribute('src');
-    rear.hidden = true;
-
-    if (!composite && rearSrc) {
-      rear.onload = () => {
-        rear.hidden = false;
-
-        requestAnimationFrame(
-          positionHotspots
-        );
-      };
-
-      rear.onerror = () => {
-        rearFrame.hidden = true;
-
-        visual.classList.add(
-          'is-single'
-        );
-      };
-
-      rear.src = rearSrc;
-    }
-
-    // Render swatch warna.
-    $('#color-list').innerHTML =
-      colors().map(item => {
-        const swatch = item.twoTone
-          ? `linear-gradient(
-              90deg,
-              ${item.hex} 0 50%,
-              ${item.secondHex || '#16191d'} 50% 100%
-            )`
-          : item.hex;
-
-        return `
-          <button
-            type="button"
-            class="color-swatch${
-              item.twoTone ? ' two-tone' : ''
-            }"
-            style="--swatch:${esc(swatch)}"
-            data-color="${esc(item.key)}"
-            aria-label="${esc(item.name)}"
-            title="${esc(item.name)}"
-            aria-pressed="${
-              item.key === selectedColor
-            }">
-          </button>
-        `;
-      }).join('');
-
-    $('#color-name').textContent =
-      c?.name || '';
-
-    $('#color-panel').hidden =
-      !colors().length;
-
-    renderHotspots();
-  }
-
-
-  /* ======================================
-     9. CARD SPAREPART
-     ====================================== */
+  /* ==========================================
+     11. RENDER CARD
+     ========================================== */
 
   function renderCards() {
-    const all = parts();
-
-    const visible = all.filter(
-      p =>
-        tab === 'all' ||
-        p.kind === tab
-    );
-
-    $('#part-count').textContent =
-      String(all.length);
-
+    const list = visibleParts();
     const root = $('#tab-content');
 
-    if (!visible.length) {
+    if (!root) return;
+
+    if ($('#part-count')) {
+      $('#part-count').textContent =
+        String(parts().length);
+    }
+
+    if (!list.length) {
       root.innerHTML = `
         <div class="empty-state">
           Belum ada sparepart pada kategori ini.
@@ -1104,180 +717,714 @@
 
     root.innerHTML = `
       <div class="parts-grid">
-        ${visible.map(p => {
-          const no = partNo(p);
 
-          const labelNo =
-            p.variantUnavailable
-              ? 'SKU warna ini belum tersedia'
-              : no
-                ? `P/N: ${no}`
-                : 'Lihat nomor part pada rincian';
+        ${list.map(p => `
+          <article
+            class="part-card"
+            data-part-id="${esc(idOf(p))}">
 
-          return `
-            <article
-              class="part-card"
-              data-part-id="${esc(keyOf(p))}">
-
-              <div class="part-media">
-                <img
-                  hidden
-                  loading="lazy"
-                  alt="Foto ${esc(name(p))} ${
-                    esc(color()?.name || '')
-                  }">
-
-                <span class="media-placeholder">
-                  Foto part belum tersedia
-                </span>
-              </div>
-
-              <div class="part-body">
-                <h3>${esc(name(p))}</h3>
-
-                <span class="part-sku">
-                  ${esc(labelNo)}
-                </span>
-
-                <span class="price ${
-                  p.status ||
-                  p.variantUnavailable
-                    ? 'uncertain'
-                    : ''
+            <div class="part-media">
+              <img
+                alt="Foto ${esc(titleOf(p))} — ${
+                  esc(color()?.name || '')
                 }">
-                  ${esc(priceLabel(p))}
-                </span>
 
-                ${
-                  p.description
-                    ? `<p>${esc(p.description)}</p>`
-                    : ''
-                }
+              <span class="media-placeholder">
+                Memuat foto...
+              </span>
+            </div>
 
-                ${componentRows(
-                  p.partsForColor?.length > 1
-                    ? p.partsForColor
-                    : [],
-                  'Pilihan SKU sesuai varian'
-                )}
+            <div class="part-body">
 
-                ${componentRows(
-                  p.options,
-                  'Pilihan varian'
-                )}
+              <h3>
+                ${esc(titleOf(p))}
+              </h3>
 
-                ${componentRows(
-                  p.components,
-                  'Rincian komponen'
-                )}
+              <span class="part-sku">
+                ${esc(partNumber(p))}
+              </span>
 
-                ${
-                  p.status === 'verify' &&
-                  p.referencePrice != null
-                    ? `
-                      <small class="part-photo-status">
-                        Harga referensi ${
-                          esc(money(p.referencePrice))
-                        }; kecocokan dengan part GR
-                        belum terverifikasi.
-                      </small>
-                    `
-                    : ''
-                }
+              <span class="price${
+                p.status === 'bulletin' ||
+                p.variantUnavailable
+                  ? ' uncertain'
+                  : ''
+              }">
+                ${esc(partPrice(p))}
+              </span>
 
-                ${
-                  p.note
-                    ? `
-                      <small class="part-photo-status">
-                        ${esc(p.note)}
-                      </small>
-                    `
-                    : ''
-                }
+              <p>
+                ${esc(partDescription(p))}
+              </p>
 
-                ${
-                  p.photoStatus
-                    ? `
-                      <small class="part-photo-status">
-                        ${esc(p.photoStatus)}
-                      </small>
-                    `
-                    : ''
-                }
+              ${componentsHTML(
+                p.components,
+                'Rincian komponen'
+              )}
 
-                ${
-                  p.grades?.length
-                    ? `
-                      <div class="part-grade">
-                        ${p.grades.map(g => `
-                          <span>${esc(g)}</span>
-                        `).join('')}
-                      </div>
-                    `
-                    : ''
-                }
-              </div>
-            </article>
-          `;
-        }).join('')}
+              ${componentsHTML(
+                p.partsForColor?.length > 1
+                  ? p.partsForColor
+                  : [],
+                'Rincian SKU varian'
+              )}
+
+              ${componentsHTML(
+                p.options,
+                'Pilihan varian'
+              )}
+
+              ${
+                sourceNote(p)
+                  ? `
+                    <small class="part-photo-status">
+                      ${esc(sourceNote(p))}
+                    </small>
+                  `
+                  : ''
+              }
+
+              ${
+                p.grades?.length
+                  ? `
+                    <div class="part-grade">
+                      ${p.grades.map(g => `
+                        <span>${esc(g)}</span>
+                      `).join('')}
+                    </div>
+                  `
+                  : ''
+              }
+
+            </div>
+          </article>
+        `).join('')}
+
       </div>
     `;
 
     $$('.part-card', root).forEach(
-      (card, i) =>
-        setPartImage(
+      (card, i) => {
+        showPhoto(
           $('img', card),
-          visible[i]
-        )
+          candidatePhotos(list[i]),
+          $('.media-placeholder', card),
+          titleOf(list[i])
+        );
+      }
     );
 
     renderHotspots();
   }
 
 
-  /* ======================================
-     10. RENDER HALAMAN
-     ====================================== */
+  /* ==========================================
+     12. HOTSPOT POPUP
+     ========================================== */
 
-  function render() {
-    const m = model();
-    const d = unit();
+  const popup =
+    $('#hero-part-tooltip');
 
-    if (!d) {
-      $('#tab-content').textContent =
-        `Data unit ${m.name} belum tersedia.`;
+  function closePopup() {
+    if (popup) {
+      popup.hidden = true;
+    }
 
+    if (popupPinned) {
+      popupPinned.setAttribute(
+        'aria-expanded',
+        'false'
+      );
+    }
+
+    popupPinned = null;
+  }
+
+  function showPopup(
+    p,
+    button,
+    pin = false
+  ) {
+    if (!popup) return;
+
+    if (
+      pin &&
+      popupPinned === button &&
+      !popup.hidden
+    ) {
+      closePopup();
       return;
     }
 
     if (
-      !colors().some(
-        c => c.key === selectedColor
+      popupPinned &&
+      popupPinned !== button
+    ) {
+      popupPinned.setAttribute(
+        'aria-expanded',
+        'false'
+      );
+    }
+
+    if (pin) {
+      popupPinned = button;
+
+      button.setAttribute(
+        'aria-expanded',
+        'true'
+      );
+    }
+
+    popup.innerHTML = `
+      <div class="hotspot-tooltip-media">
+
+        <img alt="${
+          esc(titleOf(p))
+        }">
+
+        <span class="media-placeholder">
+          Memuat foto...
+        </span>
+
+      </div>
+
+      <div class="hotspot-tooltip-info">
+
+        <strong>
+          ${esc(titleOf(p))}
+        </strong>
+
+        <span>
+          ${esc(partNumber(p))}
+        </span>
+
+        <b>
+          ${esc(partPrice(p))}
+        </b>
+
+      </div>
+    `;
+
+    popup.hidden = false;
+
+    showPhoto(
+      $('img', popup),
+      candidatePhotos(p),
+      $('.media-placeholder', popup),
+      titleOf(p)
+    );
+
+    const rect =
+      button.getBoundingClientRect();
+
+    const size =
+      popup.getBoundingClientRect();
+
+    const x = Math.max(
+      8,
+      Math.min(
+        window.innerWidth - size.width - 8,
+        rect.left +
+          rect.width / 2 -
+          size.width / 2
+      )
+    );
+
+    const y =
+      rect.top > size.height + 12
+        ? rect.top - size.height - 10
+        : rect.bottom + 10;
+
+    popup.style.left =
+      `${x}px`;
+
+    popup.style.top = `${
+      Math.max(
+        8,
+        Math.min(
+          y,
+          window.innerHeight - size.height - 8
+        )
+      )
+    }px`;
+  }
+
+
+  /* ==========================================
+     13. KOORDINAT HOTSPOT
+     ========================================== */
+
+  function coordForPart(p) {
+    if (p.kind !== 'exterior') {
+      return null;
+    }
+
+    // Tidak membuat hotspot interior/kamera.
+    if (
+      /horn|camera|kamera|dvr|dashcam/i
+        .test(idOf(p))
+    ) {
+      return null;
+    }
+
+    const point = composite()
+      ? (
+          p.hotspot?.composite ||
+          p.pos?.composite
+        )
+      : (
+          p.hotspot?.front ||
+          p.pos?.front ||
+          p.hotspot?.rear ||
+          p.pos?.rear
+        );
+
+    if (
+      !Array.isArray(point) ||
+      point.length < 2 ||
+      point.slice(0, 2).some(
+        x =>
+          !Number.isFinite(Number(x)) ||
+          Number(x) < 0 ||
+          Number(x) > 100
+      )
+    ) {
+      return null;
+    }
+
+    const view =
+      composite() ||
+      p.hotspot?.front ||
+      p.pos?.front
+        ? 'front'
+        : 'rear';
+
+    return {
+      view,
+      x: Number(point[0]),
+      y: Number(point[1])
+    };
+  }
+
+
+  /* ==========================================
+     14. RENDER HOTSPOT
+     ========================================== */
+
+  function renderHotspots() {
+    const front =
+      $('#hero-hotspots-front');
+
+    const rear =
+      $('#hero-hotspots-rear');
+
+    front?.replaceChildren();
+    rear?.replaceChildren();
+
+    visibleParts().forEach(p => {
+      const coord = coordForPart(p);
+
+      if (!coord) return;
+
+      const layer =
+        coord.view === 'rear'
+          ? rear
+          : front;
+
+      if (!layer) return;
+
+      const button =
+        document.createElement('button');
+
+      button.className = 'hero-hotspot';
+      button.type = 'button';
+
+      button.dataset.x = coord.x;
+      button.dataset.y = coord.y;
+      button.dataset.partId = idOf(p);
+
+      button.setAttribute(
+        'aria-label',
+        `Lihat ${titleOf(p)}`
+      );
+
+      button.setAttribute(
+        'aria-expanded',
+        'false'
+      );
+
+      button.addEventListener(
+        'mouseenter',
+        () => {
+          if (!popupPinned) {
+            showPopup(p, button);
+          }
+        }
+      );
+
+      button.addEventListener(
+        'mouseleave',
+        () => {
+          if (!popupPinned) {
+            closePopup();
+          }
+        }
+      );
+
+      button.addEventListener(
+        'focus',
+        () => {
+          if (!popupPinned) {
+            showPopup(p, button);
+          }
+        }
+      );
+
+      button.addEventListener(
+        'blur',
+        () => {
+          if (!popupPinned) {
+            closePopup();
+          }
+        }
+      );
+
+      button.addEventListener(
+        'click',
+        e => {
+          e.stopPropagation();
+
+          showPopup(
+            p,
+            button,
+            true
+          );
+        }
+      );
+
+      layer.appendChild(button);
+    });
+
+    requestAnimationFrame(
+      positionHotspots
+    );
+  }
+
+
+  /* ==========================================
+     15. POSISI HOTSPOT
+     ========================================== */
+
+  function positionHotspots() {
+    const frames =
+      $$('.hero-angle');
+
+    frames.forEach(frame => {
+      if (
+        frame.hidden ||
+        getComputedStyle(frame).display === 'none'
+      ) {
+        return;
+      }
+
+      const img =
+        $('img', frame);
+
+      if (
+        !img ||
+        img.hidden ||
+        !img.naturalWidth ||
+        !img.naturalHeight
+      ) {
+        return;
+      }
+
+      const frameBox =
+        frame.getBoundingClientRect();
+
+      const box =
+        img.getBoundingClientRect();
+
+      const scale = Math.min(
+        box.width / img.naturalWidth,
+        box.height / img.naturalHeight
+      );
+
+      const width =
+        img.naturalWidth * scale;
+
+      const height =
+        img.naturalHeight * scale;
+
+      const left =
+        box.left -
+        frameBox.left +
+        (box.width - width) / 2;
+
+      const top =
+        box.top -
+        frameBox.top +
+        (box.height - height);
+
+      $$('.hero-hotspot', frame)
+        .forEach(button => {
+          button.style.left = `${
+            left +
+            Number(button.dataset.x) *
+              width / 100
+          }px`;
+
+          button.style.top = `${
+            top +
+            Number(button.dataset.y) *
+              height / 100
+          }px`;
+        });
+    });
+
+    closePopup();
+  }
+
+
+  /* ==========================================
+     16. RENDER FOTO UNIT
+     ========================================== */
+
+  function renderHero() {
+    const m = model();
+    const d = unit();
+    const c = color();
+
+    const name =
+      (d.title || m.name).split('|');
+
+    document.title =
+      `${m.name} — TCO Kalla Toyota`;
+
+    if ($('#breadcrumb-unit')) {
+      $('#breadcrumb-unit').textContent =
+        m.name;
+    }
+
+    if ($('#hero-title')) {
+      $('#hero-title').innerHTML =
+        esc(name[0]) +
+        (
+          name.length > 1
+            ? ` <em>${
+                esc(name.slice(1).join(' '))
+              }</em>`
+            : ''
+        );
+    }
+
+    if ($('#hero-tagline')) {
+      $('#hero-tagline').textContent =
+        d.tagline || '';
+    }
+
+    if ($('#hero-category')) {
+      $('#hero-category').textContent =
+        m.category || '';
+    }
+
+    const visual = $('#hero-visual');
+
+    visual?.classList.toggle(
+      'is-composite',
+      composite()
+    );
+
+    visual?.classList.toggle(
+      'is-single',
+      composite() || !c?.rear
+    );
+
+    visual?.classList.remove(
+      'show-rear'
+    );
+
+    const rearFrame =
+      $('.hero-angle-rear');
+
+    const rearImage =
+      $('#hero-car-rear');
+
+    if (rearFrame) {
+      rearFrame.hidden =
+        composite() || !c?.rear;
+    }
+
+    if ($('#hero-view-toggle')) {
+      $('#hero-view-toggle').hidden =
+        composite() || !c?.rear;
+    }
+
+    const warning =
+      $('#hero-image-error');
+
+    if (warning) {
+      warning.hidden = true;
+    }
+
+    const frontImage =
+      $('#hero-car');
+
+    if (frontImage) {
+      frontImage.alt = composite()
+        ? `${m.name} ${c?.name || ''} depan dan belakang`
+        : `${m.name} ${c?.name || ''} tampak depan`;
+    }
+
+    // Foto Agya merupakan satu PNG gabungan.
+    const frontSrc = urlOf(
+      c?.front ||
+      m.frontImage ||
+      m.main,
+      'car'
+    );
+
+    showPhoto(
+      frontImage,
+      [frontSrc],
+      null,
+      `${m.name} hero`
+    );
+
+    // Bersihkan gambar rear lama.
+    if (rearImage) {
+      rearImage.dataset.photoTicket =
+        String(
+          (
+            Number(
+              rearImage.dataset.photoTicket
+            ) || 0
+          ) + 1
+        );
+
+      rearImage.removeAttribute('src');
+      rearImage.hidden = true;
+
+      if (
+        !composite() &&
+        c?.rear
+      ) {
+        showPhoto(
+          rearImage,
+          [urlOf(c.rear, 'car')],
+          null,
+          `${m.name} rear`
+        );
+      }
+    }
+
+    if (frontImage && frontSrc) {
+      const probe = new Image();
+
+      probe.onerror = () => {
+        if (
+          frontImage.getAttribute('src') !== frontSrc &&
+          warning
+        ) {
+          warning.textContent =
+            `Foto unit ${m.name} ${
+              c?.name || ''
+            } belum ditemukan.`;
+
+          warning.hidden = false;
+        }
+      };
+
+      probe.src = frontSrc;
+    }
+
+    // Palet warna.
+    if ($('#color-list')) {
+      $('#color-list').innerHTML =
+        palette().map(item => {
+          const fill = item.twoTone
+            ? (
+                `linear-gradient(90deg,` +
+                `${item.hex} 0 50%,` +
+                `${
+                  item.secondHex || '#16191d'
+                } 50% 100%)`
+              )
+            : item.hex;
+
+          return `
+            <button
+              class="color-swatch${
+                item.twoTone
+                  ? ' two-tone'
+                  : ''
+              }"
+              type="button"
+              data-color="${esc(item.key)}"
+              style="--swatch:${esc(fill)}"
+              aria-label="${esc(item.name)}"
+              title="${esc(item.name)}"
+              aria-pressed="${
+                item.key === selectedColor
+              }">
+            </button>
+          `;
+        }).join('');
+    }
+
+    if ($('#color-name')) {
+      $('#color-name').textContent =
+        c?.name || '';
+    }
+
+    if ($('#color-panel')) {
+      $('#color-panel').hidden =
+        !palette().length;
+    }
+
+    renderHotspots();
+  }
+
+
+  /* ==========================================
+     17. RENDER HALAMAN
+     ========================================== */
+
+  function render() {
+    const d = unit();
+
+    if (!d) return;
+
+    if (
+      !palette().some(
+        x => x.key === selectedColor
       )
     ) {
       selectedColor =
-        colors().some(
-          c => c.key === d.heroColor
-        )
-          ? d.heroColor
-          : colors()[0]?.key || 'white';
+        d.heroColor ||
+        palette()[0]?.key ||
+        'white';
     }
 
-    $('#unit-switch-label').textContent =
-      m.name.toUpperCase();
+    if ($('#unit-switch-label')) {
+      $('#unit-switch-label').textContent =
+        model().name.toUpperCase();
+    }
 
-    $('#unit-counter').textContent =
-      `${
-        String(index + 1).padStart(2, '0')
-      } / ${
-        String(catalog.length).padStart(2, '0')
-      }`;
+    if ($('#unit-counter')) {
+      $('#unit-counter').textContent =
+        `${
+          String(index + 1).padStart(2, '0')
+        } / ${
+          String(catalog.length).padStart(2, '0')
+        }`;
+    }
 
     renderHero();
     renderCards();
 
-    $$('.detail-tabs [data-tab]').forEach(
-      button => {
+    $$('.detail-tabs [data-tab]')
+      .forEach(button => {
         const active =
           button.dataset.tab === tab;
 
@@ -1290,22 +1437,19 @@
           'aria-selected',
           String(active)
         );
-      }
-    );
+      });
   }
 
 
-  /* ======================================
-     11. SLIDER PERPINDAHAN UNIT
-     ====================================== */
+  /* ==========================================
+     18. NAVIGASI UNIT
+     ========================================== */
 
   async function selectUnit(
     next,
     scroll = true,
     push = true
   ) {
-    const previous = index;
-
     index =
       (next + catalog.length) %
       catalog.length;
@@ -1313,26 +1457,39 @@
     tab = 'all';
     selectedColor = 'white';
 
-    closeTooltip();
+    closePopup();
 
+    const myToken = ++unitToken;
     const slug = model().slug;
-    const token = ++loadToken;
 
-    $('#tab-content').innerHTML = `
-      <div class="empty-state">
-        Memuat data unit...
-      </div>
-    `;
+    if ($('#tab-content')) {
+      $('#tab-content').innerHTML = `
+        <div class="empty-state">
+          Memuat data unit...
+        </div>
+      `;
+    }
 
-    const ok = await loadUnit(slug);
+    const ok =
+      await loadUnit(slug);
 
-    if (token !== loadToken) return;
+    if (unitToken !== myToken) {
+      return;
+    }
+
+    if (!ok) {
+      if ($('#tab-content')) {
+        $('#tab-content').textContent =
+          `Gagal memuat data/units/${slug}.js`;
+      }
+
+      return;
+    }
 
     if (push) {
       try {
-        const url = new URL(
-          location.href
-        );
+        const url =
+          new URL(location.href);
 
         url.searchParams.set(
           'unit',
@@ -1347,42 +1504,7 @@
       } catch (_) {}
     }
 
-    if (!ok) {
-      $('#tab-content').textContent =
-        `File data/units/${slug}.js belum tersedia.`;
-
-      return;
-    }
-
     render();
-
-    const hero = $('.hero');
-
-    if (push && hero) {
-      hero.style.setProperty(
-        '--slide-from',
-        next < previous
-          ? '-24px'
-          : '24px'
-      );
-
-      hero.classList.remove(
-        'is-unit-sliding'
-      );
-
-      void hero.offsetWidth;
-
-      hero.classList.add(
-        'is-unit-sliding'
-      );
-
-      setTimeout(
-        () => hero.classList.remove(
-          'is-unit-sliding'
-        ),
-        420
-      );
-    }
 
     if (scroll) {
       window.scrollTo({
@@ -1393,9 +1515,9 @@
   }
 
 
-  /* ======================================
-     12. EVENT LISTENERS
-     ====================================== */
+  /* ==========================================
+     19. EVENT LISTENERS
+     ========================================== */
 
   $('#prev-unit')?.addEventListener(
     'click',
@@ -1407,36 +1529,48 @@
     () => selectUnit(index + 1)
   );
 
-  // Pemilihan warna kendaraan.
   $('#color-list')?.addEventListener(
     'click',
     e => {
       const button =
-        e.target.closest('[data-color]');
+        e.target.closest(
+          '[data-color]'
+        );
 
-      if (!button) return;
+      if (!button || !unit()) {
+        return;
+      }
 
       selectedColor =
         button.dataset.color;
 
-      closeTooltip();
+      closePopup();
       renderHero();
       renderCards();
     }
   );
 
-  // Tab All / Interior / Exterior.
-  $$('.detail-tabs [data-tab]').forEach(
-    button =>
+  $$('.detail-tabs [data-tab]')
+    .forEach(button => {
       button.addEventListener(
         'click',
         () => {
+          if (
+            ![
+              'all',
+              'interior',
+              'exterior'
+            ].includes(button.dataset.tab)
+          ) {
+            return;
+          }
+
           tab = button.dataset.tab;
 
           renderCards();
 
-          $$('.detail-tabs [data-tab]').forEach(
-            item => {
+          $$('.detail-tabs [data-tab]')
+            .forEach(item => {
               item.classList.toggle(
                 'active',
                 item === button
@@ -1446,57 +1580,56 @@
                 'aria-selected',
                 String(item === button)
               );
-            }
-          );
+            });
         }
-      )
-  );
+      );
+    });
 
-  // Tombol depan / belakang untuk
-  // unit yang memiliki dua foto terpisah.
+  // Tampak depan / belakang untuk unit lain.
   $$('#hero-view-toggle [data-hero-view]')
-    .forEach(button =>
+    .forEach(button => {
       button.addEventListener(
         'click',
         () => {
-          const rear =
-            button.dataset.heroView === 'rear';
-
-          $('#hero-visual').classList.toggle(
-            'show-rear',
-            rear
-          );
+          $('#hero-visual')
+            ?.classList.toggle(
+              'show-rear',
+              button.dataset.heroView === 'rear'
+            );
 
           $$('#hero-view-toggle [data-hero-view]')
-            .forEach(b =>
-              b.setAttribute(
+            .forEach(item => {
+              item.setAttribute(
                 'aria-pressed',
-                String(b === button)
-              )
-            );
+                String(item === button)
+              );
+            });
 
           requestAnimationFrame(
             positionHotspots
           );
         }
-      )
-    );
+      );
+    });
 
-  // Swipe slider model.
-  for (
-    const area of [
-      $('#swipe-zone'),
-      $('#hero-visual')
-    ].filter(Boolean)
-  ) {
+
+  /* ==========================================
+     20. SWIPE ANTARUNIT
+     ========================================== */
+
+  function swipe(element) {
+    if (!element) return;
+
     let start = null;
 
-    area.addEventListener(
+    element.addEventListener(
       'pointerdown',
       e => {
         if (
           e.button !== 0 ||
-          e.target.closest('button')
+          e.target.closest(
+            'button, a, input'
+          )
         ) {
           return;
         }
@@ -1510,7 +1643,7 @@
       { passive: true }
     );
 
-    area.addEventListener(
+    element.addEventListener(
       'pointerup',
       e => {
         if (
@@ -1529,27 +1662,32 @@
         start = null;
 
         if (
-          Math.abs(dx) > 65 &&
+          Math.abs(dx) > 70 &&
           Math.abs(dx) >
             Math.abs(dy) * 1.4
         ) {
           selectUnit(
-            index + (dx < 0 ? 1 : -1)
+            index + (
+              dx < 0 ? 1 : -1
+            )
           );
         }
       },
       { passive: true }
     );
 
-    area.addEventListener(
+    element.addEventListener(
       'pointercancel',
       () => {
         start = null;
-      }
+      },
+      { passive: true }
     );
   }
 
-  // Keyboard.
+  swipe($('#swipe-zone'));
+  swipe($('#hero-visual'));
+
   $('#swipe-zone')?.setAttribute(
     'tabindex',
     '0'
@@ -1559,8 +1697,10 @@
     'keydown',
     e => {
       if (
-        e.key !== 'ArrowLeft' &&
-        e.key !== 'ArrowRight'
+        ![
+          'ArrowLeft',
+          'ArrowRight'
+        ].includes(e.key)
       ) {
         return;
       }
@@ -1578,7 +1718,11 @@
     }
   );
 
-  // Browser Back / Forward.
+
+  /* ==========================================
+     21. HISTORY DAN RESPONSIVE
+     ========================================== */
+
   window.addEventListener(
     'popstate',
     () => {
@@ -1587,13 +1731,14 @@
           location.search
         ).get('unit');
 
-      const i = catalog.findIndex(
-        x => x.slug === slug
-      );
+      const next =
+        catalog.findIndex(
+          x => x.slug === slug
+        );
 
-      if (i >= 0) {
+      if (next >= 0) {
         selectUnit(
-          i,
+          next,
           false,
           false
         );
@@ -1601,17 +1746,14 @@
     }
   );
 
-  // Reposisi hotspot ketika resize.
   window.addEventListener(
     'resize',
-    () =>
-      requestAnimationFrame(
-        positionHotspots
-      ),
+    () => requestAnimationFrame(
+      positionHotspots
+    ),
     { passive: true }
   );
 
-  // Tutup tooltip ketika klik di luar.
   document.addEventListener(
     'pointerdown',
     e => {
@@ -1620,7 +1762,7 @@
           '.hero-hotspot'
         )
       ) {
-        closeTooltip();
+        closePopup();
       }
     }
   );
@@ -1629,16 +1771,23 @@
     'keydown',
     e => {
       if (e.key === 'Escape') {
-        closeTooltip();
+        closePopup();
       }
     }
   );
 
-  // Navbar mobile.
+
+  /* ==========================================
+     22. NAVBAR MOBILE
+     ========================================== */
+
   $('#menu-button')?.addEventListener(
     'click',
     () => {
-      const nav = $('#mobile-nav');
+      const nav =
+        $('#mobile-nav');
+
+      if (!nav) return;
 
       nav.hidden = !nav.hidden;
 
@@ -1650,32 +1799,96 @@
   );
 
   $$('#mobile-nav a').forEach(
-    a =>
-      a.addEventListener(
+    link => {
+      link.addEventListener(
         'click',
         () => {
-          $('#mobile-nav').hidden = true;
-
-          $('#menu-button')?.setAttribute(
-            'aria-expanded',
-            'false'
-          );
+          if ($('#mobile-nav')) {
+            $('#mobile-nav').hidden = true;
+          }
         }
-      )
+      );
+    }
   );
 
-  // Floating color bar tetap di body
-  // agar tidak terpotong container hero.
+  // Pindahkan bar warna ke body
+  // supaya tetap melayang saat scroll.
   if ($('#color-panel')) {
     document.body.appendChild(
       $('#color-panel')
     );
   }
 
-  // Inisialisasi halaman.
+
+  /* ==========================================
+     23. AUDIT FOTO MELALUI CONSOLE
+     ========================================== */
+
+  window.TCOAuditImages = async () => {
+    const list = parts();
+
+    const results = await Promise.all(
+      list.map(async p => {
+        const paths =
+          candidatePhotos(p);
+
+        if (!paths.length) {
+          return {
+            part: titleOf(p),
+            color: selectedColor,
+            status: 'BELUM ADA FOTO',
+            url: ''
+          };
+        }
+
+        for (const url of paths) {
+          const ok = await new Promise(
+            resolve => {
+              const img = new Image();
+
+              img.onload = () =>
+                resolve(true);
+
+              img.onerror = () =>
+                resolve(false);
+
+              img.src = url;
+            }
+          );
+
+          if (ok) {
+            return {
+              part: titleOf(p),
+              color: selectedColor,
+              status: 'OK',
+              url
+            };
+          }
+        }
+
+        return {
+          part: titleOf(p),
+          color: selectedColor,
+          status: 'GAGAL',
+          url: paths[0]
+        };
+      })
+    );
+
+    console.table(results);
+
+    return results;
+  };
+
+
+  /* ==========================================
+     24. INITIALIZE
+     ========================================== */
+
   selectUnit(
     index,
     false,
     false
   );
+
 })();
