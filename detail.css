@@ -1314,3 +1314,44 @@ button {
     padding: 0 14px 45px;
   }
 }
+
+
+/* TCO PRICE AND TYPE LABEL FIX */
+
+/* Harga emblem sama seperti card lainnya */
+.part-card[data-part-id="rad-grille-emblem-set"]
+.price.uncertain {
+    display: block;
+    font-size: clamp(19px, 1.6vw, 24px);
+    font-weight: 800;
+    color: var(--green);
+    line-height: 1.4;
+    margin: 2px 0 14px;
+}
+
+/* Label tipe kendaraan */
+.part-grade {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.part-grade .part-grade-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #64776b;
+    margin-right: 5px;
+    white-space: nowrap;
+}
+
+/* Tampilan pada mobile */
+@media (max-width: 520px) {
+    .part-grade .part-grade-label {
+        font-size: 10px;
+    }
+
+    .part-grade {
+        gap: 5px;
+    }
+}

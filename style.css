@@ -978,3 +978,60 @@ body.home-page #katalog .catalog-tools {
     transform: translateY(15px) !important;
   }
 }
+
+
+/* ==========================================
+   HOME NAVBAR SIZE FIX
+   Samakan dengan navbar halaman Detail
+   ========================================== */
+
+@media (min-width: 1101px) {
+
+  body.home-page #site-header
+  .wide-container.topbar #main-nav {
+    width: 385px !important;
+    min-width: 385px !important;
+    max-width: 385px !important;
+    height: 60px !important;
+    min-height: 60px !important;
+    flex: 0 0 385px !important;
+
+    gap: 12px !important;
+    padding: 7px 21px !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+  }
+
+  body.home-page #site-header
+  #main-nav .nav-link {
+    font-size: 15px !important;
+    line-height: 1.4 !important;
+    padding: 10px 5px 12px !important;
+  }
+}
+
+/* Laptop */
+@media (min-width: 801px) and (max-width: 1100px) {
+
+  body.home-page #site-header
+  .wide-container.topbar #main-nav {
+    width: 345px !important;
+    min-width: 345px !important;
+    max-width: 345px !important;
+    height: 58px !important;
+    min-height: 58px !important;
+    flex: 0 0 345px !important;
+
+    gap: 10px !important;
+    padding: 6px 17px !important;
+  }
+
+  body.home-page #site-header
+  #main-nav .nav-link {
+    font-size: 13px !important;
+  }
+}

@@ -169,7 +169,7 @@ window.TCO_UNIT_DATA = window.TCO_UNIT_DATA || {};
         price: 108000,
 
         priceLabel:
-          'Rp. 108.000',
+          'Rp108.000',
 
         status: 'bulletin',
 
@@ -195,10 +195,10 @@ window.TCO_UNIT_DATA = window.TCO_UNIT_DATA || {};
 
             sku: '75312-BZ140',
 
-            price: 20000,
+            price: 28000,
 
             priceLabel:
-              'Rp. 20.000'
+              'Rp. 28.000'
           }
 
         ],

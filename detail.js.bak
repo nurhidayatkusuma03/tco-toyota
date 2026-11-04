@@ -1,0 +1,1894 @@
+
+/*
+ * TCO KALLA TOYOTA
+ * DETAIL UNIT — PERBAIKAN FOTO & HARGA
+ *
+ * Tidak perlu mengubah agya.js atau detail.html.
+ * Foto dimuat melalui Image() secara eager.
+ * Mendukung nama file terbaru dan file:// lokal.
+ */
+
+(() => {
+  'use strict';
+
+  const $ = (s, root = document) =>
+    root.querySelector(s);
+
+  const $$ = (s, root = document) =>
+    Array.from(root.querySelectorAll(s));
+
+  const esc = value =>
+    String(value ?? '').replace(
+      /[&<>"']/g,
+      c => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      })[c]
+    );
+
+  const rupiah = value =>
+    Number.isFinite(value)
+      ? 'Rp' + value.toLocaleString('id-ID')
+      : 'Harga belum tercantum';
+
+  const norm = value =>
+    String(value || '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-');
+
+  const catalog =
+    Array.isArray(window.CATALOG)
+      ? window.CATALOG
+      : [];
+
+  window.TCO_UNIT_DATA ||= {};
+
+  if (!catalog.length) {
+    console.error(
+      '[TCO] Katalog kosong. Periksa data.js.'
+    );
+    return;
+  }
+
+  const cache = new Map();
+
+  const param =
+    new URLSearchParams(
+      location.search
+    ).get('unit') || 'agya';
+
+  let index = Math.max(
+    0,
+    catalog.findIndex(
+      x => x.slug === param
+    )
+  );
+
+  let selectedColor = 'white';
+  let tab = 'all';
+  let unitToken = 0;
+  let popupPinned = null;
+
+  const model = () => catalog[index];
+
+  const unit = () =>
+    window.TCO_UNIT_DATA[model().slug] || null;
+
+  const palette = () =>
+    Array.isArray(unit()?.colors)
+      ? unit().colors
+      : [];
+
+  const color = () =>
+    palette().find(
+      c => c.key === selectedColor
+    ) || palette()[0] || null;
+
+  const rawParts = () =>
+    Array.isArray(unit()?.parts)
+      ? unit().parts
+      : [];
+
+  const idOf = p =>
+    p.id || norm(p.title || p.name);
+
+  const titleOf = p =>
+    p.title ||
+    p.name ||
+    'Aksesori Toyota';
+
+  const composite = () =>
+    model().slug === 'agya' ||
+    unit()?.heroComposite === true;
+
+
+  /* ==========================================
+     1. MANIFEST FOTO AGYA
+     ========================================== */
+
+  const AGYA_IMAGES = {
+    'rad-grille-emblem-set': {
+      stem: 't-emblem-rad-grille'
+    },
+
+    'gr-front-aeromudguard': {
+      stem: 'gr-front-aeromudguard'
+    },
+
+    'gr-side-skirt': {
+      stem: 'gr-side-skirt',
+      colors: [
+        'red',
+        'yellow',
+        'gray',
+        'silver',
+        'white',
+        'black',
+        'orange'
+      ]
+    },
+
+    'gr-rear-detail': {
+      stem: 'gr-rear-detail'
+    },
+
+    'sporty-roof-spoiler': {
+      stem: 'sporty-roof-spoiler'
+    },
+
+    'back-camera': {
+      file: 'back-camera.png'
+    },
+
+    'premium-horn': {
+      file: 'premium-horn.png'
+    },
+
+    'dvr': {
+      file: 'DVR.png'
+    }
+  };
+
+
+  /* ==========================================
+     2. REFERENSI HARGA TCO
+     ========================================== */
+
+  const AGYA_TCO_SOURCES = {
+    'gr-front-aeromudguard':
+      'Front Bumper Spoiler, Set',
+
+    'gr-rear-detail':
+      'Rear Bumper Spoiler, Set',
+
+    'gr-side-skirt':
+      'SideSkirt, Set'
+  };
+
+
+  /* ==========================================
+     3. LOAD DATA UNIT
+     ========================================== */
+
+  function loadUnit(slug) {
+    if (window.TCO_UNIT_DATA[slug]) {
+      return Promise.resolve(true);
+    }
+
+    if (cache.has(slug)) {
+      return cache.get(slug);
+    }
+
+    const task = new Promise(resolve => {
+      const script =
+        document.createElement('script');
+
+      script.src = new URL(
+        `data/units/${encodeURIComponent(slug)}.js`,
+        document.baseURI
+      ).href;
+
+      script.onload = () =>
+        resolve(
+          Boolean(window.TCO_UNIT_DATA[slug])
+        );
+
+      script.onerror = () => {
+        console.error(
+          '[TCO] Data unit gagal dibaca:',
+          script.src
+        );
+
+        resolve(false);
+      };
+
+      document.head.appendChild(script);
+    });
+
+    cache.set(slug, task);
+    return task;
+  }
+
+
+  /* ==========================================
+     4. PART SESUAI WARNA
+     ========================================== */
+
+  function partForColor(raw) {
+    const p = { ...raw };
+
+    p.description =
+      raw.descriptionByColor?.[selectedColor] ??
+      raw.description ??
+      '';
+
+    const variant =
+      raw.variants?.[selectedColor];
+
+    p.partsForColor =
+      Array.isArray(variant)
+        ? variant
+        : variant
+          ? [variant]
+          : [];
+
+    p.variantUnavailable =
+      Boolean(raw.variants) &&
+      !p.partsForColor.length;
+
+    if (raw.variants) {
+      p.sku =
+        p.partsForColor.length === 1
+          ? p.partsForColor[0].sku
+          : null;
+
+      const samePrice =
+        p.partsForColor.length &&
+        p.partsForColor.every(
+          x =>
+            Number.isFinite(x.price) &&
+            x.price ===
+              p.partsForColor[0].price
+        );
+
+      p.price = samePrice
+        ? p.partsForColor[0].price
+        : null;
+    }
+
+    return p;
+  }
+
+  const parts = () =>
+    rawParts().map(partForColor);
+
+  const visibleParts = () =>
+    parts().filter(
+      p =>
+        tab === 'all' ||
+        p.kind === tab
+    );
+
+
+  /* ==========================================
+     5. RESOLUSI URL FOTO
+     ========================================== */
+
+  function urlOf(input, type = 'part') {
+    if (!input) return '';
+
+    let path =
+      String(input).replace(/\\/g, '/');
+
+    if (
+      /^(?:https?:|file:|data:|blob:)/i
+        .test(path)
+    ) {
+      return path;
+    }
+
+    if (!path.includes('/')) {
+      path =
+        `assets/vehicles/${model().slug}/` +
+        `${type === 'car' ? 'colors' : 'parts'}/` +
+        path;
+    }
+
+    return new URL(
+      path,
+      document.baseURI
+    ).href;
+  }
+
+
+  /* ==========================================
+     6. PENCARIAN FOTO PART
+     ========================================== */
+
+  function candidatePhotos(p) {
+    const paths = [];
+
+    const add = path => {
+      const url = urlOf(path);
+
+      if (
+        url &&
+        !paths.includes(url)
+      ) {
+        paths.push(url);
+      }
+    };
+
+    if (model().slug === 'agya') {
+      const known = AGYA_IMAGES[idOf(p)];
+
+      if (known) {
+        // Part dengan satu foto tetap.
+        if (known.file) {
+          add(known.file);
+
+          if (known.file === 'DVR.png') {
+            add('dvr.png');
+          }
+        }
+
+        // Part dengan foto per warna.
+        else if (
+          !known.colors ||
+          known.colors.includes(selectedColor)
+        ) {
+          const stem =
+            `${known.stem}-${selectedColor}`;
+
+          // Prioritas PNG.
+          add(stem + '.png');
+
+          // Cadangan bila file asli masih JPG.
+          add(stem + '.jpg');
+          add(stem + '.jpeg');
+
+          // Dukungan penamaan emblem lama.
+          if (
+            known.stem === 't-emblem-rad-grille' &&
+            selectedColor === 'white'
+          ) {
+            add(
+              't-emblem-rad-grille-putih.png'
+            );
+          }
+        }
+
+        // Jangan mengambil foto warna lain.
+        return paths;
+      }
+    }
+
+    // Unit selain Agya.
+    const map =
+      p.imagesByColor ||
+      p.imageByColor;
+
+    if (map) {
+      add(map[selectedColor]);
+      return paths;
+    }
+
+    // Foto dari varian SKU.
+    for (
+      const variant of
+      p.partsForColor || []
+    ) {
+      add(variant.image);
+    }
+
+    // Foto standar.
+    add(p.image);
+
+    if (!p.image) {
+      add(p.file);
+    }
+
+    return paths;
+  }
+
+
+  /* ==========================================
+     7. MEMUAT FOTO TANPA LAZY HIDDEN
+     ========================================== */
+
+  function showPhoto(
+    img,
+    candidates,
+    placeholder,
+    label = ''
+  ) {
+    if (!img) return;
+
+    const urls = [
+      ...new Set(
+        candidates.filter(Boolean)
+      )
+    ];
+
+    const ticket = String(
+      (Number(img.dataset.photoTicket) || 0)
+      + 1
+    );
+
+    img.dataset.photoTicket = ticket;
+
+    // PENTING:
+    // Jangan gunakan hidden + lazy loading
+    // saat foto sedang dimuat.
+    img.removeAttribute('loading');
+    img.loading = 'eager';
+
+    img.hidden = true;
+    img.removeAttribute('src');
+
+    if (placeholder) {
+      placeholder.hidden = false;
+
+      placeholder.textContent =
+        urls.length
+          ? 'Memuat foto...'
+          : 'Foto part belum tersedia untuk pilihan ini';
+    }
+
+    if (!urls.length) return;
+
+    let position = 0;
+
+    function next() {
+      if (
+        img.dataset.photoTicket !== ticket
+      ) {
+        return;
+      }
+
+      if (position >= urls.length) {
+        if (placeholder) {
+          placeholder.textContent =
+            'Foto gagal dimuat — periksa nama atau ekstensi file';
+        }
+
+        console.error(
+          '[TCO] Semua alamat foto gagal:',
+          label,
+          urls
+        );
+
+        return;
+      }
+
+      const url = urls[position++];
+
+      // Muat secara independen.
+      const probe = new Image();
+
+      probe.loading = 'eager';
+
+      probe.onload = () => {
+        if (
+          img.dataset.photoTicket !== ticket
+        ) {
+          return;
+        }
+
+        img.src = url;
+        img.hidden = false;
+
+        if (placeholder) {
+          placeholder.hidden = true;
+        }
+
+        if (
+          img.id === 'hero-car' ||
+          img.id === 'hero-car-rear'
+        ) {
+          requestAnimationFrame(
+            positionHotspots
+          );
+        }
+      };
+
+      probe.onerror = () => {
+        console.warn(
+          '[TCO] Foto tidak ditemukan:',
+          url
+        );
+
+        next();
+      };
+
+      probe.src = url;
+    }
+
+    next();
+  }
+
+
+  /* ==========================================
+     8. HARGA DAN PART NUMBER
+     ========================================== */
+
+  function partPrice(p) {
+    if (p.variantUnavailable) {
+      return 'Varian warna belum tersedia';
+    }
+
+    if (p.status === 'bulletin') {
+      return p.priceLabel ||
+        'Mengikuti Part Bulletin';
+    }
+
+    if (
+      model().slug === 'agya' &&
+      AGYA_TCO_SOURCES[idOf(p)]
+    ) {
+      return Number.isFinite(
+        p.referencePrice
+      )
+        ? rupiah(p.referencePrice)
+        : 'Harga TCO belum tersedia';
+    }
+
+    if (
+      p.options?.length &&
+      p.price == null
+    ) {
+      return 'Lihat pilihan varian';
+    }
+
+    return Number.isFinite(p.price)
+      ? rupiah(p.price)
+      : (
+          p.priceLabel ||
+          'Harga belum tercantum'
+        );
+  }
+
+  function partNumber(p) {
+    if (p.variantUnavailable) {
+      return 'SKU warna ini belum tersedia';
+    }
+
+    if (
+      model().slug === 'agya' &&
+      AGYA_TCO_SOURCES[idOf(p)]
+    ) {
+      const sku =
+        p.relatedSKUs?.[selectedColor];
+
+      return sku
+        ? (
+            `P/N TCO ${
+              AGYA_TCO_SOURCES[idOf(p)]
+            }: ${sku}`
+          )
+        : 'P/N TCO tidak tersedia';
+    }
+
+    const sku =
+      p.sku ||
+      p.partNumber ||
+      '';
+
+    if (sku) {
+      return `P/N: ${sku}`;
+    }
+
+    return p.components?.length
+      ? 'Lihat nomor part pada rincian'
+      : 'Nomor part belum tersedia';
+  }
+
+
+  /* ==========================================
+     9. DESKRIPSI PART
+     ========================================== */
+
+  function partDescription(p) {
+    if (
+      model().slug !== 'agya' ||
+      !AGYA_TCO_SOURCES[idOf(p)]
+    ) {
+      return p.description || '';
+    }
+
+    const messages = {
+      'gr-front-aeromudguard':
+        'Foto menunjukkan aksesori pada sudut bumper depan. Harga dan P/N yang tampil berasal dari entri Front Bumper Spoiler, Set pada tabel harga satuan TCO Juli 2026.',
+
+      'gr-side-skirt':
+        'Foto menunjukkan aksesori di panel bawah samping. Harga dan P/N yang tampil berasal dari entri SideSkirt, Set pada tabel harga satuan TCO Juli 2026.',
+
+      'gr-rear-detail':
+        'Foto menunjukkan aksesori pada sudut bumper belakang. Harga dan P/N yang tampil berasal dari entri Rear Bumper Spoiler, Set pada tabel harga satuan TCO Juli 2026.'
+    };
+
+    return messages[idOf(p)];
+  }
+
+  function sourceNote(p) {
+    if (
+      model().slug === 'agya' &&
+      AGYA_TCO_SOURCES[idOf(p)]
+    ) {
+      return (
+        `Sumber harga dan P/N: ` +
+        `${AGYA_TCO_SOURCES[idOf(p)]}. ` +
+        `Foto menggunakan nama aksesori GR; ` +
+        `kesamaan fisik keduanya tidak dinyatakan ` +
+        `dalam tabel TCO.`
+      );
+    }
+
+    return (
+      p.note ||
+      p.photoStatus ||
+      ''
+    );
+  }
+
+
+  /* ==========================================
+     10. RINCIAN KOMPONEN
+     ========================================== */
+
+  function componentsHTML(
+    entries,
+    label
+  ) {
+    if (
+      !Array.isArray(entries) ||
+      !entries.length
+    ) {
+      return '';
+    }
+
+    return `
+      <div class="part-components">
+
+        <strong>
+          ${esc(label)}
+        </strong>
+
+        ${entries.map(x => `
+          <div>
+            <span>
+              ${esc(
+                x.name ||
+                x.title ||
+                'Komponen'
+              )}
+
+              <small>
+                ${esc(x.sku || '')}
+              </small>
+            </span>
+
+            <b>
+              ${esc(
+                Number.isFinite(x.price)
+                  ? rupiah(x.price)
+                  : (
+                      x.priceLabel ||
+                      'Harga belum tercantum'
+                    )
+              )}
+            </b>
+          </div>
+        `).join('')}
+
+      </div>
+    `;
+  }
+
+
+  /* ==========================================
+     11. RENDER CARD
+     ========================================== */
+
+  function renderCards() {
+    const list = visibleParts();
+    const root = $('#tab-content');
+
+    if (!root) return;
+
+    if ($('#part-count')) {
+      $('#part-count').textContent =
+        String(parts().length);
+    }
+
+    if (!list.length) {
+      root.innerHTML = `
+        <div class="empty-state">
+          Belum ada sparepart pada kategori ini.
+        </div>
+      `;
+
+      renderHotspots();
+      return;
+    }
+
+    root.innerHTML = `
+      <div class="parts-grid">
+
+        ${list.map(p => `
+          <article
+            class="part-card"
+            data-part-id="${esc(idOf(p))}">
+
+            <div class="part-media">
+              <img
+                alt="Foto ${esc(titleOf(p))} — ${
+                  esc(color()?.name || '')
+                }">
+
+              <span class="media-placeholder">
+                Memuat foto...
+              </span>
+            </div>
+
+            <div class="part-body">
+
+              <h3>
+                ${esc(titleOf(p))}
+              </h3>
+
+              <span class="part-sku">
+                ${esc(partNumber(p))}
+              </span>
+
+              <span class="price${
+                p.status === 'bulletin' ||
+                p.variantUnavailable
+                  ? ' uncertain'
+                  : ''
+              }">
+                ${esc(partPrice(p))}
+              </span>
+
+              <p>
+                ${esc(partDescription(p))}
+              </p>
+
+              ${componentsHTML(
+                p.components,
+                'Rincian komponen'
+              )}
+
+              ${componentsHTML(
+                p.partsForColor?.length > 1
+                  ? p.partsForColor
+                  : [],
+                'Rincian SKU varian'
+              )}
+
+              ${componentsHTML(
+                p.options,
+                'Pilihan varian'
+              )}
+
+              ${
+                sourceNote(p)
+                  ? `
+                    <small class="part-photo-status">
+                      ${esc(sourceNote(p))}
+                    </small>
+                  `
+                  : ''
+              }
+
+              ${
+                p.grades?.length
+                  ? `
+                    <div class="part-grade" aria-label="Kesesuaian tipe Toyota"><small class="part-grade-label">Untuk tipe:</small>
+                      ${p.grades.map(g => `
+                        <span>${esc(g)}</span>
+                      `).join('')}
+                    </div>
+                  `
+                  : ''
+              }
+
+            </div>
+          </article>
+        `).join('')}
+
+      </div>
+    `;
+
+    $$('.part-card', root).forEach(
+      (card, i) => {
+        showPhoto(
+          $('img', card),
+          candidatePhotos(list[i]),
+          $('.media-placeholder', card),
+          titleOf(list[i])
+        );
+      }
+    );
+
+    renderHotspots();
+  }
+
+
+  /* ==========================================
+     12. HOTSPOT POPUP
+     ========================================== */
+
+  const popup =
+    $('#hero-part-tooltip');
+
+  function closePopup() {
+    if (popup) {
+      popup.hidden = true;
+    }
+
+    if (popupPinned) {
+      popupPinned.setAttribute(
+        'aria-expanded',
+        'false'
+      );
+    }
+
+    popupPinned = null;
+  }
+
+  function showPopup(
+    p,
+    button,
+    pin = false
+  ) {
+    if (!popup) return;
+
+    if (
+      pin &&
+      popupPinned === button &&
+      !popup.hidden
+    ) {
+      closePopup();
+      return;
+    }
+
+    if (
+      popupPinned &&
+      popupPinned !== button
+    ) {
+      popupPinned.setAttribute(
+        'aria-expanded',
+        'false'
+      );
+    }
+
+    if (pin) {
+      popupPinned = button;
+
+      button.setAttribute(
+        'aria-expanded',
+        'true'
+      );
+    }
+
+    popup.innerHTML = `
+      <div class="hotspot-tooltip-media">
+
+        <img alt="${
+          esc(titleOf(p))
+        }">
+
+        <span class="media-placeholder">
+          Memuat foto...
+        </span>
+
+      </div>
+
+      <div class="hotspot-tooltip-info">
+
+        <strong>
+          ${esc(titleOf(p))}
+        </strong>
+
+        <span>
+          ${esc(partNumber(p))}
+        </span>
+
+        <b>
+          ${esc(partPrice(p))}
+        </b>
+
+      </div>
+    `;
+
+    popup.hidden = false;
+
+    showPhoto(
+      $('img', popup),
+      candidatePhotos(p),
+      $('.media-placeholder', popup),
+      titleOf(p)
+    );
+
+    const rect =
+      button.getBoundingClientRect();
+
+    const size =
+      popup.getBoundingClientRect();
+
+    const x = Math.max(
+      8,
+      Math.min(
+        window.innerWidth - size.width - 8,
+        rect.left +
+          rect.width / 2 -
+          size.width / 2
+      )
+    );
+
+    const y =
+      rect.top > size.height + 12
+        ? rect.top - size.height - 10
+        : rect.bottom + 10;
+
+    popup.style.left =
+      `${x}px`;
+
+    popup.style.top = `${
+      Math.max(
+        8,
+        Math.min(
+          y,
+          window.innerHeight - size.height - 8
+        )
+      )
+    }px`;
+  }
+
+
+  /* ==========================================
+     13. KOORDINAT HOTSPOT
+     ========================================== */
+
+  function coordForPart(p) {
+    if (p.kind !== 'exterior') {
+      return null;
+    }
+
+    // Tidak membuat hotspot interior/kamera.
+    if (
+      /horn|camera|kamera|dvr|dashcam/i
+        .test(idOf(p))
+    ) {
+      return null;
+    }
+
+    const point = composite()
+      ? (
+          p.hotspot?.composite ||
+          p.pos?.composite
+        )
+      : (
+          p.hotspot?.front ||
+          p.pos?.front ||
+          p.hotspot?.rear ||
+          p.pos?.rear
+        );
+
+    if (
+      !Array.isArray(point) ||
+      point.length < 2 ||
+      point.slice(0, 2).some(
+        x =>
+          !Number.isFinite(Number(x)) ||
+          Number(x) < 0 ||
+          Number(x) > 100
+      )
+    ) {
+      return null;
+    }
+
+    const view =
+      composite() ||
+      p.hotspot?.front ||
+      p.pos?.front
+        ? 'front'
+        : 'rear';
+
+    return {
+      view,
+      x: Number(point[0]),
+      y: Number(point[1])
+    };
+  }
+
+
+  /* ==========================================
+     14. RENDER HOTSPOT
+     ========================================== */
+
+  function renderHotspots() {
+    const front =
+      $('#hero-hotspots-front');
+
+    const rear =
+      $('#hero-hotspots-rear');
+
+    front?.replaceChildren();
+    rear?.replaceChildren();
+
+    visibleParts().forEach(p => {
+      const coord = coordForPart(p);
+
+      if (!coord) return;
+
+      const layer =
+        coord.view === 'rear'
+          ? rear
+          : front;
+
+      if (!layer) return;
+
+      const button =
+        document.createElement('button');
+
+      button.className = 'hero-hotspot';
+      button.type = 'button';
+
+      button.dataset.x = coord.x;
+      button.dataset.y = coord.y;
+      button.dataset.partId = idOf(p);
+
+      button.setAttribute(
+        'aria-label',
+        `Lihat ${titleOf(p)}`
+      );
+
+      button.setAttribute(
+        'aria-expanded',
+        'false'
+      );
+
+      button.addEventListener(
+        'mouseenter',
+        () => {
+          if (!popupPinned) {
+            showPopup(p, button);
+          }
+        }
+      );
+
+      button.addEventListener(
+        'mouseleave',
+        () => {
+          if (!popupPinned) {
+            closePopup();
+          }
+        }
+      );
+
+      button.addEventListener(
+        'focus',
+        () => {
+          if (!popupPinned) {
+            showPopup(p, button);
+          }
+        }
+      );
+
+      button.addEventListener(
+        'blur',
+        () => {
+          if (!popupPinned) {
+            closePopup();
+          }
+        }
+      );
+
+      button.addEventListener(
+        'click',
+        e => {
+          e.stopPropagation();
+
+          showPopup(
+            p,
+            button,
+            true
+          );
+        }
+      );
+
+      layer.appendChild(button);
+    });
+
+    requestAnimationFrame(
+      positionHotspots
+    );
+  }
+
+
+  /* ==========================================
+     15. POSISI HOTSPOT
+     ========================================== */
+
+  function positionHotspots() {
+    const frames =
+      $$('.hero-angle');
+
+    frames.forEach(frame => {
+      if (
+        frame.hidden ||
+        getComputedStyle(frame).display === 'none'
+      ) {
+        return;
+      }
+
+      const img =
+        $('img', frame);
+
+      if (
+        !img ||
+        img.hidden ||
+        !img.naturalWidth ||
+        !img.naturalHeight
+      ) {
+        return;
+      }
+
+      const frameBox =
+        frame.getBoundingClientRect();
+
+      const box =
+        img.getBoundingClientRect();
+
+      const scale = Math.min(
+        box.width / img.naturalWidth,
+        box.height / img.naturalHeight
+      );
+
+      const width =
+        img.naturalWidth * scale;
+
+      const height =
+        img.naturalHeight * scale;
+
+      const left =
+        box.left -
+        frameBox.left +
+        (box.width - width) / 2;
+
+      const top =
+        box.top -
+        frameBox.top +
+        (box.height - height);
+
+      $$('.hero-hotspot', frame)
+        .forEach(button => {
+          button.style.left = `${
+            left +
+            Number(button.dataset.x) *
+              width / 100
+          }px`;
+
+          button.style.top = `${
+            top +
+            Number(button.dataset.y) *
+              height / 100
+          }px`;
+        });
+    });
+
+    closePopup();
+  }
+
+
+  /* ==========================================
+     16. RENDER FOTO UNIT
+     ========================================== */
+
+  function renderHero() {
+    const m = model();
+    const d = unit();
+    const c = color();
+
+    const name =
+      (d.title || m.name).split('|');
+
+    document.title =
+      `${m.name} — TCO Kalla Toyota`;
+
+    if ($('#breadcrumb-unit')) {
+      $('#breadcrumb-unit').textContent =
+        m.name;
+    }
+
+    if ($('#hero-title')) {
+      $('#hero-title').innerHTML =
+        esc(name[0]) +
+        (
+          name.length > 1
+            ? ` <em>${
+                esc(name.slice(1).join(' '))
+              }</em>`
+            : ''
+        );
+    }
+
+    if ($('#hero-tagline')) {
+      $('#hero-tagline').textContent =
+        d.tagline || '';
+    }
+
+    if ($('#hero-category')) {
+      $('#hero-category').textContent =
+        m.category || '';
+    }
+
+    const visual = $('#hero-visual');
+
+    visual?.classList.toggle(
+      'is-composite',
+      composite()
+    );
+
+    visual?.classList.toggle(
+      'is-single',
+      composite() || !c?.rear
+    );
+
+    visual?.classList.remove(
+      'show-rear'
+    );
+
+    const rearFrame =
+      $('.hero-angle-rear');
+
+    const rearImage =
+      $('#hero-car-rear');
+
+    if (rearFrame) {
+      rearFrame.hidden =
+        composite() || !c?.rear;
+    }
+
+    if ($('#hero-view-toggle')) {
+      $('#hero-view-toggle').hidden =
+        composite() || !c?.rear;
+    }
+
+    const warning =
+      $('#hero-image-error');
+
+    if (warning) {
+      warning.hidden = true;
+    }
+
+    const frontImage =
+      $('#hero-car');
+
+    if (frontImage) {
+      frontImage.alt = composite()
+        ? `${m.name} ${c?.name || ''} depan dan belakang`
+        : `${m.name} ${c?.name || ''} tampak depan`;
+    }
+
+    // Foto Agya merupakan satu PNG gabungan.
+    const frontSrc = urlOf(
+      c?.front ||
+      m.frontImage ||
+      m.main,
+      'car'
+    );
+
+    showPhoto(
+      frontImage,
+      [frontSrc],
+      null,
+      `${m.name} hero`
+    );
+
+    // Bersihkan gambar rear lama.
+    if (rearImage) {
+      rearImage.dataset.photoTicket =
+        String(
+          (
+            Number(
+              rearImage.dataset.photoTicket
+            ) || 0
+          ) + 1
+        );
+
+      rearImage.removeAttribute('src');
+      rearImage.hidden = true;
+
+      if (
+        !composite() &&
+        c?.rear
+      ) {
+        showPhoto(
+          rearImage,
+          [urlOf(c.rear, 'car')],
+          null,
+          `${m.name} rear`
+        );
+      }
+    }
+
+    if (frontImage && frontSrc) {
+      const probe = new Image();
+
+      probe.onerror = () => {
+        if (
+          frontImage.getAttribute('src') !== frontSrc &&
+          warning
+        ) {
+          warning.textContent =
+            `Foto unit ${m.name} ${
+              c?.name || ''
+            } belum ditemukan.`;
+
+          warning.hidden = false;
+        }
+      };
+
+      probe.src = frontSrc;
+    }
+
+    // Palet warna.
+    if ($('#color-list')) {
+      $('#color-list').innerHTML =
+        palette().map(item => {
+          const fill = item.twoTone
+            ? (
+                `linear-gradient(90deg,` +
+                `${item.hex} 0 50%,` +
+                `${
+                  item.secondHex || '#16191d'
+                } 50% 100%)`
+              )
+            : item.hex;
+
+          return `
+            <button
+              class="color-swatch${
+                item.twoTone
+                  ? ' two-tone'
+                  : ''
+              }"
+              type="button"
+              data-color="${esc(item.key)}"
+              style="--swatch:${esc(fill)}"
+              aria-label="${esc(item.name)}"
+              title="${esc(item.name)}"
+              aria-pressed="${
+                item.key === selectedColor
+              }">
+            </button>
+          `;
+        }).join('');
+    }
+
+    if ($('#color-name')) {
+      $('#color-name').textContent =
+        c?.name || '';
+    }
+
+    if ($('#color-panel')) {
+      $('#color-panel').hidden =
+        !palette().length;
+    }
+
+    renderHotspots();
+  }
+
+
+  /* ==========================================
+     17. RENDER HALAMAN
+     ========================================== */
+
+  function render() {
+    const d = unit();
+
+    if (!d) return;
+
+    if (
+      !palette().some(
+        x => x.key === selectedColor
+      )
+    ) {
+      selectedColor =
+        d.heroColor ||
+        palette()[0]?.key ||
+        'white';
+    }
+
+    if ($('#unit-switch-label')) {
+      $('#unit-switch-label').textContent =
+        model().name.toUpperCase();
+    }
+
+    if ($('#unit-counter')) {
+      $('#unit-counter').textContent =
+        `${
+          String(index + 1).padStart(2, '0')
+        } / ${
+          String(catalog.length).padStart(2, '0')
+        }`;
+    }
+
+    renderHero();
+    renderCards();
+
+    $$('.detail-tabs [data-tab]')
+      .forEach(button => {
+        const active =
+          button.dataset.tab === tab;
+
+        button.classList.toggle(
+          'active',
+          active
+        );
+
+        button.setAttribute(
+          'aria-selected',
+          String(active)
+        );
+      });
+  }
+
+
+  /* ==========================================
+     18. NAVIGASI UNIT
+     ========================================== */
+
+  async function selectUnit(
+    next,
+    scroll = true,
+    push = true
+  ) {
+    index =
+      (next + catalog.length) %
+      catalog.length;
+
+    tab = 'all';
+    selectedColor = 'white';
+
+    closePopup();
+
+    const myToken = ++unitToken;
+    const slug = model().slug;
+
+    if ($('#tab-content')) {
+      $('#tab-content').innerHTML = `
+        <div class="empty-state">
+          Memuat data unit...
+        </div>
+      `;
+    }
+
+    const ok =
+      await loadUnit(slug);
+
+    if (unitToken !== myToken) {
+      return;
+    }
+
+    if (!ok) {
+      if ($('#tab-content')) {
+        $('#tab-content').textContent =
+          `Gagal memuat data/units/${slug}.js`;
+      }
+
+      return;
+    }
+
+    if (push) {
+      try {
+        const url =
+          new URL(location.href);
+
+        url.searchParams.set(
+          'unit',
+          slug
+        );
+
+        history.pushState(
+          null,
+          '',
+          url
+        );
+      } catch (_) {}
+    }
+
+    render();
+
+    if (scroll) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  }
+
+
+  /* ==========================================
+     19. EVENT LISTENERS
+     ========================================== */
+
+  $('#prev-unit')?.addEventListener(
+    'click',
+    () => selectUnit(index - 1)
+  );
+
+  $('#next-unit')?.addEventListener(
+    'click',
+    () => selectUnit(index + 1)
+  );
+
+  $('#color-list')?.addEventListener(
+    'click',
+    e => {
+      const button =
+        e.target.closest(
+          '[data-color]'
+        );
+
+      if (!button || !unit()) {
+        return;
+      }
+
+      selectedColor =
+        button.dataset.color;
+
+      closePopup();
+      renderHero();
+      renderCards();
+    }
+  );
+
+  $$('.detail-tabs [data-tab]')
+    .forEach(button => {
+      button.addEventListener(
+        'click',
+        () => {
+          if (
+            ![
+              'all',
+              'interior',
+              'exterior'
+            ].includes(button.dataset.tab)
+          ) {
+            return;
+          }
+
+          tab = button.dataset.tab;
+
+          renderCards();
+
+          $$('.detail-tabs [data-tab]')
+            .forEach(item => {
+              item.classList.toggle(
+                'active',
+                item === button
+              );
+
+              item.setAttribute(
+                'aria-selected',
+                String(item === button)
+              );
+            });
+        }
+      );
+    });
+
+  // Tampak depan / belakang untuk unit lain.
+  $$('#hero-view-toggle [data-hero-view]')
+    .forEach(button => {
+      button.addEventListener(
+        'click',
+        () => {
+          $('#hero-visual')
+            ?.classList.toggle(
+              'show-rear',
+              button.dataset.heroView === 'rear'
+            );
+
+          $$('#hero-view-toggle [data-hero-view]')
+            .forEach(item => {
+              item.setAttribute(
+                'aria-pressed',
+                String(item === button)
+              );
+            });
+
+          requestAnimationFrame(
+            positionHotspots
+          );
+        }
+      );
+    });
+
+
+  /* ==========================================
+     20. SWIPE ANTARUNIT
+     ========================================== */
+
+  function swipe(element) {
+    if (!element) return;
+
+    let start = null;
+
+    element.addEventListener(
+      'pointerdown',
+      e => {
+        if (
+          e.button !== 0 ||
+          e.target.closest(
+            'button, a, input'
+          )
+        ) {
+          return;
+        }
+
+        start = {
+          x: e.clientX,
+          y: e.clientY,
+          id: e.pointerId
+        };
+      },
+      { passive: true }
+    );
+
+    element.addEventListener(
+      'pointerup',
+      e => {
+        if (
+          !start ||
+          e.pointerId !== start.id
+        ) {
+          return;
+        }
+
+        const dx =
+          e.clientX - start.x;
+
+        const dy =
+          e.clientY - start.y;
+
+        start = null;
+
+        if (
+          Math.abs(dx) > 70 &&
+          Math.abs(dx) >
+            Math.abs(dy) * 1.4
+        ) {
+          selectUnit(
+            index + (
+              dx < 0 ? 1 : -1
+            )
+          );
+        }
+      },
+      { passive: true }
+    );
+
+    element.addEventListener(
+      'pointercancel',
+      () => {
+        start = null;
+      },
+      { passive: true }
+    );
+  }
+
+  swipe($('#swipe-zone'));
+  swipe($('#hero-visual'));
+
+  $('#swipe-zone')?.setAttribute(
+    'tabindex',
+    '0'
+  );
+
+  $('#swipe-zone')?.addEventListener(
+    'keydown',
+    e => {
+      if (
+        ![
+          'ArrowLeft',
+          'ArrowRight'
+        ].includes(e.key)
+      ) {
+        return;
+      }
+
+      e.preventDefault();
+
+      selectUnit(
+        index +
+        (
+          e.key === 'ArrowRight'
+            ? 1
+            : -1
+        )
+      );
+    }
+  );
+
+
+  /* ==========================================
+     21. HISTORY DAN RESPONSIVE
+     ========================================== */
+
+  window.addEventListener(
+    'popstate',
+    () => {
+      const slug =
+        new URLSearchParams(
+          location.search
+        ).get('unit');
+
+      const next =
+        catalog.findIndex(
+          x => x.slug === slug
+        );
+
+      if (next >= 0) {
+        selectUnit(
+          next,
+          false,
+          false
+        );
+      }
+    }
+  );
+
+  window.addEventListener(
+    'resize',
+    () => requestAnimationFrame(
+      positionHotspots
+    ),
+    { passive: true }
+  );
+
+  document.addEventListener(
+    'pointerdown',
+    e => {
+      if (
+        !e.target.closest(
+          '.hero-hotspot'
+        )
+      ) {
+        closePopup();
+      }
+    }
+  );
+
+  document.addEventListener(
+    'keydown',
+    e => {
+      if (e.key === 'Escape') {
+        closePopup();
+      }
+    }
+  );
+
+
+  /* ==========================================
+     22. NAVBAR MOBILE
+     ========================================== */
+
+  $('#menu-button')?.addEventListener(
+    'click',
+    () => {
+      const nav =
+        $('#mobile-nav');
+
+      if (!nav) return;
+
+      nav.hidden = !nav.hidden;
+
+      $('#menu-button').setAttribute(
+        'aria-expanded',
+        String(!nav.hidden)
+      );
+    }
+  );
+
+  $$('#mobile-nav a').forEach(
+    link => {
+      link.addEventListener(
+        'click',
+        () => {
+          if ($('#mobile-nav')) {
+            $('#mobile-nav').hidden = true;
+          }
+        }
+      );
+    }
+  );
+
+  // Pindahkan bar warna ke body
+  // supaya tetap melayang saat scroll.
+  if ($('#color-panel')) {
+    document.body.appendChild(
+      $('#color-panel')
+    );
+  }
+
+
+  /* ==========================================
+     23. AUDIT FOTO MELALUI CONSOLE
+     ========================================== */
+
+  window.TCOAuditImages = async () => {
+    const list = parts();
+
+    const results = await Promise.all(
+      list.map(async p => {
+        const paths =
+          candidatePhotos(p);
+
+        if (!paths.length) {
+          return {
+            part: titleOf(p),
+            color: selectedColor,
+            status: 'BELUM ADA FOTO',
+            url: ''
+          };
+        }
+
+        for (const url of paths) {
+          const ok = await new Promise(
+            resolve => {
+              const img = new Image();
+
+              img.onload = () =>
+                resolve(true);
+
+              img.onerror = () =>
+                resolve(false);
+
+              img.src = url;
+            }
+          );
+
+          if (ok) {
+            return {
+              part: titleOf(p),
+              color: selectedColor,
+              status: 'OK',
+              url
+            };
+          }
+        }
+
+        return {
+          part: titleOf(p),
+          color: selectedColor,
+          status: 'GAGAL',
+          url: paths[0]
+        };
+      })
+    );
+
+    console.table(results);
+
+    return results;
+  };
+
+
+  /* ==========================================
+     24. INITIALIZE
+     ========================================== */
+
+  selectUnit(
+    index,
+    false,
+    false
+  );
+
+})();

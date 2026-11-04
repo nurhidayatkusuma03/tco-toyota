@@ -122,3 +122,172 @@
   backdrop-filter:blur(18px);
   -webkit-backdrop-filter:blur(18px);
 }
+
+
+/* TCO NAVBAR CONSISTENCY V1 */
+
+/* Desktop */
+@media (min-width: 1101px) {
+
+  .site-header {
+    height: 106px !important;
+  }
+
+  .site-header .wide-container.topbar .main-nav {
+    width: 450px !important;
+    height: 64px !important;
+    min-height: 64px !important;
+    flex: 0 0 450px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 16px !important;
+    padding: 6px 25px !important;
+  }
+
+  .site-header .wide-container.topbar .main-nav a {
+    font-size: 15px !important;
+    line-height: 1.35 !important;
+    padding: 10px 6px 12px !important;
+  }
+
+}
+
+/* Laptop */
+@media (min-width: 801px) and (max-width: 1100px) {
+
+  .site-header {
+    height: 106px !important;
+  }
+
+  .site-header .wide-container.topbar .main-nav {
+    width: 385px !important;
+    height: 60px !important;
+    min-height: 60px !important;
+    flex: 0 0 385px !important;
+  }
+
+}
+
+/* Tablet */
+@media (min-width: 521px) and (max-width: 800px) {
+
+  .site-header {
+    height: 77px !important;
+  }
+
+}
+
+/* Mobile */
+@media (max-width: 520px) {
+
+  .site-header {
+    height: 68px !important;
+  }
+
+}
+
+
+/* ==========================================
+   TCO TOYOTA — HOME NAVBAR SIZE FIX
+   Mengikuti ukuran Navbar Detail Unit
+   ========================================== */
+
+@media (min-width: 1101px) {
+
+  /* Tinggi header */
+  body.home-page .site-header {
+    height: 106px !important;
+  }
+
+  /* Logo Toyota kiri */
+  body.home-page .site-header
+  .wide-container.topbar .logo-toyota {
+    width: 175px !important;
+    flex: 0 0 175px !important;
+  }
+
+  body.home-page .site-header
+  .logo-toyota img {
+    width: 100% !important;
+    max-height: 72px !important;
+    height: auto !important;
+  }
+
+  /* Logo Kalla Toyota kanan */
+  body.home-page .site-header
+  .wide-container.topbar .logo-kalla {
+    width: 222px !important;
+    flex: 0 0 222px !important;
+  }
+
+  /* Navbar menu tengah */
+  body.home-page .site-header
+  .wide-container.topbar .main-nav {
+    width: 385px !important;
+    min-width: 385px !important;
+    max-width: 385px !important;
+
+    height: 60px !important;
+    min-height: 60px !important;
+    box-sizing: border-box !important;
+
+    flex: 0 0 385px !important;
+
+    gap: 12px !important;
+    padding: 7px 21px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+  }
+
+  /* Font menu */
+  body.home-page .site-header
+  .wide-container.topbar .main-nav a {
+    font-size: 15px !important;
+    line-height: 1.4 !important;
+    padding: 10px 5px 12px !important;
+  }
+}
+
+/* Laptop */
+@media (min-width: 801px) and (max-width: 1100px) {
+
+  body.home-page .site-header
+  .wide-container.topbar .logo-toyota {
+    width: 140px !important;
+    flex-basis: 140px !important;
+  }
+
+  body.home-page .site-header
+  .wide-container.topbar .logo-kalla {
+    width: 170px !important;
+    flex-basis: 170px !important;
+  }
+
+  body.home-page .site-header
+  .wide-container.topbar .main-nav {
+    width: 345px !important;
+    min-width: 345px !important;
+    max-width: 345px !important;
+    flex: 0 0 345px !important;
+    height: 58px !important;
+    min-height: 58px !important;
+
+    gap: 10px !important;
+    padding: 6px 17px !important;
+  }
+
+  body.home-page .site-header
+  .wide-container.topbar .main-nav a {
+    font-size: 13px !important;
+  }
+}

@@ -592,52 +592,12 @@
      ========================================== */
 
   function partDescription(p) {
-    if (
-      model().slug !== 'agya' ||
-      !AGYA_TCO_SOURCES[idOf(p)]
-    ) {
-      return p.description || '';
-    }
-
-    const messages = {
-      'gr-front-aeromudguard':
-        'Foto menunjukkan aksesori pada sudut bumper depan. Harga dan P/N yang tampil berasal dari entri Front Bumper Spoiler, Set pada tabel harga satuan TCO Juli 2026.',
-
-      'gr-side-skirt':
-        'Foto menunjukkan aksesori di panel bawah samping. Harga dan P/N yang tampil berasal dari entri SideSkirt, Set pada tabel harga satuan TCO Juli 2026.',
-
-      'gr-rear-detail':
-        'Foto menunjukkan aksesori pada sudut bumper belakang. Harga dan P/N yang tampil berasal dari entri Rear Bumper Spoiler, Set pada tabel harga satuan TCO Juli 2026.'
-    };
-
-    return messages[idOf(p)];
+    return p.description || '';
   }
 
   function sourceNote(p) {
-    if (
-      model().slug === 'agya' &&
-      AGYA_TCO_SOURCES[idOf(p)]
-    ) {
-      return (
-        `Sumber harga dan P/N: ` +
-        `${AGYA_TCO_SOURCES[idOf(p)]}. ` +
-        `Foto menggunakan nama aksesori GR; ` +
-        `kesamaan fisik keduanya tidak dinyatakan ` +
-        `dalam tabel TCO.`
-      );
-    }
-
-    return (
-      p.note ||
-      p.photoStatus ||
-      ''
-    );
+    return '';
   }
-
-
-  /* ==========================================
-     10. RINCIAN KOMPONEN
-     ========================================== */
 
   function componentsHTML(
     entries,
@@ -787,7 +747,7 @@
               ${
                 p.grades?.length
                   ? `
-                    <div class="part-grade">
+                    <div class="part-grade" aria-label="Kesesuaian tipe Toyota"><small class="part-grade-label">Untuk tipe :</small>
                       ${p.grades.map(g => `
                         <span>${esc(g)}</span>
                       `).join('')}
