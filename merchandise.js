@@ -65,7 +65,7 @@
     grid.innerHTML = list.map(g => {
       const startingPrice = Math.min(...g.products.map(p => Number(p.price) || Infinity));
       return `
-      <article class="merch-card">
+      <article class="merch-card model-card">
         <div class="merch-image model-image"><img src="${esc(g.image)}" alt="${esc(g.title)} — Toyota Gazoo Racing" loading="lazy"><span>${esc(g.category)}</span><b class="merch-image-count">${g.products.length} PRODUK</b></div>
         <div class="merch-card-body">
           <div class="model-info merch-card-heading"><div><p>TOYOTA GAZOO RACING</p><h3>${esc(g.title)}</h3><span class="merch-price-from">Mulai ${fmt(startingPrice)}</span></div><span class="model-arrow" aria-hidden="true">↗</span></div>
