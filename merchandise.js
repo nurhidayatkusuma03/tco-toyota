@@ -26,9 +26,9 @@
   section.innerHTML = `
     <div class="wide-container">
       <div class="merch-intro">
-        <div><span class="small-index">GR COLLECTION / 03</span><h2 id="merch-title">GR <span>Merchandise.</span></h2>
+        <div><span class="small-index">EXPLORE THE COLLECTION / 03</span><h2 id="merch-title">GR <span>Merchandise.</span></h2>
         <p>Ekspresikan semangat Toyota Gazoo Racing melalui koleksi apparel dan gears untuk aktivitas sehari-hari.</p></div>
-        <div class="merch-mark">GR<br><small>COLLECTION</small></div>
+        <div class="merch-mark">GR <span>COLLECTION</span></div>
       </div>
       <div class="merch-toolbar">
         <div class="merch-filters" role="group" aria-label="Filter merchandise">
@@ -66,9 +66,9 @@
       const startingPrice = Math.min(...g.products.map(p => Number(p.price) || Infinity));
       return `
       <article class="merch-card">
-        <div class="merch-image"><img src="${esc(g.image)}" alt="${esc(g.title)} — Toyota Gazoo Racing" loading="lazy"><span>${esc(g.category)}</span><b class="merch-image-count">${g.products.length} PRODUK</b></div>
+        <div class="merch-image model-image"><img src="${esc(g.image)}" alt="${esc(g.title)} — Toyota Gazoo Racing" loading="lazy"><span>${esc(g.category)}</span><b class="merch-image-count">${g.products.length} PRODUK</b></div>
         <div class="merch-card-body">
-          <div class="merch-card-heading"><div><span class="merch-eyebrow">TOYOTA GAZOO RACING</span><h3>${esc(g.title)}</h3></div><span class="merch-price-from">Mulai<br><strong>${fmt(startingPrice)}</strong></span></div>
+          <div class="model-info merch-card-heading"><div><p>TOYOTA GAZOO RACING</p><h3>${esc(g.title)}</h3><span class="merch-price-from">Mulai ${fmt(startingPrice)}</span></div><span class="model-arrow" aria-hidden="true">↗</span></div>
           <button class="merch-toggle" type="button" aria-expanded="false">Lihat koleksi <span>＋</span></button>
           <div class="merch-products" hidden>${g.products.map(p => {
             const sku = p.partNumbers ? Object.entries(p.partNumbers).map(([k,v]) => `${k === "-" ? "" : k + ": "}${v}`).join(" · ") : "";
