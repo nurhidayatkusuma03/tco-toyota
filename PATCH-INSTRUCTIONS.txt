@@ -9,8 +9,8 @@ Isi paket:
 
 CARA PASANG
 1. Upload folder assets/merchandise/ ke root repository TCO Toyota, sehingga path menjadi:
-   assets/merchandise/polo-shirt.jpg, t-shirt.jpg, shirt.jpg, hoodie.jpg,
-   light-jacket.jpg, gazoo-jacket.jpg, umbrella.jpg, cap.jpg, gears.jpg.
+   assets/merchandise/polo-shirt.png, t-shirt.png, shirt.png, hoodie.png,
+   light-jacket.png, gazoo-jacket.png, umbrella.png, cap.png, gears.png.
 2. Upload merchandise-data.js, merchandise.js, merchandise.css ke root repository.
 3. Buka index.html. Di bagian paling bawah, cari:
       <script src="data.js"></script>
@@ -18,7 +18,8 @@ CARA PASANG
    Tambahkan dua baris berikut tepat setelah app.js:
       <script src="merchandise-data.js"></script>
       <script src="merchandise.js"></script>
-4. Simpan dan deploy. Tidak perlu mengubah detail.html, detail.js, data.js, atau data/units.
+4. Pastikan file gambar di assets/merchandise menggunakan ekstensi .png.
+5. Simpan dan deploy. Tidak perlu mengubah detail.html, detail.js, data.js, atau data/units.
 
 CATATAN DATA
 - Harga disimpan sebagai angka Rupiah dan ditampilkan dengan format Indonesia.
