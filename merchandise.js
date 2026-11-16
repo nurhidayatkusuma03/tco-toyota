@@ -62,11 +62,15 @@
     const q = search.value.trim().toLocaleLowerCase("id-ID");
     const list = groups.filter(g => (active === "Semua" || g.category === active) &&
       (`${g.title} ${g.category} ${g.products.map(p => p.name + " " + p.colors.join(" ") + " " + p.material).join(" ")}`).toLocaleLowerCase("id-ID").includes(q));
-    grid.innerHTML = list.map(g => `
+    grid.innerHTML = list.map(g => {
+      const startingPrice = Math.min(...g.products.map(p => Number(p.price) || Infinity));
+      return `
       <article class="merch-card">
-        <div class="merch-image"><img src="${esc(g.image)}" alt="${esc(g.title)} — Toyota Gazoo Racing" loading="lazy"><span>${esc(g.category)}</span></div>
-        <div class="merch-card-body"><h3>${esc(g.title)}</h3>
-          <div class="merch-products">${g.products.map(p => {
+        <div class="merch-image"><img src="${esc(g.image)}" alt="${esc(g.title)} — Toyota Gazoo Racing" loading="lazy"><span>${esc(g.category)}</span><b class="merch-image-count">${g.products.length} PRODUK</b></div>
+        <div class="merch-card-body">
+          <div class="merch-card-heading"><div><span class="merch-eyebrow">TOYOTA GAZOO RACING</span><h3>${esc(g.title)}</h3></div><span class="merch-price-from">Mulai<br><strong>${fmt(startingPrice)}</strong></span></div>
+          <button class="merch-toggle" type="button" aria-expanded="false">Lihat koleksi <span>＋</span></button>
+          <div class="merch-products" hidden>${g.products.map(p => {
             const sku = p.partNumbers ? Object.entries(p.partNumbers).map(([k,v]) => `${k === "-" ? "" : k + ": "}${v}`).join(" · ") : "";
             return `<div class="merch-product"><div class="merch-product-top"><strong>${esc(p.name)}</strong><b>${fmt(p.price)}</b></div>
               <p class="merch-meta">${esc(p.colors.join(" / "))}${p.material ? " · " + esc(p.material) : ""}</p>
@@ -74,12 +78,18 @@
             </div>`;
           }).join("")}</div>
         </div>
-      </article>`).join("");
+      </article>`;
+    }).join("");
+    grid.querySelectorAll(".merch-toggle").forEach(btn => btn.addEventListener("click", () => {
+      const panel = btn.nextElementSibling;
+      const open = btn.getAttribute("aria-expanded") !== "true";
+      btn.setAttribute("aria-expanded", String(open));
+      panel.hidden = !open;
+      btn.classList.toggle("is-open", open);
+      btn.querySelector("span").textContent = open ? "−" : "＋";
+      btn.firstChild.textContent = open ? "Tutup koleksi " : "Lihat koleksi ";
+    }));
     grid.querySelectorAll("details").forEach(d => d.addEventListener("toggle", () => d.closest(".merch-card")?.classList.toggle("has-open-detail", d.open)));
-    grid.querySelectorAll(".merch-card").forEach(card => {
-      const products = card.querySelectorAll(".merch-product");
-      if (products.length > 1) card.classList.add("multi-product");
-    });
   }
   section.querySelectorAll(".merch-filter").forEach(btn => btn.addEventListener("click", () => {
     active = btn.dataset.filter;
