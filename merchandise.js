@@ -65,31 +65,18 @@
     grid.innerHTML = list.map(g => {
       const startingPrice = Math.min(...g.products.map(p => Number(p.price) || Infinity));
       return `
-      <article class="merch-card model-card">
-        <div class="merch-image model-image"><img src="${esc(g.image)}" alt="${esc(g.title)} — Toyota Gazoo Racing" loading="lazy"><span>${esc(g.category)}</span><b class="merch-image-count">${g.products.length} PRODUK</b></div>
-        <div class="merch-card-body">
-          <div class="model-info merch-card-heading"><div><p>TOYOTA GAZOO RACING</p><h3>${esc(g.title)}</h3><span class="merch-price-from">Mulai ${fmt(startingPrice)}</span></div><span class="model-arrow" aria-hidden="true">↗</span></div>
-          <button class="merch-toggle" type="button" aria-expanded="false">Lihat koleksi <span>＋</span></button>
-          <div class="merch-products" hidden>${g.products.map(p => {
-            const sku = p.partNumbers ? Object.entries(p.partNumbers).map(([k,v]) => `${k === "-" ? "" : k + ": "}${v}`).join(" · ") : "";
-            return `<div class="merch-product"><div class="merch-product-top"><strong>${esc(p.name)}</strong><b>${fmt(p.price)}</b></div>
-              <p class="merch-meta">${esc(p.colors.join(" / "))}${p.material ? " · " + esc(p.material) : ""}</p>
-              ${sku ? `<details class="merch-sku"><summary>Ukuran & Part Number</summary><p>${esc(sku)}</p></details>` : ""}
-            </div>`;
-          }).join("")}</div>
+      <a class="model-card poster-card merch-category-card" href="merchandise-detail.html?category=${encodeURIComponent(g.id)}" aria-label="Lihat koleksi ${esc(g.title)}">
+        <div class="model-image poster-image merch-category-image">
+          <span class="model-badge">${esc(g.category.toUpperCase())}</span>
+          <img src="${esc(g.image)}" alt="${esc(g.title)} — Toyota Gazoo Racing" loading="lazy">
+          <span class="merch-count">${g.products.length} PRODUK</span>
         </div>
-      </article>`;
+        <div class="model-info">
+          <div><p>TOYOTA GAZOO RACING</p><h3>${esc(g.title)}</h3><small>Mulai ${fmt(startingPrice)}</small></div>
+          <span class="model-arrow" aria-hidden="true">↗</span>
+        </div>
+      </a>`;
     }).join("");
-    grid.querySelectorAll(".merch-toggle").forEach(btn => btn.addEventListener("click", () => {
-      const panel = btn.nextElementSibling;
-      const open = btn.getAttribute("aria-expanded") !== "true";
-      btn.setAttribute("aria-expanded", String(open));
-      panel.hidden = !open;
-      btn.classList.toggle("is-open", open);
-      btn.querySelector("span").textContent = open ? "−" : "＋";
-      btn.firstChild.textContent = open ? "Tutup koleksi " : "Lihat koleksi ";
-    }));
-    grid.querySelectorAll("details").forEach(d => d.addEventListener("toggle", () => d.closest(".merch-card")?.classList.toggle("has-open-detail", d.open)));
   }
   section.querySelectorAll(".merch-filter").forEach(btn => btn.addEventListener("click", () => {
     active = btn.dataset.filter;
