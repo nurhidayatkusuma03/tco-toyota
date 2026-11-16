@@ -1,0 +1,35 @@
+PATCH TCO TOYOTA — GR MERCHANDISE
+=================================
+
+Isi paket:
+- merchandise-data.js : master data kategori, produk, harga, warna, material, Part Number.
+- merchandise.js      : menambahkan menu desktop/mobile dan section Merchandise otomatis.
+- merchandise.css     : tampilan GR dark/red, responsif.
+- assets/merchandise/ : gambar halaman produk yang diekstrak langsung dari PDF GR Apparel & Merchandise Catalog.
+
+CARA PASANG
+1. Upload folder assets/merchandise/ ke root repository TCO Toyota, sehingga path menjadi:
+   assets/merchandise/polo-shirt.jpg, t-shirt.jpg, shirt.jpg, hoodie.jpg,
+   light-jacket.jpg, gazoo-jacket.jpg, umbrella.jpg, cap.jpg, gears.jpg.
+2. Upload merchandise-data.js, merchandise.js, merchandise.css ke root repository.
+3. Buka index.html. Di bagian paling bawah, cari:
+      <script src="data.js"></script>
+      <script src="app.js"></script>
+   Tambahkan dua baris berikut tepat setelah app.js:
+      <script src="merchandise-data.js"></script>
+      <script src="merchandise.js"></script>
+4. Simpan dan deploy. Tidak perlu mengubah detail.html, detail.js, data.js, atau data/units.
+
+CATATAN DATA
+- Harga disimpan sebagai angka Rupiah dan ditampilkan dengan format Indonesia.
+- Part Number ditampilkan di panel "Ukuran & Part Number".
+- Untuk beberapa produk, katalog PDF tidak memberi pemetaan Part Number per warna/ukuran secara lengkap di teks ekstraksi. Data yang belum tersedia tidak dikarang.
+- Foto kategori adalah crop halaman katalog PDF asli (bukan foto hasil pencarian internet).
+- Halaman 16 berisi GR Places availability, bukan daftar stok cabang live. Ketersediaan aktual tidak ditampilkan sebagai stok realtime.
+- Harap verifikasi kembali SKU yang tampak samar pada tabel scan PDF sebelum dipakai sebagai acuan pemesanan.
+
+PERUBAHAN UI
+- Menu Merchandise ditambahkan setelah Katalog pada navbar desktop dan mobile.
+- Section Merchandise muncul tepat setelah section Katalog.
+- Hero progress ditambah item Merchandise; label Hubungi Kami berubah menjadi 04.
+- Katalog 17 unit dan halaman detail kendaraan tidak diubah.
