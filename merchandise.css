@@ -50,3 +50,38 @@
 @media(max-width:1100px){.merch-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:800px){.merch-section{padding:65px 0 80px;scroll-margin-top:77px}.merch-intro{align-items:flex-start}.merch-toolbar{align-items:stretch;flex-direction:column}.merch-search{width:100%}}
 @media(max-width:520px){.merch-section{padding:50px 0 65px}.merch-intro{gap:10px}.merch-intro h2{font-size:36px}.merch-intro p{font-size:12px}.merch-mark{font-size:38px}.merch-mark span{font-size:7px}.merch-grid{grid-template-columns:1fr;gap:15px}.merch-image{height:205px}.merch-card-heading{padding:16px}.merch-card-heading h3{font-size:18px}}
+
+
+/* CATEGORY CARDS — use the same visual language as the 17 Toyota model cards */
+.merch-section{background:#f4f6f4;color:#17201d;border-top:1px solid #e6ece6;padding:94px 0 112px}
+.merch-section:before{display:none}
+.merch-section .merch-intro{border:0;padding:0;margin-bottom:34px;align-items:end}
+.merch-section .merch-intro .small-index{color:#7c9181}
+.merch-section .merch-intro h2{color:#17201d}
+.merch-section .merch-intro h2 span{color:#176c4b}
+.merch-section .merch-intro p{color:#758077}
+.merch-section .merch-mark{color:#176c4b;text-shadow:none}
+.merch-section .merch-mark span{display:block;margin-top:12px;font-size:10px;letter-spacing:.24em;color:#758077}
+.merch-section .merch-toolbar{margin:38px 0 25px}
+.merch-section .merch-filter{border-color:#e0e6df;background:#fff;color:#6c756e}
+.merch-section .merch-filter.active,.merch-section .merch-filter:hover{color:#fff;background:#176c4b;border-color:#176c4b;box-shadow:none}
+.merch-section .merch-search{background:#fff;border-color:#e0e6df;color:#8a958c}
+.merch-section .merch-search input{color:#18251d}
+.merch-section .merch-search input::placeholder{color:#9aa49b}
+.merch-section .merch-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:19px;align-items:start}
+.merch-section .merch-category-card{color:inherit;text-decoration:none}
+.merch-section .merch-category-image{height:auto;aspect-ratio:1/1.12;background:#eaf0ea;display:block;padding:0}
+.merch-section .merch-category-image:after{height:20%;background:linear-gradient(transparent,rgba(235,244,236,.22))}
+.merch-section .merch-category-image img{object-fit:cover;width:100%;height:100%;padding:0;mix-blend-mode:normal;filter:none}
+.merch-section .merch-category-image .model-badge{font-size:10px;padding:7px 12px;color:#466c55;background:rgba(255,255,255,.9);border-radius:30px}
+.merch-section .merch-count{position:absolute;z-index:2;right:14px;top:14px;padding:7px 10px;border-radius:30px;background:rgba(255,255,255,.9);color:#466c55;font-size:9px;font-weight:900;letter-spacing:.08em}
+.merch-section .merch-category-card .model-info{padding:18px 18px 20px}
+.merch-section .merch-category-card .model-info p{font-size:10px;letter-spacing:.12em;color:#8c9a90;font-weight:800;margin:0}
+.merch-section .merch-category-card .model-info h3{font-size:18px;font-weight:800;letter-spacing:-.055em;margin:1px 0 4px;color:#17201d}
+.merch-section .merch-category-card .model-info small{font-size:11px;color:#718076}
+.merch-section .merch-category-card .model-arrow{width:38px;height:38px;border-radius:50%;background:#edf4ee;display:flex;align-items:center;justify-content:center;color:#176c4b;font-size:22px;transition:all .2s}
+.merch-section .merch-category-card:hover .model-arrow{background:#176c4b;color:#fff}
+.merch-section .merch-note{font-size:11px;color:#7d897f;margin-top:25px}
+@media(max-width:1100px){.merch-section .merch-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:800px){.merch-section{padding:60px 0 75px}.merch-section .merch-toolbar{align-items:stretch;flex-direction:column}.merch-section .merch-search{width:100%}}
+@media(max-width:520px){.merch-section{padding:48px 0 60px}.merch-section .merch-grid{grid-template-columns:1fr;gap:14px}.merch-section .merch-category-image{aspect-ratio:1/1.07}.merch-section .merch-intro h2{font-size:36px}.merch-section .merch-mark{font-size:38px}}
