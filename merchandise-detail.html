@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f8f6">
+  <title>Detail Merchandise GR — TCO Kalla Toyota</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="detail.css">
+  <link rel="stylesheet" href="shared-navbar.css">
+  <link rel="stylesheet" href="merchandise-detail.css">
+</head>
+<body class="merch-detail-page">
+  <header class="site-header" id="site-header">
+    <div class="wide-container topbar">
+      <a href="index.html#home" class="logo-toyota" aria-label="Toyota, kembali ke home"><img src="assets/toyota-beyond.png" alt="Toyota Let's Go Beyond"></a>
+      <nav class="main-nav" id="main-nav" aria-label="Navigasi utama">
+        <a href="index.html#home" class="nav-link">Home</a>
+        <a href="index.html#katalog" class="nav-link">Katalog</a>
+        <a href="index.html#merchandise" class="nav-link active" aria-current="page">Merchandise</a>
+        <a href="index.html#contact" class="nav-link">Hubungi Kami</a>
+      </nav>
+      <div class="header-right">
+        <a class="logo-kalla" href="index.html#contact" aria-label="Kalla Toyota"><img src="assets/kalla-toyota.png" alt="Kalla Toyota"></a>
+        <button id="menu-button" class="menu-button" type="button" aria-label="Buka menu" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Navigasi seluler" hidden>
+      <a href="index.html#home">Home</a><a href="index.html#katalog">Katalog</a><a href="index.html#merchandise" aria-current="page">Merchandise</a><a href="index.html#contact">Hubungi Kami</a>
+    </nav>
+  </header>
+  <main class="merch-detail-main">
+    <section class="merch-detail-hero">
+      <div class="wide-container">
+        <div class="merch-breadcrumb"><a href="index.html#merchandise">Merchandise</a><span> / </span><strong id="merch-breadcrumb-title">Koleksi</strong></div>
+        <div class="merch-detail-hero-grid">
+          <div class="merch-detail-copy">
+            <span class="merch-overline">TOYOTA GAZOO RACING / OFFICIAL COLLECTION</span>
+            <h1 id="merch-detail-title">GR Merchandise</h1>
+            <p id="merch-detail-description">Jelajahi pilihan produk Toyota Gazoo Racing.</p>
+            <div class="merch-detail-meta"><span id="merch-product-count">0 PRODUK</span><span>KOLEKSI GR</span></div>
+          </div>
+          <div class="merch-detail-visual"><img id="merch-detail-image" src="" alt="Koleksi Toyota Gazoo Racing"></div>
+        </div>
+      </div>
+    </section>
+    <section class="merch-products-section">
+      <div class="wide-container">
+        <div class="merch-products-heading">
+          <div><span class="merch-overline">EXPLORE THE ITEMS</span><h2>Daftar <em>Produk.</em></h2><p>Pilih dan pelajari detail setiap produk dalam kategori ini.</p></div>
+          <label class="merch-detail-search"><span class="sr-only">Cari produk</span><input id="merch-product-search" type="search" placeholder="Cari nama produk, warna, atau Part Number..."><span>⌕</span></label>
+        </div>
+        <div id="merch-product-grid" class="merch-product-grid" aria-live="polite"></div>
+        <p id="merch-empty" class="merch-empty" hidden>Produk tidak ditemukan. Coba kata kunci lain.</p>
+        <p class="merch-detail-note">Informasi harga, material, warna, dan Part Number mengikuti katalog GR Apparel & Merchandise yang menjadi referensi. Ketersediaan stok aktual perlu dikonfirmasi kepada GR Places.</p>
+        <a class="merch-back-link" href="index.html#merchandise">← Kembali ke semua kategori Merchandise</a>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">© 2026 Kalla Toyota · Toyota Gazoo Racing Merchandise Catalogue</footer>
+  <script src="merchandise-data.js"></script>
+  <script src="merchandise-detail.js"></script>
+</body>
+</html>
