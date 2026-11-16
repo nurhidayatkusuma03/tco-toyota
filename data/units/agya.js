@@ -208,7 +208,7 @@ window.TCO_UNIT_DATA = window.TCO_UNIT_DATA || {};
         ),
 
         hotspot: {
-          composite: [36, 68]
+          composite: [39, 59]
         }
 
       },
