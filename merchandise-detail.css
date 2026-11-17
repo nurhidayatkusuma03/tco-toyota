@@ -99,3 +99,73 @@
 .merch-category-switcher strong{font-family:var(--display);font-size:14px;letter-spacing:.02em;color:#17251c}
 .merch-category-switcher span{font-size:9px;color:#91a095}
 @media(max-width:600px){.merch-category-switcher{margin-top:19px;max-width:100%;gap:14px}.merch-category-switcher>button{width:38px;height:38px;flex-basis:38px}}
+
+/* MATCH DETAIL UNIT PAGE: merchandise hero + centered category switcher */
+.merch-detail-page .merch-detail-hero{
+  position:relative;
+  height:calc(100svh - 106px);
+  min-height:620px;
+  padding:0;
+  overflow:hidden;
+  isolation:isolate;
+  background:radial-gradient(ellipse at 16% 42%,#fff 0%,#ffffffd4 37%,transparent 78%),linear-gradient(145deg,#f7faf8,#e5eee8);
+  border-bottom:0;
+}
+.merch-detail-page .merch-detail-hero>.wide-container{
+  position:relative;
+  width:min(1600px,100%);
+  height:100%;
+  margin:0 auto;
+  padding:24px clamp(22px,5.4vw,88px) 0;
+}
+.merch-detail-page .merch-breadcrumb{font-size:14px;margin-bottom:0;color:#678274}
+.merch-detail-page .merch-breadcrumb strong{color:#172e21}
+.merch-detail-page .merch-detail-hero-grid{display:block;max-width:none;height:100%;position:relative}
+.merch-detail-page .merch-detail-copy{position:relative;z-index:4;max-width:690px;margin-top:36px;padding:0}
+.merch-detail-page .merch-detail-copy h1{font:italic 800 clamp(52px,5.7vw,92px)/1.05 'Manrope',sans-serif;letter-spacing:-.075em;margin:13px 0 9px;color:#102c1e}
+.merch-detail-page .merch-detail-copy p{font-size:clamp(18px,2vw,25px);line-height:1.55;color:#838f88;max-width:620px}
+.merch-detail-page .merch-detail-meta{margin-top:22px}
+.merch-detail-page .merch-detail-visual{
+  position:absolute;left:clamp(70px,8vw,150px);right:clamp(20px,3vw,55px);bottom:38px;
+  width:auto;max-width:none;height:clamp(300px,49svh,500px);justify-self:auto;
+  border:0;border-radius:0;background:transparent;box-shadow:none;overflow:visible;padding:0;
+}
+.merch-detail-page .merch-detail-visual img{width:100%;height:100%;object-fit:contain;object-position:center bottom;padding:0;mix-blend-mode:normal}
+.merch-detail-page .merch-products-section{padding:0 0 78px}
+.merch-detail-page .merch-products-section>.wide-container{width:min(1480px,100%);margin:auto;padding:0 clamp(16px,5vw,78px) 55px}
+.merch-detail-page .merch-category-switcher{
+  max-width:none;width:100%;justify-content:center;gap:25px;margin:0;padding:25px 0 20px;
+  border-top:0;border-bottom:1px solid #e1eae3;
+}
+.merch-detail-page .merch-category-switcher>button{width:44px;height:44px;flex:0 0 44px;border-color:#dce9df;color:#087a42;font-size:23px}
+.merch-detail-page .merch-category-switcher>button:hover{background:#087a42;color:#fff;border-color:#087a42;transform:none}
+.merch-detail-page .merch-category-switcher>div{min-width:225px;flex:0 0 225px;gap:4px}
+.merch-detail-page .merch-category-switcher small{font-size:10px;letter-spacing:.12em;color:#087a42}
+.merch-detail-page .merch-category-switcher strong{font:700 20px 'DM Sans',sans-serif;color:#102c1e}
+.merch-detail-page .merch-category-switcher span{font-size:11px;color:#83978b}
+.merch-detail-page .merch-products-heading{margin:34px 0 23px}
+.merch-detail-page .merch-products-heading h2{font:800 clamp(24px,2.2vw,34px)/1.2 'Manrope',sans-serif;letter-spacing:-.03em}
+.merch-detail-page .merch-item-card{border-radius:20px;box-shadow:0 8px 27px #1338220c}
+.merch-detail-page .merch-item-photo{border-bottom:1px solid #edf2ed}
+@media(max-width:800px){
+ .merch-detail-page .merch-detail-hero{height:calc(100svh - 77px);min-height:550px}
+ .merch-detail-page .merch-detail-hero>.wide-container{padding:20px 19px 0}
+ .merch-detail-page .merch-detail-copy{margin-top:26px}
+ .merch-detail-page .merch-detail-copy h1{font-size:clamp(44px,7vw,68px)}
+ .merch-detail-page .merch-detail-visual{left:25px;right:20px;bottom:38px;height:clamp(270px,45svh,420px);max-width:none;width:auto;aspect-ratio:auto}
+}
+@media(max-width:600px){
+ .merch-detail-page .merch-detail-hero{height:calc(100svh - 68px);min-height:530px}
+ .merch-detail-page .merch-detail-hero>.wide-container{padding:17px 15px 0}
+ .merch-detail-page .merch-breadcrumb{font-size:12px}
+ .merch-detail-page .merch-detail-copy{margin-top:22px}
+ .merch-detail-page .merch-detail-copy h1{font-size:clamp(39px,10.5vw,52px)}
+ .merch-detail-page .merch-detail-copy p{font-size:18px}
+ .merch-detail-page .merch-detail-visual{left:4px;right:4px;bottom:52px;height:clamp(190px,35svh,315px);max-width:none;width:auto}
+ .merch-detail-page .merch-products-section>.wide-container{padding:0 15px 42px}
+ .merch-detail-page .merch-category-switcher{gap:14px;padding:20px 0 17px}
+ .merch-detail-page .merch-category-switcher>button{width:40px;height:40px;flex-basis:40px}
+ .merch-detail-page .merch-category-switcher>div{min-width:0;flex:1}
+ .merch-detail-page .merch-category-switcher strong{font-size:17px}
+ .merch-detail-page .merch-products-heading{align-items:stretch;flex-direction:column;margin:28px 0 20px}
+}
