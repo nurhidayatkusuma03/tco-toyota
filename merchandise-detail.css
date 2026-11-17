@@ -205,3 +205,50 @@
  .merch-detail-page .merch-detail-copy p{font-size:16px;max-width:100%}
  .merch-detail-page .merch-detail-visual{left:8px;right:8px;bottom:35px;height:clamp(260px,43svh,390px)}
 }
+
+/* FIX HERO OVERFLOW: breadcrumb and hero grid must share one viewport, not stack two 100% heights */
+.merch-detail-page .merch-detail-hero>.wide-container{
+  display:flex;
+  flex-direction:column;
+  height:100%;
+  min-height:0;
+}
+.merch-detail-page .merch-detail-hero-grid{
+  display:block;
+  position:relative;
+  flex:1 1 auto;
+  width:100%;
+  height:auto;
+  min-height:0;
+  max-width:none;
+}
+.merch-detail-page .merch-detail-copy{
+  margin-top:32px;
+  max-width:610px;
+}
+.merch-detail-page .merch-detail-visual{
+  position:absolute;
+  left:clamp(70px,8vw,150px);
+  right:clamp(20px,3vw,55px);
+  top:205px;
+  bottom:26px;
+  width:auto;
+  height:auto;
+  max-width:none;
+  overflow:visible;
+}
+.merch-detail-page .merch-detail-visual img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center bottom;
+}
+@media(max-width:800px){
+ .merch-detail-page .merch-detail-visual{left:18px;right:18px;top:225px;bottom:28px;height:auto}
+}
+@media(max-width:600px){
+ .merch-detail-page .merch-detail-hero>.wide-container{padding:17px 15px 0}
+ .merch-detail-page .merch-detail-copy{margin-top:18px}
+ .merch-detail-page .merch-detail-visual{left:8px;right:8px;top:230px;bottom:25px;height:auto}
+}
