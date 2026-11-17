@@ -4,8 +4,10 @@
   const esc = v => String(v ?? "").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
   const money = v => "Rp " + Number(v).toLocaleString("id-ID");
   const all = Array.isArray(window.GR_MERCHANDISE) ? window.GR_MERCHANDISE : [];
-  const id = new URLSearchParams(location.search).get("category") || "";
-  const category = all.find(x=>x.id===id);
+  const params = new URLSearchParams(location.search);
+  const id = params.get("category") || "";
+  const index = all.findIndex(x=>x.id===id);
+  const category = all[index];
   const menu=$("#menu-button"), mobile=$("#mobile-nav");
   menu?.addEventListener("click",()=>{mobile.hidden=!mobile.hidden;menu.setAttribute("aria-expanded",String(!mobile.hidden));});
   mobile?.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{mobile.hidden=true;menu?.setAttribute("aria-expanded","false");}));
@@ -20,6 +22,11 @@
   $("#merch-detail-title").textContent=category.title;
   $("#merch-detail-description").textContent="Temukan pilihan "+category.title+" Toyota Gazoo Racing. Lihat foto, harga, warna, material, ukuran, dan Part Number setiap item.";
   $("#merch-product-count").textContent=category.products.length+" ITEM TERSEDIA";
+  $("#merch-category-label").textContent=category.title.toLocaleUpperCase("id-ID");
+  $("#merch-category-counter").textContent=String(index+1).padStart(2,"0")+" / "+String(all.length).padStart(2,"0");
+  const goCategory=nextIndex=>{const next=all[(nextIndex+all.length)%all.length];location.href="merchandise-detail.html?category="+encodeURIComponent(next.id);};
+  $("#prev-merch-category")?.addEventListener("click",()=>goCategory(index-1));
+  $("#next-merch-category")?.addEventListener("click",()=>goCategory(index+1));
   const heroImage=$("#merch-detail-image");
   heroImage.src=category.modelImage || category.image;
   heroImage.alt="Model koleksi "+category.title+" Toyota Gazoo Racing";
