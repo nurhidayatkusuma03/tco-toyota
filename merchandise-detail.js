@@ -18,22 +18,22 @@
   document.title=category.title+" — GR Merchandise | TCO Kalla Toyota";
   $("#merch-breadcrumb-title").textContent=category.title;
   $("#merch-detail-title").textContent=category.title;
-  $("#merch-detail-description").textContent="Temukan pilihan "+category.title+" Toyota Gazoo Racing. Lihat varian, harga, warna, material, ukuran, dan Part Number setiap item.";
+  $("#merch-detail-description").textContent="Temukan pilihan "+category.title+" Toyota Gazoo Racing. Lihat foto, harga, warna, material, ukuran, dan Part Number setiap item.";
   $("#merch-product-count").textContent=category.products.length+" ITEM TERSEDIA";
   const heroImage=$("#merch-detail-image");
-  heroImage.src=category.image;
-  heroImage.alt="Model koleksi Toyota Gazoo Racing";
-  heroImage.classList.add("merch-model-crop");
+  heroImage.src=category.modelImage || category.image;
+  heroImage.alt="Model koleksi "+category.title+" Toyota Gazoo Racing";
   const grid=$("#merch-product-grid"), search=$("#merch-product-search");
   function productHTML(p,i){
     const colors=(p.colors||[]).map(c=>'<span class="merch-color-chip">'+esc(c)+'</span>').join("");
     const variants=p.partNumbers ? Object.entries(p.partNumbers).map(([k,v])=>'<div class="merch-variant-row"><span>'+esc(k==="-"?"Part Number":k)+'</span><strong>'+esc(v)+'</strong></div>').join("") : "";
+    const photo=p.image
+      ? '<div class="merch-item-photo"><img src="'+esc(p.image)+'" alt="'+esc(p.name)+'" loading="lazy"></div>'
+      : '<div class="merch-item-photo merch-photo-missing"><span>FOTO PRODUK BELUM TERSEDIA</span></div>';
     return `<article class="merch-item-card">
+      ${photo}
       <div class="merch-item-content">
-        <div class="merch-item-top">
-          <span class="merch-item-number">ITEM ${String(i+1).padStart(2,"0")}</span>
-          <span class="merch-item-category">GR COLLECTION</span>
-        </div>
+        <div class="merch-item-top"><span class="merch-item-number">ITEM ${String(i+1).padStart(2,"0")}</span><span class="merch-item-category">GR COLLECTION</span></div>
         <h3>${esc(p.name)}</h3>
         <div class="merch-item-price"><small>HARGA</small><strong>${money(p.price)}</strong></div>
         <div class="merch-item-divider"></div>
