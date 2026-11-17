@@ -169,3 +169,39 @@
  .merch-detail-page .merch-category-switcher strong{font-size:17px}
  .merch-detail-page .merch-products-heading{align-items:stretch;flex-direction:column;margin:28px 0 20px}
 }
+
+/* HERO SCALE CORRECTION — keep the model visible like the Toyota vehicle hero */
+.merch-detail-page .merch-detail-copy{
+  max-width:610px;
+  margin-top:30px;
+}
+.merch-detail-page .merch-detail-copy h1{
+  font-size:clamp(50px,5.2vw,82px);
+  margin:12px 0 10px;
+}
+.merch-detail-page .merch-detail-copy p{
+  max-width:560px;
+  font-size:clamp(17px,1.55vw,22px);
+  line-height:1.5;
+}
+.merch-detail-page .merch-detail-meta{margin-top:18px}
+.merch-detail-page .merch-detail-visual{
+  left:clamp(70px,8vw,150px);
+  right:clamp(20px,3vw,55px);
+  bottom:48px;
+  height:clamp(380px,60svh,600px);
+}
+.merch-detail-page .merch-detail-visual img{
+  object-fit:contain;
+  object-position:center bottom;
+}
+@media(max-width:800px){
+ .merch-detail-page .merch-detail-copy{margin-top:24px}
+ .merch-detail-page .merch-detail-visual{left:18px;right:18px;bottom:42px;height:clamp(330px,55svh,500px)}
+}
+@media(max-width:600px){
+ .merch-detail-page .merch-detail-copy{margin-top:18px}
+ .merch-detail-page .merch-detail-copy h1{font-size:clamp(42px,9vw,56px)}
+ .merch-detail-page .merch-detail-copy p{font-size:16px;max-width:100%}
+ .merch-detail-page .merch-detail-visual{left:8px;right:8px;bottom:35px;height:clamp(260px,43svh,390px)}
+}
