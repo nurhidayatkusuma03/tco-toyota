@@ -35,7 +35,7 @@ window.GR_MERCHANDISE = [
     id:"hoodie",category:"Apparel",title:"GR Casual Hoodie",image:"assets/merchandise/hoodie.png",modelImage:"assets/merchandise/models/model_hoodie.png",
     products:[
       {name:"Gazoo Casual Hoodie",image:"assets/merchandise/products/hoodie_01_gazoo_casual.png",price:899000,colors:["White"],material:"Cotton",partNumbers:{"S":"1030ITAG24","M":"1030JTAG24","L":"1030KTAG24","2L":"1030LTAG24","3L":"1030MTAG24"}},
-      {name:"Gazoo Casual Hoodie",price:899000,colors:["Black"],material:"Cotton",partNumbers:{"S":"1030DTAG24","M":"1030ETAG24","L":"1030FTAG24","2L":"1030GTAG24","3L":"1030HTAG24"}}
+      {name:"Gazoo Casual Hoodie",image:"assets/merchandise/products/hoodie_01_gazoo_casual.png",price:899000,colors:["Black"],material:"Cotton",partNumbers:{"S":"1030DTAG24","M":"1030ETAG24","L":"1030FTAG24","2L":"1030GTAG24","3L":"1030HTAG24"}}
     ]
   },
   {
@@ -43,7 +43,7 @@ window.GR_MERCHANDISE = [
     products:[
       {name:"Gazoo Sporty Light Jacket",image:"assets/merchandise/products/light_jacket_01_sporty_black.png",price:659000,colors:["Black"],material:"Polyester + HD Printing",partNumbers:{"S":"1030BTAG25","M":"1030CTAG25","L":"1030DTAG25","2L":"1030ETAG25","3L":"1030FTAG25"}},
       {name:"Gazoo Casual Light Jacket",image:"assets/merchandise/products/light_jacket_02_casual_grey.png",price:526000,colors:["Grey"],material:"Cotton",partNumbers:{"S":"10303TAG25","M":"10304TAG25","L":"10305TAG25"}},
-      {name:"Gazoo Sporty Light Jacket",price:659000,colors:["White"],material:"Polyester + HD Printing",partNumbers:{"S":"10306TAG25","M":"10307TAG25","L":"10308TAG25","2L":"10309TAG25","3L":"1030ATAG25"}}
+      {name:"Gazoo Sporty Light Jacket",image:"assets/merchandise/products/light_jacket_03_sporty_white.png",price:659000,colors:["White"],material:"Polyester + HD Printing",partNumbers:{"S":"10306TAG25","M":"10307TAG25","L":"10308TAG25","2L":"10309TAG25","3L":"1030ATAG25"}}
     ]
   },
   {
@@ -56,9 +56,9 @@ window.GR_MERCHANDISE = [
     id:"umbrella",category:"Gears",title:"Umbrella",image:"assets/merchandise/umbrella.png",modelImage:"assets/merchandise/models/model_umbrella.png",
     products:[
       {name:"Gazoo Racing Folding Umbrella",image:"assets/merchandise/products/umbrella_01_folding_black.png",price:199000,colors:["Black"],material:"Polyester (Canopy) + Fiber Plastic (Handle) + Sponge",partNumbers:{"-":"1082ATAG22"}},
-      {name:"Gazoo Racing Folding Umbrella",price:199000,colors:["Red"],material:"Polyester (Canopy) + Fiber Plastic (Handle) + Sponge",partNumbers:{"-":"1082BTAG22"}},
+      {name:"Gazoo Racing Folding Umbrella",image:"assets/merchandise/products/umbrella_02_folding_red.png",price:199000,colors:["Red"],material:"Polyester (Canopy) + Fiber Plastic (Handle) + Sponge",partNumbers:{"-":"1082BTAG22"}},
       {name:"Gazoo Racing Umbrella Golf",image:"assets/merchandise/products/umbrella_03_golf_black.png",price:499000,colors:["Black"],material:"Polyester (Canopy) + Fiber Plastic (Handle) + Sponge",partNumbers:{"-":"1083BTAG22"}},
-      {name:"Gazoo Racing Umbrella Golf",price:499000,colors:["White"],material:"Polyester (Canopy) + Fiber Plastic (Handle) + Sponge",partNumbers:{"-":"1083ATAG22"}}
+      {name:"Gazoo Racing Umbrella Golf",image:"assets/merchandise/products/umbrella_04_golf_white.png",price:499000,colors:["White"],material:"Polyester (Canopy) + Fiber Plastic (Handle) + Sponge",partNumbers:{"-":"1083ATAG22"}}
     ]
   },
   {
